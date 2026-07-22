@@ -1,139 +1,527 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Favour Imegu EwoMazino - Cloud Engineer</title>
+    <title>Favour Imegu EwoMazino | Cloud Engineer</title>
+    <meta name="description" content="Portfolio of Favour Imegu EwoMazino - Cloud Engineer & B.Sc Computer Science Graduate">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        heading: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
-        body { font-family: 'Inter', system-ui, sans-serif; }
-        .heading { font-family: 'Space Grotesk', sans-serif; }
-        .hero-bg {
-            background: linear-gradient(135deg, #0f172a 0%, #1e2937 100%);
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #09090b;
+        }
+        .heading {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #18181b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 4px;
+        }
+
+        /* Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-card {
+            transition: all 0.3s ease;
+        }
+        .skill-card:hover {
+            transform: translateY(-6px);
+            border-color: #3b82f6;
+        }
+
+        .project-card {
+            transition: all 0.35s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
+        }
+
+        /* Typing effect */
+        .typing::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
         }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100">
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-zinc-950/80 backdrop-blur-md z-50 border-b border-zinc-800">
-        <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
-            <div class="text-2xl font-semibold heading tracking-tight">Favour Imegu</div>
-            <div class="flex gap-8 text-sm font-medium">
-                <a href="#about" class="hover:text-white transition-colors">About</a>
-                <a href="#projects" class="hover:text-white transition-colors">Projects</a>
-                <a href="#experience" class="hover:text-white transition-colors">Experience</a>
-                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+<body class="bg-zinc-950 text-zinc-100 overflow-x-hidden">
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-800/50 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#" class="text-2xl font-bold heading tracking-tight text-blue-400">
+                Favour<span class="text-white">.</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#about" class="hover:text-blue-400 transition-colors">About</a>
+                <a href="#skills" class="hover:text-blue-400 transition-colors">Skills</a>
+                <a href="#experience" class="hover:text-blue-400 transition-colors">Experience</a>
+                <a href="#projects" class="hover:text-blue-400 transition-colors">Projects</a>
+                <a href="#contact" class="hover:text-blue-400 transition-colors">Contact</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden text-2xl text-zinc-300 hover:text-blue-400">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-64 bg-zinc-900 border-l border-zinc-800 p-8 md:hidden z-50">
+            <button id="close-menu" class="absolute top-6 right-6 text-2xl text-zinc-400">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="flex flex-col gap-6 mt-16 text-lg">
+                <a href="#about" class="hover:text-blue-400">About</a>
+                <a href="#skills" class="hover:text-blue-400">Skills</a>
+                <a href="#experience" class="hover:text-blue-400">Experience</a>
+                <a href="#projects" class="hover:text-blue-400">Projects</a>
+                <a href="#contact" class="hover:text-blue-400">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero -->
-    <section class="hero-bg min-h-screen flex items-center pt-20">
-        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <h1 class="text-7xl md:text-8xl font-bold heading tracking-tighter mb-4">
-                    Hi, I'm <span class="text-emerald-400">Favour Imegu</span>
+    <!-- ========== HERO SECTION ========== -->
+    <section class="min-h-screen flex items-center relative overflow-hidden pt-20">
+        <!-- Background gradient -->
+        <div class="absolute inset-0 bg-gradient-to-br from-zinc-950 via-blue-950/40 to-zinc-950"></div>
+        <div class="absolute top-20 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+            <!-- Text Content -->
+            <div class="fade-up">
+                <p class="text-blue-400 font-medium mb-4 tracking-wide">Hello, I'm</p>
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold heading tracking-tight mb-4 leading-tight">
+                    Favour Imegu<br>
+                    <span class="gradient-text">EwoMazino</span>
                 </h1>
-                <p class="text-3xl text-zinc-400 mb-8">Cloud Engineer</p>
-                <p class="text-xl text-zinc-400 max-w-lg mb-10">
-                    I design, build, and optimize scalable cloud infrastructure that powers modern applications.
+                <p class="text-xl sm:text-2xl text-zinc-400 mb-2">B.Sc Computer Science Graduate</p>
+                <p class="text-2xl sm:text-3xl text-blue-400 font-semibold mb-8">Cloud Engineer</p>
+                <p class="text-lg text-zinc-400 max-w-lg mb-10 leading-relaxed">
+                    I design, build and optimize scalable cloud infrastructure. Passionate about automation, IoT systems, and creating reliable solutions that make a real impact.
                 </p>
-                <div class="flex gap-4">
-                    <a href="#projects" class="bg-white text-zinc-900 px-8 py-4 rounded-full font-semibold hover:bg-emerald-400 transition-all">View Projects</a>
-                    <a href="#contact" class="border border-zinc-700 px-8 py-4 rounded-full font-semibold hover:bg-zinc-900 transition-all">Get In Touch</a>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#projects" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg shadow-blue-600/25">
+                        View My Work
+                    </a>
+                    <a href="#contact" class="border border-zinc-700 hover:border-blue-500 hover:bg-zinc-900 px-8 py-4 rounded-full font-semibold transition-all duration-300">
+                        Contact Me
+                    </a>
                 </div>
             </div>
-            <div class="flex justify-center">
-                <div class="w-80 h-80 rounded-3xl overflow-hidden border-4 border-emerald-500/30">
-                    <img src="https://picsum.photos/id/64/600/600" alt="Favour Imegu" class="w-full h-full object-cover">
+
+            <!-- Profile Image -->
+            <div class="flex justify-center lg:justify-end fade-up" style="transition-delay: 0.2s;">
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-blue-600 to-blue-400 rounded-3xl blur opacity-30"></div>
+                    <div class="relative w-72 h-72 sm:w-80 sm:h-80 rounded-3xl overflow-hidden border-2 border-blue-500/40 shadow-2xl">
+                        <!-- REPLACE THIS IMAGE URL WITH YOUR PHOTO -->
+                        <img src="https://picsum.photos/id/64/600/600" 
+                             alt="Favour Imegu EwoMazino" 
+                             class="w-full h-full object-cover">
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About -->
-    <section id="about" class="py-24 bg-zinc-900">
+    <!-- ========== ABOUT SECTION ========== -->
+    <section id="about" class="py-24 bg-zinc-900/50">
         <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-5xl font-bold heading tracking-tight mb-12 text-center">About Me</h2>
-            <div class="max-w-3xl mx-auto text-lg text-zinc-300 leading-relaxed">
-                <p class="mb-6">
-                    Passionate Cloud Engineer with expertise in designing and managing robust cloud solutions on AWS, Azure, and GCP. 
-                    I specialize in infrastructure as code, automation, and building highly available systems that scale efficiently.
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-4">About Me</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="max-w-3xl mx-auto text-lg text-zinc-300 leading-relaxed space-y-6 fade-up">
+                <p>
+                    I'm a <span class="text-blue-400 font-medium">B.Sc Computer Science graduate</span> and aspiring Cloud Engineer with a strong passion for building reliable, scalable systems. My journey in technology has taken me from embedded systems and IoT projects to cloud infrastructure and DevOps practices.
                 </p>
                 <p>
-                    With a strong foundation in DevOps practices, I help organizations migrate to the cloud, optimize costs, and improve system reliability.
+                    During my final year, I designed and implemented a <span class="text-blue-400 font-medium">Smart Fire Detection System</span> using ESP32, sensors, and cloud connectivity — combining hardware, software, and cloud technologies to create a practical safety solution.
+                </p>
+                <p>
+                    I am constantly learning and exploring new tools in the cloud ecosystem (AWS, Azure, Terraform, Docker, Kubernetes) while applying solid engineering principles to every project I work on.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Skills -->
-    <section class="py-20 bg-zinc-950">
+    <!-- ========== SKILLS SECTION ========== -->
+    <section id="skills" class="py-24">
         <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-4xl font-semibold heading text-center mb-12">Skills &amp; Tools</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="bg-zinc-900 p-6 rounded-2xl text-center">AWS</div>
-                <div class="bg-zinc-900 p-6 rounded-2xl text-center">Azure</div>
-                <div class="bg-zinc-900 p-6 rounded-2xl text-center">Google Cloud</div>
-                <div class="bg-zinc-900 p-6 rounded-2xl text-center">Terraform</div>
-                <div class="bg-zinc-900 p-6 rounded-2xl text-center">Docker &amp; Kubernetes</div>
-                <div class="bg-zinc-900 p-6 rounded-2xl text-center">CI/CD Pipelines</div>
-                <div class="bg-zinc-900 p-6 rounded-2xl text-center">Linux &amp; Bash</div>
-                <div class="bg-zinc-900 p-6 rounded-2xl text-center">Python</div>
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-4">Skills & Tools</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Skill Cards -->
+                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
+                    <i class="fab fa-aws text-4xl text-orange-400 mb-4"></i>
+                    <h3 class="font-semibold">AWS</h3>
+                </div>
+                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
+                    <i class="fab fa-microsoft text-4xl text-blue-400 mb-4"></i>
+                    <h3 class="font-semibold">Azure</h3>
+                </div>
+                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
+                    <i class="fas fa-cloud text-4xl text-blue-300 mb-4"></i>
+                    <h3 class="font-semibold">Google Cloud</h3>
+                </div>
+                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
+                    <i class="fas fa-code text-4xl text-purple-400 mb-4"></i>
+                    <h3 class="font-semibold">Terraform</h3>
+                </div>
+                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
+                    <i class="fab fa-docker text-4xl text-blue-500 mb-4"></i>
+                    <h3 class="font-semibold">Docker</h3>
+                </div>
+                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
+                    <i class="fas fa-dharmachakra text-4xl text-blue-400 mb-4"></i>
+                    <h3 class="font-semibold">Kubernetes</h3>
+                </div>
+                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
+                    <i class="fab fa-python text-4xl text-yellow-400 mb-4"></i>
+                    <h3 class="font-semibold">Python</h3>
+                </div>
+                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
+                    <i class="fab fa-linux text-4xl text-zinc-300 mb-4"></i>
+                    <h3 class="font-semibold">Linux & Bash</h3>
+                </div>
+                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
+                    <i class="fas fa-microchip text-4xl text-green-400 mb-4"></i>
+                    <h3 class="font-semibold">ESP32 / IoT</h3>
+                </div>
+                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
+                    <i class="fas fa-cogs text-4xl text-zinc-300 mb-4"></i>
+                    <h3 class="font-semibold">CI/CD</h3>
+                </div>
+                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
+                    <i class="fas fa-network-wired text-4xl text-cyan-400 mb-4"></i>
+                    <h3 class="font-semibold">Networking</h3>
+                </div>
+                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
+                    <i class="fas fa-database text-4xl text-blue-300 mb-4"></i>
+                    <h3 class="font-semibold">Databases</h3>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects -->
-    <section id="projects" class="py-24 bg-zinc-900">
+    <!-- ========== EXPERIENCE SECTION ========== -->
+    <section id="experience" class="py-24 bg-zinc-900/50">
         <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-5xl font-bold heading tracking-tight mb-12 text-center">Featured Projects</h2>
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-4">Experience</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="max-w-3xl mx-auto space-y-8">
+                <!-- Experience Item 1 -->
+                <div class="fade-up border-l-2 border-blue-500 pl-8 relative">
+                    <div class="absolute -left-2.5 top-0 w-5 h-5 rounded-full bg-blue-500"></div>
+                    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
+                        <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+                            <h3 class="text-xl font-semibold text-white">Cloud Engineering Intern</h3>
+                            <span class="text-sm text-blue-400 font-medium">2025 – Present</span>
+                        </div>
+                        <p class="text-zinc-400 mb-4">Working on cloud infrastructure setup, automation scripts, and monitoring solutions.</p>
+                        <ul class="text-zinc-400 text-sm space-y-2">
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1"></i> Assisted in deploying and managing cloud resources</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1"></i> Wrote automation scripts for infrastructure tasks</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1"></i> Monitored system performance and reliability</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience Item 2 -->
+                <div class="fade-up border-l-2 border-blue-500 pl-8 relative">
+                    <div class="absolute -left-2.5 top-0 w-5 h-5 rounded-full bg-blue-500"></div>
+                    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
+                        <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+                            <h3 class="text-xl font-semibold text-white">Final Year Project Lead</h3>
+                            <span class="text-sm text-blue-400 font-medium">2024 – 2025</span>
+                        </div>
+                        <p class="text-zinc-400 mb-4">Designed and built a complete Smart Fire Detection System from concept to working prototype.</p>
+                        <ul class="text-zinc-400 text-sm space-y-2">
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1"></i> Led hardware selection, circuit design and programming</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1"></i> Integrated multiple sensors and cloud connectivity</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1"></i> Successfully demonstrated real-time fire detection and alerts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PROJECTS SECTION ========== -->
+    <section id="projects" class="py-24">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-4">Featured Projects</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
+            </div>
+
             <div class="grid md:grid-cols-2 gap-8">
-                <!-- Project 1 -->
-                <div class="group bg-zinc-950 rounded-3xl overflow-hidden border border-zinc-800 hover:border-emerald-500 transition-all">
-                    <img src="https://picsum.photos/id/1015/800/500" class="w-full h-64 object-cover">
-                    <div class="p-8">
-                        <h3 class="text-2xl font-semibold mb-2">Multi-Region AWS Infrastructure</h3>
-                        <p class="text-zinc-400 mb-6">Designed and deployed a highly available, auto-scaling web application using Terraform, ECS, and RDS across multiple availability zones.</p>
-                        <a href="https://github.com" class="text-emerald-400 hover:underline inline-flex items-center gap-2">
-                            View Project <i class="fas fa-arrow-right"></i>
-                        </a>
+
+                <!-- PROJECT 1: Smart Fire System (Main Project) -->
+                <div class="project-card bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden fade-up md:col-span-2">
+                    <div class="p-8 lg:p-10">
+                        <div class="flex flex-wrap items-center gap-3 mb-4">
+                            <span class="px-3 py-1 bg-blue-600/20 text-blue-400 text-xs font-semibold rounded-full">Final Year Project</span>
+                            <span class="px-3 py-1 bg-green-600/20 text-green-400 text-xs font-semibold rounded-full">IoT + Cloud</span>
+                        </div>
+                        
+                        <h3 class="text-2xl lg:text-3xl font-bold heading mb-4">Smart Fire Detection & Alert System</h3>
+                        
+                        <p class="text-zinc-400 text-lg leading-relaxed mb-6">
+                            Designed and built a complete real-time fire detection and early warning system as my final year project. 
+                            The system continuously monitors the environment for signs of fire and triggers both local and remote alerts.
+                        </p>
+
+                        <div class="grid sm:grid-cols-2 gap-6 mb-8">
+                            <div>
+                                <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
+                                    <i class="fas fa-microchip text-blue-400"></i> Hardware Components
+                                </h4>
+                                <ul class="space-y-2 text-zinc-400 text-sm">
+                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-blue-500 text-xs"></i> <strong>ESP32</strong> – Main microcontroller with Wi-Fi</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-blue-500 text-xs"></i> <strong>MQ-2</strong> – Smoke & gas detection sensor</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-blue-500 text-xs"></i> <strong>DHT11</strong> – Temperature & humidity sensor</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-blue-500 text-xs"></i> <strong>Buzzer</strong> – Local audible alarm</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
+                                    <i class="fas fa-cogs text-blue-400"></i> How It Works
+                                </h4>
+                                <ul class="space-y-2 text-zinc-400 text-sm">
+                                    <li class="flex items-start gap-2"><i class="fas fa-arrow-right text-blue-500 text-xs mt-1.5"></i> Sensors continuously read smoke, gas and temperature levels</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-arrow-right text-blue-500 text-xs mt-1.5"></i> ESP32 processes the data in real time</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-arrow-right text-blue-500 text-xs mt-1.5"></i> When thresholds are exceeded, the buzzer activates</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-arrow-right text-blue-500 text-xs mt-1.5"></i> Alerts can be sent via Wi-Fi to a monitoring system</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800">
+                            <h4 class="font-semibold text-white mb-3">What I Accomplished</h4>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                I designed the circuit, selected and integrated the sensors (MQ-2 + DHT11), programmed the ESP32 using the Arduino IDE, 
+                                calibrated detection thresholds, implemented the buzzer alarm logic, and successfully demonstrated a working prototype 
+                                capable of early fire detection with both local and remote notification capabilities.
+                            </p>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3 mt-6">
+                            <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">ESP32</span>
+                            <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">MQ-2 Sensor</span>
+                            <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">DHT11</span>
+                            <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">Buzzer</span>
+                            <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">Arduino IDE</span>
+                            <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">IoT</span>
+                            <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">C++</span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Project 2 -->
-                <div class="group bg-zinc-950 rounded-3xl overflow-hidden border border-zinc-800 hover:border-emerald-500 transition-all">
-                    <img src="https://picsum.photos/id/201/800/500" class="w-full h-64 object-cover">
-                    <div class="p-8">
-                        <h3 class="text-2xl font-semibold mb-2">Kubernetes CI/CD Platform</h3>
-                        <p class="text-zinc-400 mb-6">Built a complete GitOps-based deployment pipeline using ArgoCD, Jenkins, and monitoring with Prometheus &amp; Grafana.</p>
-                        <a href="https://github.com" class="text-emerald-400 hover:underline inline-flex items-center gap-2">
-                            View Project <i class="fas fa-arrow-right"></i>
-                        </a>
+                <div class="project-card bg-zinc-900 border border-zinc-800 rounded-3xl p-8 fade-up">
+                    <div class="w-12 h-12 bg-blue-600/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-cloud text-blue-400 text-xl"></i>
                     </div>
+                    <h3 class="text-xl font-bold mb-3">Cloud Infrastructure Setup</h3>
+                    <p class="text-zinc-400 mb-6 text-sm leading-relaxed">
+                        Practiced deploying and managing basic cloud resources, focusing on scalability, security groups, and cost awareness.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">AWS</span>
+                        <span class="px-2.5 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">Linux</span>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card bg-zinc-900 border border-zinc-800 rounded-3xl p-8 fade-up">
+                    <div class="w-12 h-12 bg-blue-600/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-code text-blue-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Automation Scripts</h3>
+                    <p class="text-zinc-400 mb-6 text-sm leading-relaxed">
+                        Developed Python and Bash scripts to automate repetitive system and cloud administration tasks.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">Python</span>
+                        <span class="px-2.5 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">Bash</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT SECTION ========== -->
+    <section id="contact" class="py-24 bg-zinc-900/50">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="fade-up">
+                <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-6">Let's Work Together</h2>
+                <p class="text-xl text-zinc-400 mb-10 max-w-2xl mx-auto">
+                    I'm currently open to Cloud Engineering opportunities, internships, and interesting projects. Feel free to reach out!
+                </p>
+                
+                <a href="mailto:Imegufavour30@gmail.com" 
+                   class="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-500 text-white px-10 py-5 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg shadow-blue-600/25">
+                    <i class="fas fa-envelope"></i>
+                    Imegufavour30@gmail.com
+                </a>
+
+                <div class="mt-12 flex justify-center gap-6">
+                    <a href="https://linkedin.com" target="_blank" class="w-12 h-12 bg-zinc-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all">
+                        <i class="fab fa-linkedin-in text-lg"></i>
+                    </a>
+                    <a href="https://github.com/codeWithGojo" target="_blank" class="w-12 h-12 bg-zinc-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all">
+                        <i class="fab fa-github text-lg"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact -->
-    <section id="contact" class="py-24 bg-zinc-950">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-5xl font-bold heading tracking-tight mb-6">Let's Work Together</h2>
-            <p class="text-xl text-zinc-400 mb-10">Open to cloud engineering roles, freelance projects, and interesting opportunities.</p>
-            <a href="mailto:Imegufavour30@gmail.com" class="inline-block bg-emerald-500 hover:bg-emerald-600 text-zinc-950 px-10 py-5 rounded-full text-xl font-semibold transition-all">
-                Say Hello →
-            </a>
-            <div class="mt-8">
-                <a href="https://linkedin.com" class="text-zinc-400 hover:text-white mx-4">LinkedIn</a>
-            </div>
+    <!-- ========== FOOTER ========== -->
+    <footer class="py-10 border-t border-zinc-800">
+        <div class="max-w-6xl mx-auto px-6 text-center text-zinc-500 text-sm">
+            <p>© 2026 Favour Imegu EwoMazino. Built with passion.</p>
         </div>
-    </section>
-
-    <footer class="py-12 border-t border-zinc-800 text-center text-zinc-500 text-sm">
-        © 2026 Favour Imegu EwoMazino. Made with ❤️ and Tailwind CSS.
     </footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-zinc-950/95', 'shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+    </script>
 </body>
 </html>

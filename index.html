@@ -4,19 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Favour Imegu EwoMazino | Cloud Engineer</title>
-    <meta name="description" content="Portfolio of Favour Imegu EwoMazino - Cloud Engineer & B.Sc Computer Science Graduate">
-    
+    <meta name="description" content="Portfolio of Favour Imegu EwoMazino — Cloud Engineer & Computer Science graduate specializing in cloud infrastructure, automation, and IoT.">
+    <meta name="theme-color" content="#09090b">
+ 
+    <!-- Open Graph / Twitter -->
+    <meta property="og:title" content="Favour Imegu EwoMazino | Cloud Engineer">
+    <meta property="og:description" content="Cloud Engineer & Computer Science graduate specializing in cloud infrastructure, automation, and IoT.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Favour Imegu EwoMazino | Cloud Engineer">
+    <meta name="twitter:description" content="Cloud Engineer & Computer Science graduate specializing in cloud infrastructure, automation, and IoT.">
+ 
+    <!-- Favicon: inline SVG monogram, no external file needed -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%232563eb'/%3E%3Ctext x='50' y='69' font-family='Arial,sans-serif' font-size='58' font-weight='700' fill='white' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+ 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+ 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
+ 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+ 
+    <!-- Structured data so search engines understand this is a person's profile -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Favour Imegu EwoMazino",
+        "jobTitle": "Cloud Engineer",
+        "email": "mailto:Imegufavour30@gmail.com",
+        "sameAs": [
+            "https://github.com/codeWithGojo"
+        ],
+        "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Bowen University"
+        }
+    }
+    </script>
+ 
     <script>
         tailwind.config = {
             theme: {
@@ -38,12 +69,13 @@
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
                         heading: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     }
                 }
             }
         }
     </script>
-
+ 
     <style>
         body {
             font-family: 'Inter', system-ui, sans-serif;
@@ -52,7 +84,7 @@
         .heading {
             font-family: 'Space Grotesk', sans-serif;
         }
-
+ 
         /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
@@ -64,7 +96,7 @@
             background: #3b82f6;
             border-radius: 4px;
         }
-
+ 
         /* Animations */
         .fade-up {
             opacity: 0;
@@ -75,7 +107,15 @@
             opacity: 1;
             transform: translateY(0);
         }
-
+ 
+        /* If JS never runs (disabled/blocked), content must still be visible.
+           This overrides the opacity:0 starting state above. */
+        noscript .fade-up,
+        html.no-js .fade-up {
+            opacity: 1;
+            transform: none;
+        }
+ 
         .skill-card {
             transition: all 0.3s ease;
         }
@@ -83,7 +123,7 @@
             transform: translateY(-6px);
             border-color: #3b82f6;
         }
-
+ 
         .project-card {
             transition: all 0.35s ease;
         }
@@ -91,17 +131,18 @@
             transform: translateY(-8px);
             box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
         }
-
-        /* Typing effect */
+ 
+        /* Typing effect cursor */
         .typing::after {
             content: '|';
+            margin-left: 2px;
             animation: blink 1s infinite;
         }
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
         }
-
+ 
         /* Gradient text */
         .gradient-text {
             background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
@@ -109,7 +150,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
+ 
         /* Mobile menu */
         .mobile-menu {
             transform: translateX(100%);
@@ -118,54 +159,80 @@
         .mobile-menu.open {
             transform: translateX(0);
         }
+ 
+        /* Respect the OS-level reduced motion setting */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            .fade-up {
+                transition: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            .typing::after {
+                animation: none;
+            }
+            .skill-card, .project-card, #back-to-top, #progress-bar, .mobile-menu, #menu-backdrop {
+                transition: none !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-100 overflow-x-hidden">
-
+ 
+    <!-- Scroll progress bar -->
+    <div id="progress-bar" class="fixed top-0 left-0 h-1 bg-blue-500 z-[60]" style="width:0%"></div>
+ 
     <!-- ========== NAVIGATION ========== -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-800/50 transition-all duration-300">
         <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="#" class="text-2xl font-bold heading tracking-tight text-blue-400">
+            <a href="#" class="text-2xl font-bold heading tracking-tight text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded">
                 Favour<span class="text-white">.</span>
             </a>
-
+ 
             <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-                <a href="#about" class="hover:text-blue-400 transition-colors">About</a>
-                <a href="#skills" class="hover:text-blue-400 transition-colors">Skills</a>
-                <a href="#experience" class="hover:text-blue-400 transition-colors">Experience</a>
-                <a href="#projects" class="hover:text-blue-400 transition-colors">Projects</a>
-                <a href="#contact" class="hover:text-blue-400 transition-colors">Contact</a>
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+                <a href="#about" class="hover:text-blue-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded px-1">About</a>
+                <a href="#skills" class="hover:text-blue-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded px-1">Skills</a>
+                <a href="#experience" class="hover:text-blue-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded px-1">Experience</a>
+                <a href="#education" class="hover:text-blue-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded px-1">Education</a>
+                <a href="#projects" class="hover:text-blue-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded px-1">Projects</a>
+                <a href="#contact" class="hover:text-blue-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded px-1">Contact</a>
             </div>
-
+ 
             <!-- Mobile Menu Button -->
-            <button id="menu-btn" class="md:hidden text-2xl text-zinc-300 hover:text-blue-400">
-                <i class="fas fa-bars"></i>
+            <button id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden text-2xl text-zinc-300 hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded">
+                <i class="fas fa-bars" aria-hidden="true"></i>
             </button>
         </div>
-
+ 
+        <!-- Mobile menu backdrop -->
+        <div id="menu-backdrop" class="fixed inset-0 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300 z-40 md:hidden"></div>
+ 
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-64 bg-zinc-900 border-l border-zinc-800 p-8 md:hidden z-50">
-            <button id="close-menu" class="absolute top-6 right-6 text-2xl text-zinc-400">
-                <i class="fas fa-times"></i>
+            <button id="close-menu" type="button" aria-label="Close menu" class="absolute top-6 right-6 text-2xl text-zinc-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded">
+                <i class="fas fa-times" aria-hidden="true"></i>
             </button>
             <div class="flex flex-col gap-6 mt-16 text-lg">
                 <a href="#about" class="hover:text-blue-400">About</a>
                 <a href="#skills" class="hover:text-blue-400">Skills</a>
                 <a href="#experience" class="hover:text-blue-400">Experience</a>
+                <a href="#education" class="hover:text-blue-400">Education</a>
                 <a href="#projects" class="hover:text-blue-400">Projects</a>
                 <a href="#contact" class="hover:text-blue-400">Contact</a>
             </div>
         </div>
     </nav>
-
+ 
     <!-- ========== HERO SECTION ========== -->
     <section class="min-h-screen flex items-center relative overflow-hidden pt-20">
         <!-- Background gradient -->
         <div class="absolute inset-0 bg-gradient-to-br from-zinc-950 via-blue-950/40 to-zinc-950"></div>
         <div class="absolute top-20 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
         <div class="absolute bottom-20 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
-
+ 
         <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
             <!-- Text Content -->
             <div class="fade-up">
@@ -174,50 +241,55 @@
                     Favour Imegu<br>
                     <span class="gradient-text">EwoMazino</span>
                 </h1>
-                <p class="text-xl sm:text-2xl text-zinc-400 mb-2">B.Sc Computer Science Graduate</p>
-                <p class="text-2xl sm:text-3xl text-blue-400 font-semibold mb-8">Cloud Engineer</p>
+                <p class="text-xl sm:text-2xl text-zinc-400 mb-2">Computer Science Graduate</p>
+                <p class="text-2xl sm:text-3xl text-blue-400 font-semibold mb-6">Cloud Engineer</p>
+ 
+                <!-- Signature element: terminal-style rotating line, on-brand for a cloud/DevOps engineer -->
+                <div class="inline-flex items-center gap-2 bg-zinc-900/80 border border-zinc-800 rounded-lg px-4 py-2.5 mb-8 font-mono text-sm sm:text-base max-w-full">
+                    <span class="text-emerald-400 shrink-0" aria-hidden="true">$</span>
+                    <span id="typing-text" class="typing text-blue-300 truncate"></span>
+                </div>
+ 
                 <p class="text-lg text-zinc-400 max-w-lg mb-10 leading-relaxed">
                     I design, build and optimize scalable cloud infrastructure. Passionate about automation, IoT systems, and creating reliable solutions that make a real impact.
                 </p>
                 <div class="flex flex-wrap gap-4">
-                    <a href="#projects" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg shadow-blue-600/25">
+                    <a href="#projects" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg shadow-blue-600/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">
                         View My Work
                     </a>
-                    <a href="#contact" class="border border-zinc-700 hover:border-blue-500 hover:bg-zinc-900 px-8 py-4 rounded-full font-semibold transition-all duration-300">
+                    <a href="#contact" class="border border-zinc-700 hover:border-blue-500 hover:bg-zinc-900 px-8 py-4 rounded-full font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">
                         Contact Me
                     </a>
                 </div>
             </div>
-
-            <!-- Profile Image -->
+ 
+            <!-- Profile Avatar -->
             <div class="flex justify-center lg:justify-end fade-up" style="transition-delay: 0.2s;">
                 <div class="relative">
                     <div class="absolute -inset-4 bg-gradient-to-r from-blue-600 to-blue-400 rounded-3xl blur opacity-30"></div>
-                    <div class="relative w-72 h-72 sm:w-80 sm:h-80 rounded-3xl overflow-hidden border-2 border-blue-500/40 shadow-2xl">
-                        <!-- REPLACE THIS IMAGE URL WITH YOUR PHOTO -->
-                        <img src="https://picsum.photos/id/64/600/600" 
-                             alt="Favour Imegu EwoMazino" 
-                             class="w-full h-full object-cover">
+                    <!-- Placeholder avatar: swap this whole div for an <img src="your-photo.jpg" class="w-full h-full object-cover"> -->
+                    <div class="relative w-72 h-72 sm:w-80 sm:h-80 rounded-3xl overflow-hidden border-2 border-blue-500/40 shadow-2xl bg-gradient-to-br from-blue-600 via-blue-500 to-blue-700 flex items-center justify-center">
+                        <span class="heading text-8xl sm:text-9xl font-bold text-white/90 select-none">FI</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+ 
     <!-- ========== ABOUT SECTION ========== -->
-    <section id="about" class="py-24 bg-zinc-900/50">
+    <section id="about" class="py-24 bg-zinc-900/50 scroll-mt-24">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16 fade-up">
                 <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-4">About Me</h2>
                 <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
             </div>
-
+ 
             <div class="max-w-3xl mx-auto text-lg text-zinc-300 leading-relaxed space-y-6 fade-up">
                 <p>
-                    I'm a <span class="text-blue-400 font-medium">B.Sc Computer Science graduate</span> and aspiring Cloud Engineer with a strong passion for building reliable, scalable systems. My journey in technology has taken me from embedded systems and IoT projects to cloud infrastructure and DevOps practices.
+                    I'm a <span class="text-blue-400 font-medium">Computer Science graduate</span> and aspiring Cloud Engineer with a strong passion for building reliable, scalable systems. My journey in technology has taken me from embedded systems and IoT projects to cloud infrastructure and DevOps practices.
                 </p>
                 <p>
-                    During my final year, I designed and implemented a <span class="text-blue-400 font-medium">Smart Fire Detection System</span> using ESP32, sensors, and cloud connectivity — combining hardware, software, and cloud technologies to create a practical safety solution.
+                    For my final year project, I designed and built a <span class="text-blue-400 font-medium">Smart Fire Detection System</span> — an ESP32-based sensor rig that streams readings through a Flask backend into Firebase, with a React Native mobile app and push notifications for real-time alerts. It combines hardware, backend, and mobile into one working safety system.
                 </p>
                 <p>
                     I am constantly learning and exploring new tools in the cloud ecosystem (AWS, Azure, Terraform, Docker, Kubernetes) while applying solid engineering principles to every project I work on.
@@ -225,77 +297,103 @@
             </div>
         </div>
     </section>
-
+ 
     <!-- ========== SKILLS SECTION ========== -->
-    <section id="skills" class="py-24">
+    <section id="skills" class="py-24 scroll-mt-24">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16 fade-up">
                 <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-4">Skills & Tools</h2>
                 <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
             </div>
-
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Skill Cards -->
-                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
-                    <i class="fab fa-aws text-4xl text-orange-400 mb-4"></i>
-                    <h3 class="font-semibold">AWS</h3>
+ 
+            <div class="space-y-12">
+                <!-- Cloud Platforms -->
+                <div class="fade-up">
+                    <h3 class="text-sm font-semibold uppercase tracking-wider text-blue-400 mb-5">Cloud Platforms</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
+                            <i class="fab fa-aws text-4xl text-orange-400 mb-4" aria-hidden="true"></i>
+                            <h4 class="font-semibold">AWS</h4>
+                        </div>
+                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
+                            <i class="fab fa-microsoft text-4xl text-blue-400 mb-4" aria-hidden="true"></i>
+                            <h4 class="font-semibold">Azure</h4>
+                        </div>
+                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
+                            <i class="fas fa-cloud text-4xl text-blue-300 mb-4" aria-hidden="true"></i>
+                            <h4 class="font-semibold">Google Cloud</h4>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
-                    <i class="fab fa-microsoft text-4xl text-blue-400 mb-4"></i>
-                    <h3 class="font-semibold">Azure</h3>
+ 
+                <!-- Infrastructure & DevOps -->
+                <div class="fade-up">
+                    <h3 class="text-sm font-semibold uppercase tracking-wider text-blue-400 mb-5">Infrastructure &amp; DevOps</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
+                            <i class="fas fa-code text-4xl text-purple-400 mb-4" aria-hidden="true"></i>
+                            <h4 class="font-semibold">Terraform</h4>
+                        </div>
+                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
+                            <i class="fab fa-docker text-4xl text-blue-500 mb-4" aria-hidden="true"></i>
+                            <h4 class="font-semibold">Docker</h4>
+                        </div>
+                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
+                            <i class="fas fa-dharmachakra text-4xl text-blue-400 mb-4" aria-hidden="true"></i>
+                            <h4 class="font-semibold">Kubernetes</h4>
+                        </div>
+                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
+                            <i class="fas fa-cogs text-4xl text-zinc-300 mb-4" aria-hidden="true"></i>
+                            <h4 class="font-semibold">CI/CD</h4>
+                        </div>
+                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
+                            <i class="fab fa-linux text-4xl text-zinc-300 mb-4" aria-hidden="true"></i>
+                            <h4 class="font-semibold">Linux &amp; Bash</h4>
+                        </div>
+                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
+                            <i class="fas fa-network-wired text-4xl text-cyan-400 mb-4" aria-hidden="true"></i>
+                            <h4 class="font-semibold">Networking</h4>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
-                    <i class="fas fa-cloud text-4xl text-blue-300 mb-4"></i>
-                    <h3 class="font-semibold">Google Cloud</h3>
+ 
+                <!-- Programming & Data -->
+                <div class="fade-up">
+                    <h3 class="text-sm font-semibold uppercase tracking-wider text-blue-400 mb-5">Programming &amp; Data</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
+                            <i class="fab fa-python text-4xl text-yellow-400 mb-4" aria-hidden="true"></i>
+                            <h4 class="font-semibold">Python</h4>
+                        </div>
+                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
+                            <i class="fas fa-database text-4xl text-blue-300 mb-4" aria-hidden="true"></i>
+                            <h4 class="font-semibold">Databases</h4>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
-                    <i class="fas fa-code text-4xl text-purple-400 mb-4"></i>
-                    <h3 class="font-semibold">Terraform</h3>
-                </div>
-                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
-                    <i class="fab fa-docker text-4xl text-blue-500 mb-4"></i>
-                    <h3 class="font-semibold">Docker</h3>
-                </div>
-                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
-                    <i class="fas fa-dharmachakra text-4xl text-blue-400 mb-4"></i>
-                    <h3 class="font-semibold">Kubernetes</h3>
-                </div>
-                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
-                    <i class="fab fa-python text-4xl text-yellow-400 mb-4"></i>
-                    <h3 class="font-semibold">Python</h3>
-                </div>
-                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
-                    <i class="fab fa-linux text-4xl text-zinc-300 mb-4"></i>
-                    <h3 class="font-semibold">Linux & Bash</h3>
-                </div>
-                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
-                    <i class="fas fa-microchip text-4xl text-green-400 mb-4"></i>
-                    <h3 class="font-semibold">ESP32 / IoT</h3>
-                </div>
-                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
-                    <i class="fas fa-cogs text-4xl text-zinc-300 mb-4"></i>
-                    <h3 class="font-semibold">CI/CD</h3>
-                </div>
-                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
-                    <i class="fas fa-network-wired text-4xl text-cyan-400 mb-4"></i>
-                    <h3 class="font-semibold">Networking</h3>
-                </div>
-                <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center fade-up">
-                    <i class="fas fa-database text-4xl text-blue-300 mb-4"></i>
-                    <h3 class="font-semibold">Databases</h3>
+ 
+                <!-- IoT & Embedded -->
+                <div class="fade-up">
+                    <h3 class="text-sm font-semibold uppercase tracking-wider text-blue-400 mb-5">IoT &amp; Embedded</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
+                            <i class="fas fa-microchip text-4xl text-green-400 mb-4" aria-hidden="true"></i>
+                            <h4 class="font-semibold">ESP32 / IoT</h4>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
+ 
     <!-- ========== EXPERIENCE SECTION ========== -->
-    <section id="experience" class="py-24 bg-zinc-900/50">
+    <section id="experience" class="py-24 bg-zinc-900/50 scroll-mt-24">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16 fade-up">
                 <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-4">Experience</h2>
                 <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
             </div>
-
+ 
             <div class="max-w-3xl mx-auto space-y-8">
                 <!-- Experience Item 1 -->
                 <div class="fade-up border-l-2 border-blue-500 pl-8 relative">
@@ -305,15 +403,16 @@
                             <h3 class="text-xl font-semibold text-white">Cloud Engineering Intern</h3>
                             <span class="text-sm text-blue-400 font-medium">2025 – Present</span>
                         </div>
+                        <!-- This entry reads generic — tighten it with specifics (what you deployed, what you automated) or swap it out -->
                         <p class="text-zinc-400 mb-4">Working on cloud infrastructure setup, automation scripts, and monitoring solutions.</p>
                         <ul class="text-zinc-400 text-sm space-y-2">
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1"></i> Assisted in deploying and managing cloud resources</li>
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1"></i> Wrote automation scripts for infrastructure tasks</li>
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1"></i> Monitored system performance and reliability</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1" aria-hidden="true"></i> Assisted in deploying and managing cloud resources</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1" aria-hidden="true"></i> Wrote automation scripts for infrastructure tasks</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1" aria-hidden="true"></i> Monitored system performance and reliability</li>
                         </ul>
                     </div>
                 </div>
-
+ 
                 <!-- Experience Item 2 -->
                 <div class="fade-up border-l-2 border-blue-500 pl-8 relative">
                     <div class="absolute -left-2.5 top-0 w-5 h-5 rounded-full bg-blue-500"></div>
@@ -322,206 +421,426 @@
                             <h3 class="text-xl font-semibold text-white">Final Year Project Lead</h3>
                             <span class="text-sm text-blue-400 font-medium">2024 – 2025</span>
                         </div>
-                        <p class="text-zinc-400 mb-4">Designed and built a complete Smart Fire Detection System from concept to working prototype.</p>
+                        <p class="text-zinc-400 mb-4">Designed and built a complete Smart Fire Detection System, from circuit to cloud to mobile app — successfully defended.</p>
                         <ul class="text-zinc-400 text-sm space-y-2">
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1"></i> Led hardware selection, circuit design and programming</li>
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1"></i> Integrated multiple sensors and cloud connectivity</li>
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1"></i> Successfully demonstrated real-time fire detection and alerts</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1" aria-hidden="true"></i> Led hardware selection, circuit design and ESP32 programming</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1" aria-hidden="true"></i> Built a Flask + Firebase backend and a React Native (Expo) app for live monitoring</li>
+                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1" aria-hidden="true"></i> Implemented FCM push alerts and demonstrated real-time fire detection end-to-end</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
+ 
+    <!-- ========== EDUCATION SECTION ========== -->
+    <section id="education" class="py-24 scroll-mt-24">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-4">Education</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
+            </div>
+ 
+            <div class="max-w-3xl mx-auto fade-up">
+                <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-start">
+                    <div class="w-14 h-14 shrink-0 bg-blue-600/20 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-blue-400 text-2xl" aria-hidden="true"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
+                            <h3 class="text-xl font-semibold text-white">B.Sc. Computer Science</h3>
+                            <!-- Fill in your actual dates once graduation clearance is final -->
+                            <span class="text-sm text-blue-400 font-medium">[Start Year] – [Graduation Year]</span>
+                        </div>
+                        <p class="text-zinc-400 mb-3">Bowen University, Iwo, Nigeria</p>
+                        <p class="text-zinc-400 text-sm leading-relaxed">
+                            Final year project: Smart Fire Detection System (ESP32, Flask, Firebase, React Native) — successfully defended.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
     <!-- ========== PROJECTS SECTION ========== -->
-    <section id="projects" class="py-24">
+    <section id="projects" class="py-24 bg-zinc-900/50 scroll-mt-24">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16 fade-up">
                 <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-4">Featured Projects</h2>
                 <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
             </div>
-
+ 
             <div class="grid md:grid-cols-2 gap-8">
-
+ 
                 <!-- PROJECT 1: Smart Fire System (Main Project) -->
                 <div class="project-card bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden fade-up md:col-span-2">
                     <div class="p-8 lg:p-10">
                         <div class="flex flex-wrap items-center gap-3 mb-4">
                             <span class="px-3 py-1 bg-blue-600/20 text-blue-400 text-xs font-semibold rounded-full">Final Year Project</span>
-                            <span class="px-3 py-1 bg-green-600/20 text-green-400 text-xs font-semibold rounded-full">IoT + Cloud</span>
+                            <span class="px-3 py-1 bg-cyan-500/20 text-cyan-300 text-xs font-semibold rounded-full">IoT + Cloud</span>
+                            <span class="px-3 py-1 bg-violet-500/20 text-violet-300 text-xs font-semibold rounded-full">Full-Stack</span>
+                            <span class="inline-flex items-center gap-1.5 text-emerald-400 text-xs font-semibold">
+                                <i class="fas fa-circle-check" aria-hidden="true"></i> Successfully Defended
+                            </span>
                         </div>
-                        
-                        <h3 class="text-2xl lg:text-3xl font-bold heading mb-4">Smart Fire Detection & Alert System</h3>
-                        
+ 
+                        <h3 class="text-2xl lg:text-3xl font-bold heading mb-4">Smart Fire Detection &amp; Alert System</h3>
+ 
                         <p class="text-zinc-400 text-lg leading-relaxed mb-6">
-                            Designed and built a complete real-time fire detection and early warning system as my final year project. 
-                            The system continuously monitors the environment for signs of fire and triggers both local and remote alerts.
+                            Designed and built a complete real-time fire detection and early warning system as my final year project.
+                            The system continuously monitors the environment for signs of fire and triggers both a local alarm and remote mobile alerts.
                         </p>
-
+ 
                         <div class="grid sm:grid-cols-2 gap-6 mb-8">
                             <div>
                                 <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
-                                    <i class="fas fa-microchip text-blue-400"></i> Hardware Components
+                                    <i class="fas fa-microchip text-blue-400" aria-hidden="true"></i> Hardware Components
                                 </h4>
                                 <ul class="space-y-2 text-zinc-400 text-sm">
-                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-blue-500 text-xs"></i> <strong>ESP32</strong> – Main microcontroller with Wi-Fi</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-blue-500 text-xs"></i> <strong>MQ-2</strong> – Smoke & gas detection sensor</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-blue-500 text-xs"></i> <strong>DHT11</strong> – Temperature & humidity sensor</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-blue-500 text-xs"></i> <strong>Buzzer</strong> – Local audible alarm</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-blue-500 text-xs" aria-hidden="true"></i> <strong>ESP32</strong> – Main microcontroller with Wi-Fi</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-blue-500 text-xs" aria-hidden="true"></i> <strong>MQ-2</strong> – Smoke &amp; gas detection sensor</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-blue-500 text-xs" aria-hidden="true"></i> <strong>DHT11</strong> – Temperature &amp; humidity sensor</li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-blue-500 text-xs" aria-hidden="true"></i> <strong>Buzzer</strong> – Local audible alarm</li>
                                 </ul>
                             </div>
                             <div>
                                 <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
-                                    <i class="fas fa-cogs text-blue-400"></i> How It Works
+                                    <i class="fas fa-cloud text-blue-400" aria-hidden="true"></i> Software &amp; Cloud Architecture
                                 </h4>
                                 <ul class="space-y-2 text-zinc-400 text-sm">
-                                    <li class="flex items-start gap-2"><i class="fas fa-arrow-right text-blue-500 text-xs mt-1.5"></i> Sensors continuously read smoke, gas and temperature levels</li>
-                                    <li class="flex items-start gap-2"><i class="fas fa-arrow-right text-blue-500 text-xs mt-1.5"></i> ESP32 processes the data in real time</li>
-                                    <li class="flex items-start gap-2"><i class="fas fa-arrow-right text-blue-500 text-xs mt-1.5"></i> When thresholds are exceeded, the buzzer activates</li>
-                                    <li class="flex items-start gap-2"><i class="fas fa-arrow-right text-blue-500 text-xs mt-1.5"></i> Alerts can be sent via Wi-Fi to a monitoring system</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-arrow-right text-blue-500 text-xs mt-1.5" aria-hidden="true"></i> ESP32 streams smoke, gas and temperature readings to a Flask API</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-arrow-right text-blue-500 text-xs mt-1.5" aria-hidden="true"></i> Flask relays readings into a Firebase Realtime Database</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-arrow-right text-blue-500 text-xs mt-1.5" aria-hidden="true"></i> A React Native (Expo) app subscribes to Firebase for live updates</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-arrow-right text-blue-500 text-xs mt-1.5" aria-hidden="true"></i> FCM pushes remote alerts the moment a threshold is crossed</li>
                                 </ul>
                             </div>
                         </div>
-
+ 
                         <div class="bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800">
                             <h4 class="font-semibold text-white mb-3">What I Accomplished</h4>
                             <p class="text-zinc-400 text-sm leading-relaxed">
-                                I designed the circuit, selected and integrated the sensors (MQ-2 + DHT11), programmed the ESP32 using the Arduino IDE, 
-                                calibrated detection thresholds, implemented the buzzer alarm logic, and successfully demonstrated a working prototype 
-                                capable of early fire detection with both local and remote notification capabilities.
+                                I designed the circuit, selected and integrated the sensors (MQ-2 + DHT11), programmed the ESP32, built a Flask backend to
+                                receive sensor data and relay it to a Firebase Realtime Database, developed a companion React Native (Expo) app for live
+                                monitoring, wired up FCM push notifications for remote alerts, and implemented the local buzzer as a hardware-level failsafe
+                                that fires even if the network connection drops. Successfully built, demonstrated, and defended.
                             </p>
                         </div>
-
+ 
                         <div class="flex flex-wrap gap-3 mt-6">
                             <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">ESP32</span>
                             <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">MQ-2 Sensor</span>
                             <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">DHT11</span>
-                            <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">Buzzer</span>
-                            <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">Arduino IDE</span>
-                            <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">IoT</span>
+                            <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">Flask</span>
+                            <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">Firebase</span>
+                            <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">React Native</span>
+                            <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">FCM</span>
                             <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">C++</span>
                         </div>
+ 
+                        <!-- Point this at the actual repo once it's public -->
+                        <a href="#" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm font-semibold mt-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded">
+                            <i class="fab fa-github" aria-hidden="true"></i> View Code
+                        </a>
                     </div>
                 </div>
-
+ 
                 <!-- Project 2 -->
-                <div class="project-card bg-zinc-900 border border-zinc-800 rounded-3xl p-8 fade-up">
+                <div class="project-card bg-zinc-900 border border-zinc-800 rounded-3xl p-8 fade-up flex flex-col">
                     <div class="w-12 h-12 bg-blue-600/20 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fas fa-cloud text-blue-400 text-xl"></i>
+                        <i class="fas fa-cloud text-blue-400 text-xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3">Cloud Infrastructure Setup</h3>
                     <p class="text-zinc-400 mb-6 text-sm leading-relaxed">
                         Practiced deploying and managing basic cloud resources, focusing on scalability, security groups, and cost awareness.
                     </p>
-                    <div class="flex flex-wrap gap-2">
+                    <div class="flex flex-wrap gap-2 mt-auto mb-4">
                         <span class="px-2.5 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">AWS</span>
                         <span class="px-2.5 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">Linux</span>
                     </div>
+                    <a href="#" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded">
+                        <i class="fab fa-github" aria-hidden="true"></i> View Code
+                    </a>
                 </div>
-
+ 
                 <!-- Project 3 -->
-                <div class="project-card bg-zinc-900 border border-zinc-800 rounded-3xl p-8 fade-up">
+                <div class="project-card bg-zinc-900 border border-zinc-800 rounded-3xl p-8 fade-up flex flex-col">
                     <div class="w-12 h-12 bg-blue-600/20 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fas fa-code text-blue-400 text-xl"></i>
+                        <i class="fas fa-code text-blue-400 text-xl" aria-hidden="true"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3">Automation Scripts</h3>
                     <p class="text-zinc-400 mb-6 text-sm leading-relaxed">
                         Developed Python and Bash scripts to automate repetitive system and cloud administration tasks.
                     </p>
-                    <div class="flex flex-wrap gap-2">
+                    <div class="flex flex-wrap gap-2 mt-auto mb-4">
                         <span class="px-2.5 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">Python</span>
                         <span class="px-2.5 py-1 bg-zinc-800 text-zinc-300 text-xs rounded-full">Bash</span>
                     </div>
+                    <a href="#" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded">
+                        <i class="fab fa-github" aria-hidden="true"></i> View Code
+                    </a>
                 </div>
-
+ 
             </div>
         </div>
     </section>
-
+ 
     <!-- ========== CONTACT SECTION ========== -->
-    <section id="contact" class="py-24 bg-zinc-900/50">
+    <section id="contact" class="py-24 scroll-mt-24">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <div class="fade-up">
                 <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-6">Let's Work Together</h2>
                 <p class="text-xl text-zinc-400 mb-10 max-w-2xl mx-auto">
                     I'm currently open to Cloud Engineering opportunities, internships, and interesting projects. Feel free to reach out!
                 </p>
-                
-                <a href="mailto:Imegufavour30@gmail.com" 
-                   class="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-500 text-white px-10 py-5 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg shadow-blue-600/25">
-                    <i class="fas fa-envelope"></i>
-                    Imegufavour30@gmail.com
-                </a>
-
-                <div class="mt-12 flex justify-center gap-6">
-                    <a href="https://linkedin.com" target="_blank" class="w-12 h-12 bg-zinc-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all">
-                        <i class="fab fa-linkedin-in text-lg"></i>
+ 
+                <div class="flex flex-wrap items-center justify-center gap-3">
+                    <a href="mailto:Imegufavour30@gmail.com"
+                       class="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-500 text-white px-8 py-5 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg shadow-blue-600/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                        Imegufavour30@gmail.com
                     </a>
-                    <a href="https://github.com/codeWithGojo" target="_blank" class="w-12 h-12 bg-zinc-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all">
-                        <i class="fab fa-github text-lg"></i>
+                    <button id="copy-email-btn" type="button" aria-label="Copy email address" class="w-14 h-14 shrink-0 rounded-full border border-zinc-700 hover:border-blue-500 hover:bg-zinc-900 flex items-center justify-center transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                        <i id="copy-icon" class="fas fa-copy" aria-hidden="true"></i>
+                    </button>
+                </div>
+ 
+                <!-- Add your resume PDF next to this file and update the link -->
+                <a href="resume.pdf" download
+                   class="inline-flex items-center gap-2 border border-zinc-700 hover:border-blue-500 hover:bg-zinc-900 text-zinc-200 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 mt-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                    <i class="fas fa-download" aria-hidden="true"></i>
+                    Download CV
+                </a>
+ 
+                <div class="mt-10 flex justify-center gap-6">
+                    <!-- Replace with your LinkedIn profile URL -->
+                    <a href="https://linkedin.com/in/your-username" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="w-12 h-12 bg-zinc-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                        <i class="fab fa-linkedin-in text-lg" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://github.com/codeWithGojo" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="w-12 h-12 bg-zinc-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                        <i class="fab fa-github text-lg" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
         </div>
     </section>
-
+ 
     <!-- ========== FOOTER ========== -->
     <footer class="py-10 border-t border-zinc-800">
         <div class="max-w-6xl mx-auto px-6 text-center text-zinc-500 text-sm">
-            <p>© 2026 Favour Imegu EwoMazino. Built with passion.</p>
+            <p>© <span id="current-year">2026</span> Favour Imegu EwoMazino. Built with passion.</p>
         </div>
     </footer>
-
+ 
+    <!-- Back to top -->
+    <button id="back-to-top" type="button" aria-label="Back to top" class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+ 
+    <noscript>
+        <style>.fade-up { opacity: 1 !important; transform: none !important; }</style>
+    </noscript>
+ 
     <!-- ========== JAVASCRIPT ========== -->
     <script>
-        // Mobile menu toggle
-        const menuBtn = document.getElementById('menu-btn');
-        const closeMenu = document.getElementById('close-menu');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.add('open');
-        });
-
-        closeMenu.addEventListener('click', () => {
-            mobileMenu.classList.remove('open');
-        });
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('open');
-            });
-        });
-
-        // Scroll animations
-        const observerOptions = {
-            threshold: 0.15,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-up').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Navbar background on scroll
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-zinc-950/95', 'shadow-lg');
-            } else {
-                navbar.classList.remove('shadow-lg');
+        (function () {
+            var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ 
+            // ---------- Footer year ----------
+            var yearEl = document.getElementById('current-year');
+            if (yearEl) yearEl.textContent = new Date().getFullYear();
+ 
+            // ---------- Mobile menu ----------
+            var menuBtn = document.getElementById('menu-btn');
+            var closeMenuBtn = document.getElementById('close-menu');
+            var mobileMenu = document.getElementById('mobile-menu');
+            var menuBackdrop = document.getElementById('menu-backdrop');
+ 
+            function openMenu() {
+                mobileMenu.classList.add('open');
+                menuBackdrop.classList.remove('opacity-0', 'pointer-events-none');
+                menuBackdrop.classList.add('opacity-100');
+                document.body.style.overflow = 'hidden';
+                menuBtn.setAttribute('aria-expanded', 'true');
+                var firstLink = mobileMenu.querySelector('a');
+                if (firstLink) firstLink.focus();
             }
-        });
+ 
+            function closeMenu() {
+                mobileMenu.classList.remove('open');
+                menuBackdrop.classList.add('opacity-0', 'pointer-events-none');
+                menuBackdrop.classList.remove('opacity-100');
+                document.body.style.overflow = '';
+                menuBtn.setAttribute('aria-expanded', 'false');
+                menuBtn.focus();
+            }
+ 
+            if (menuBtn && closeMenuBtn && mobileMenu && menuBackdrop) {
+                menuBtn.addEventListener('click', openMenu);
+                closeMenuBtn.addEventListener('click', closeMenu);
+                menuBackdrop.addEventListener('click', closeMenu);
+ 
+                document.querySelectorAll('#mobile-menu a').forEach(function (link) {
+                    link.addEventListener('click', closeMenu);
+                });
+ 
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+                        closeMenu();
+                    }
+                });
+            }
+ 
+            // ---------- Scroll-triggered fade-up ----------
+            var fadeEls = document.querySelectorAll('.fade-up');
+            if ('IntersectionObserver' in window) {
+                try {
+                    var observer = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('visible');
+                            }
+                        });
+                    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+ 
+                    fadeEls.forEach(function (el) { observer.observe(el); });
+                } catch (err) {
+                    fadeEls.forEach(function (el) { el.classList.add('visible'); });
+                }
+            } else {
+                // No IntersectionObserver support — just show everything
+                fadeEls.forEach(function (el) { el.classList.add('visible'); });
+            }
+ 
+            // ---------- Active nav link (scrollspy) ----------
+            var navLinks = document.querySelectorAll('nav a[href^="#"]');
+            var sections = document.querySelectorAll('section[id]');
+ 
+            function setActiveLink(id) {
+                navLinks.forEach(function (link) {
+                    link.classList.toggle('text-blue-400', link.getAttribute('href') === '#' + id);
+                });
+            }
+ 
+            if ('IntersectionObserver' in window && sections.length) {
+                try {
+                    var spy = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) setActiveLink(entry.target.id);
+                        });
+                    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+ 
+                    sections.forEach(function (s) { spy.observe(s); });
+                } catch (err) { /* non-critical, ignore */ }
+            }
+ 
+            // ---------- Consolidated scroll handler: navbar bg, progress bar, back-to-top ----------
+            var navbar = document.getElementById('navbar');
+            var progressBar = document.getElementById('progress-bar');
+            var backToTop = document.getElementById('back-to-top');
+            var ticking = false;
+ 
+            function onScroll() {
+                var scrollY = window.scrollY;
+                var doc = document.documentElement;
+                var scrollable = doc.scrollHeight - doc.clientHeight;
+                var progress = scrollable > 0 ? (scrollY / scrollable) * 100 : 0;
+ 
+                if (progressBar) progressBar.style.width = progress + '%';
+ 
+                if (navbar) {
+                    if (scrollY > 50) {
+                        navbar.classList.add('bg-zinc-950/95', 'shadow-lg');
+                    } else {
+                        navbar.classList.remove('bg-zinc-950/95', 'shadow-lg');
+                    }
+                }
+ 
+                if (backToTop) {
+                    if (scrollY > 500) {
+                        backToTop.classList.remove('opacity-0', 'pointer-events-none');
+                    } else {
+                        backToTop.classList.add('opacity-0', 'pointer-events-none');
+                    }
+                }
+ 
+                ticking = false;
+            }
+ 
+            window.addEventListener('scroll', function () {
+                if (!ticking) {
+                    window.requestAnimationFrame(onScroll);
+                    ticking = true;
+                }
+            }, { passive: true });
+ 
+            onScroll();
+ 
+            if (backToTop) {
+                backToTop.addEventListener('click', function () {
+                    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+                });
+            }
+ 
+            // ---------- Terminal typing effect ----------
+            var typingEl = document.getElementById('typing-text');
+            var phrases = [
+                'automating cloud infrastructure',
+                'connecting IoT devices to the cloud',
+                'building reliable, scalable systems'
+            ];
+ 
+            if (typingEl) {
+                if (prefersReducedMotion) {
+                    typingEl.textContent = phrases[0];
+                } else {
+                    var phraseIndex = 0, charIndex = 0, deleting = false;
+ 
+                    (function tick() {
+                        var current = phrases[phraseIndex];
+ 
+                        if (!deleting) {
+                            charIndex++;
+                            typingEl.textContent = current.slice(0, charIndex);
+                            if (charIndex === current.length) {
+                                deleting = true;
+                                setTimeout(tick, 1800);
+                                return;
+                            }
+                        } else {
+                            charIndex--;
+                            typingEl.textContent = current.slice(0, charIndex);
+                            if (charIndex === 0) {
+                                deleting = false;
+                                phraseIndex = (phraseIndex + 1) % phrases.length;
+                            }
+                        }
+                        setTimeout(tick, deleting ? 35 : 60);
+                    })();
+                }
+            }
+ 
+            // ---------- Copy email to clipboard ----------
+            var copyBtn = document.getElementById('copy-email-btn');
+            var copyIcon = document.getElementById('copy-icon');
+            var emailAddress = 'Imegufavour30@gmail.com';
+ 
+            if (copyBtn && copyIcon) {
+                copyBtn.addEventListener('click', function () {
+                    if (!navigator.clipboard) return;
+                    navigator.clipboard.writeText(emailAddress).then(function () {
+                        copyIcon.classList.remove('fa-copy');
+                        copyIcon.classList.add('fa-check');
+                        copyBtn.setAttribute('aria-label', 'Email copied');
+                        setTimeout(function () {
+                            copyIcon.classList.remove('fa-check');
+                            copyIcon.classList.add('fa-copy');
+                            copyBtn.setAttribute('aria-label', 'Copy email address');
+                        }, 2000);
+                    }).catch(function () { /* clipboard unavailable — mailto link still works */ });
+                });
+            }
+        })();
     </script>
 </body>
 </html>
+ 

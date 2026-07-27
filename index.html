@@ -15,22 +15,21 @@
     <meta name="twitter:title" content="Favour Imegu EwoMazino | Cloud Engineer">
     <meta name="twitter:description" content="Cloud Engineer & Computer Science graduate specializing in cloud infrastructure, automation, and IoT.">
 
-    <!-- Favicon: inline SVG monogram, no external file needed -->
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%232563eb'/%3E%3Ctext x='50' y='69' font-family='Arial,sans-serif' font-size='58' font-weight='700' fill='white' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/aria/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- Structured data so search engines understand this is a person's profile -->
+    <!-- Structured data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -149,15 +148,6 @@
             background-clip: text;
         }
 
-        /* Mobile menu */
-        .mobile-menu {
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-        }
-        .mobile-menu.open {
-            transform: translateX(0);
-        }
-
         @media (prefers-reduced-motion: reduce) {
             html {
                 scroll-behavior: auto;
@@ -170,7 +160,7 @@
             .typing::after {
                 animation: none;
             }
-            .skill-card, .project-card, #back-to-top, #progress-bar, .mobile-menu, #menu-backdrop {
+            .skill-card, .project-card, #progress-bar {
                 transition: none !important;
             }
         }
@@ -182,7 +172,7 @@
     <div id="progress-bar" class="fixed top-0 left-0 h-1 bg-blue-500 z-[60]" style="width:0%"></div>
 
     <!-- ========== NAVIGATION ========== -->
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-800/50 transition-all duration-300">
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-40 bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-800/50 transition-all duration-300">
         <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
             <a href="#" class="text-2xl font-bold heading tracking-tight text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded">
                 Favour<span class="text-white">.</span>
@@ -199,39 +189,34 @@
             </div>
 
             <!-- Mobile Menu Button -->
-            <button id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden text-2xl text-zinc-300 hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded">
+            <button id="menu-btn" type="button" aria-label="Open menu" class="md:hidden text-2xl text-zinc-300 hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded p-1">
                 <i class="fas fa-bars" aria-hidden="true"></i>
             </button>
         </div>
-
-        <!-- Mobile menu backdrop -->
-        <div id="menu-backdrop" class="fixed inset-0 bg-black/60 opacity-0 pointer-events-none transition-opacity duration-300 z-40 md:hidden"></div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-64 bg-zinc-900 border-l border-zinc-800 p-8 md:hidden z-50">
-            <button id="close-menu" type="button" aria-label="Close menu" class="absolute top-6 right-6 text-2xl text-zinc-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded">
-                <i class="fas fa-times" aria-hidden="true"></i>
-            </button>
-            <div class="flex flex-col gap-6 mt-16 text-lg">
-                <a href="#about" class="hover:text-blue-400">About</a>
-                <a href="#skills" class="hover:text-blue-400">Skills</a>
-                <a href="#experience" class="hover:text-blue-400">Experience</a>
-                <a href="#education" class="hover:text-blue-400">Education</a>
-                <a href="#projects" class="hover:text-blue-400">Projects</a>
-                <a href="#contact" class="hover:text-blue-400">Contact</a>
-            </div>
-        </div>
     </nav>
+
+    <!-- ========== MOBILE MENU OVERLAY (Outside nav to fix iOS Safari blur bugs) ========== -->
+    <div id="mobile-menu" class="fixed inset-0 z-[100] bg-zinc-950/95 backdrop-blur-2xl flex flex-col items-center justify-center transition-all duration-300 opacity-0 pointer-events-none md:hidden">
+        <button id="close-menu" type="button" aria-label="Close menu" class="absolute top-6 right-6 text-3xl text-zinc-400 hover:text-white p-2">
+            <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+        <div class="flex flex-col items-center gap-8 text-2xl font-semibold heading">
+            <a href="#about" class="hover:text-blue-400 transition-colors">About</a>
+            <a href="#skills" class="hover:text-blue-400 transition-colors">Skills</a>
+            <a href="#experience" class="hover:text-blue-400 transition-colors">Experience</a>
+            <a href="#education" class="hover:text-blue-400 transition-colors">Education</a>
+            <a href="#projects" class="hover:text-blue-400 transition-colors">Projects</a>
+            <a href="#contact" class="hover:text-blue-400 transition-colors">Contact</a>
+        </div>
+    </div>
 
     <!-- ========== HERO SECTION ========== -->
     <section class="min-h-screen flex items-center relative overflow-hidden pt-20">
-        <!-- Background gradient -->
         <div class="absolute inset-0 bg-gradient-to-br from-zinc-950 via-blue-950/40 to-zinc-950"></div>
         <div class="absolute top-20 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
         <div class="absolute bottom-20 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
 
         <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
-            <!-- Text Content -->
             <div class="fade-up">
                 <p class="text-blue-400 font-medium mb-4 tracking-wide">Hello, I'm</p>
                 <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold heading tracking-tight mb-4 leading-tight">
@@ -250,16 +235,15 @@
                     I design, build and optimize scalable cloud infrastructure. Passionate about automation, IoT systems, and creating reliable solutions that make a real impact.
                 </p>
                 <div class="flex flex-wrap gap-4">
-                    <a href="#projects" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg shadow-blue-600/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">
+                    <a href="#projects" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg shadow-blue-600/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
                         View My Work
                     </a>
-                    <a href="#contact" class="border border-zinc-700 hover:border-blue-500 hover:bg-zinc-900 px-8 py-4 rounded-full font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950">
+                    <a href="#contact" class="border border-zinc-700 hover:border-blue-500 hover:bg-zinc-900 px-8 py-4 rounded-full font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
                         Contact Me
                     </a>
                 </div>
             </div>
 
-            <!-- Profile Avatar -->
             <div class="flex justify-center lg:justify-end fade-up" style="transition-delay: 0.2s;">
                 <div class="relative">
                     <div class="absolute -inset-4 bg-gradient-to-r from-blue-600 to-blue-400 rounded-3xl blur opacity-30"></div>
@@ -297,7 +281,7 @@
     <section id="skills" class="py-24 scroll-mt-24">
         <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16 fade-up">
-                <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-4">Skills & Tools</h2>
+                <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-4">Skills &amp; Tools</h2>
                 <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
             </div>
 
@@ -553,29 +537,29 @@
             document.getElementById('progress-bar').style.width = scrolled + '%';
         });
 
-        // Mobile Menu Toggle
+        // Mobile Menu Toggle logic (locks body scroll when open)
         const menuBtn = document.getElementById('menu-btn');
         const closeMenuBtn = document.getElementById('close-menu');
         const mobileMenu = document.getElementById('mobile-menu');
-        const menuBackdrop = document.getElementById('menu-backdrop');
 
         function toggleMenu() {
-            mobileMenu.classList.toggle('open');
-            if (mobileMenu.classList.contains('open')) {
-                menuBackdrop.classList.remove('opacity-0', 'pointer-events-none');
-                menuBackdrop.classList.add('opacity-100');
+            const isOpen = mobileMenu.classList.contains('opacity-100');
+            if (isOpen) {
+                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                document.body.classList.remove('overflow-hidden');
             } else {
-                menuBackdrop.classList.add('opacity-0', 'pointer-events-none');
-                menuBackdrop.classList.remove('opacity-100');
+                mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+                mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+                document.body.classList.add('overflow-hidden');
             }
         }
 
         menuBtn.addEventListener('click', toggleMenu);
         closeMenuBtn.addEventListener('click', toggleMenu);
-        menuBackdrop.addEventListener('click', toggleMenu);
 
         // Close mobile menu when a link is clicked
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', toggleMenu);
         });
 

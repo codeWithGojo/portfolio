@@ -21,8 +21,8 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/aria/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Font Awesome (Fixed CDN link) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -195,7 +195,7 @@
         </div>
     </nav>
 
-    <!-- ========== MOBILE MENU OVERLAY (Outside nav to fix iOS Safari blur bugs) ========== -->
+    <!-- ========== MOBILE MENU OVERLAY ========== -->
     <div id="mobile-menu" class="fixed inset-0 z-[100] bg-zinc-950/95 backdrop-blur-2xl flex flex-col items-center justify-center transition-all duration-300 opacity-0 pointer-events-none md:hidden">
         <button id="close-menu" type="button" aria-label="Close menu" class="absolute top-6 right-6 text-3xl text-zinc-400 hover:text-white p-2">
             <i class="fas fa-times" aria-hidden="true"></i>
@@ -291,15 +291,15 @@
                     <h3 class="text-sm font-semibold uppercase tracking-wider text-blue-400 mb-5">Cloud Platforms</h3>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
                         <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fab fa-aws text-4xl text-orange-400 mb-4" aria-hidden="true"></i>
+                            <i class="fa-brands fa-aws text-4xl text-orange-400 mb-4" aria-hidden="true"></i>
                             <h4 class="font-semibold">AWS</h4>
                         </div>
                         <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fab fa-microsoft text-4xl text-blue-400 mb-4" aria-hidden="true"></i>
+                            <i class="fa-brands fa-microsoft text-4xl text-blue-400 mb-4" aria-hidden="true"></i>
                             <h4 class="font-semibold">Azure</h4>
                         </div>
                         <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fas fa-cloud text-4xl text-blue-300 mb-4" aria-hidden="true"></i>
+                            <i class="fa-solid fa-cloud text-4xl text-blue-300 mb-4" aria-hidden="true"></i>
                             <h4 class="font-semibold">Google Cloud</h4>
                         </div>
                     </div>
@@ -310,27 +310,27 @@
                     <h3 class="text-sm font-semibold uppercase tracking-wider text-blue-400 mb-5">Infrastructure &amp; DevOps</h3>
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
                         <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fas fa-code text-4xl text-purple-400 mb-4" aria-hidden="true"></i>
+                            <i class="fa-solid fa-code text-4xl text-purple-400 mb-4" aria-hidden="true"></i>
                             <h4 class="font-semibold">Terraform</h4>
                         </div>
                         <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fab fa-docker text-4xl text-blue-500 mb-4" aria-hidden="true"></i>
+                            <i class="fa-brands fa-docker text-4xl text-blue-500 mb-4" aria-hidden="true"></i>
                             <h4 class="font-semibold">Docker</h4>
                         </div>
                         <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fas fa-dharmachakra text-4xl text-blue-400 mb-4" aria-hidden="true"></i>
+                            <i class="fa-solid fa-dharmachakra text-4xl text-blue-400 mb-4" aria-hidden="true"></i>
                             <h4 class="font-semibold">Kubernetes</h4>
                         </div>
                         <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fas fa-cogs text-4xl text-zinc-300 mb-4" aria-hidden="true"></i>
+                            <i class="fa-solid fa-cogs text-4xl text-zinc-300 mb-4" aria-hidden="true"></i>
                             <h4 class="font-semibold">CI/CD</h4>
                         </div>
                         <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fab fa-linux text-4xl text-zinc-300 mb-4" aria-hidden="true"></i>
+                            <i class="fa-brands fa-linux text-4xl text-zinc-300 mb-4" aria-hidden="true"></i>
                             <h4 class="font-semibold">Linux &amp; Bash</h4>
                         </div>
                         <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fas fa-network-wired text-4xl text-cyan-400 mb-4" aria-hidden="true"></i>
+                            <i class="fa-solid fa-network-wired text-4xl text-cyan-400 mb-4" aria-hidden="true"></i>
                             <h4 class="font-semibold">Networking</h4>
                         </div>
                     </div>
@@ -341,11 +341,11 @@
                     <h3 class="text-sm font-semibold uppercase tracking-wider text-blue-400 mb-5">Programming &amp; Data</h3>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
                         <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fab fa-python text-4xl text-yellow-400 mb-4" aria-hidden="true"></i>
+                            <i class="fa-brands fa-python text-4xl text-yellow-400 mb-4" aria-hidden="true"></i>
                             <h4 class="font-semibold">Python</h4>
                         </div>
                         <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fas fa-database text-4xl text-blue-300 mb-4" aria-hidden="true"></i>
+                            <i class="fa-solid fa-database text-4xl text-blue-300 mb-4" aria-hidden="true"></i>
                             <h4 class="font-semibold">Databases</h4>
                         </div>
                     </div>
@@ -356,7 +356,7 @@
                     <h3 class="text-sm font-semibold uppercase tracking-wider text-blue-400 mb-5">IoT &amp; Embedded</h3>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
                         <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fas fa-microchip text-4xl text-green-400 mb-4" aria-hidden="true"></i>
+                            <i class="fa-solid fa-microchip text-4xl text-green-400 mb-4" aria-hidden="true"></i>
                             <h4 class="font-semibold">ESP32 / IoT</h4>
                         </div>
                     </div>
@@ -384,9 +384,9 @@
                         </div>
                         <p class="text-zinc-400 mb-4">Worked on cloud infrastructure setup, automation scripts, and monitoring solutions during Industrial Training.</p>
                         <ul class="text-zinc-400 text-sm space-y-2">
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1" aria-hidden="true"></i> Assisted in deploying and managing cloud resources</li>
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1" aria-hidden="true"></i> Wrote automation scripts for infrastructure tasks</li>
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1" aria-hidden="true"></i> Monitored system performance and reliability</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-400 mt-1" aria-hidden="true"></i> Assisted in deploying and managing cloud resources</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-400 mt-1" aria-hidden="true"></i> Wrote automation scripts for infrastructure tasks</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-400 mt-1" aria-hidden="true"></i> Monitored system performance and reliability</li>
                         </ul>
                     </div>
                 </div>
@@ -401,9 +401,9 @@
                         </div>
                         <p class="text-zinc-400 mb-4">Designed and built a complete Smart Fire Detection System, from circuit to cloud to mobile app — successfully defended.</p>
                         <ul class="text-zinc-400 text-sm space-y-2">
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1" aria-hidden="true"></i> Led hardware selection, circuit design and ESP32 programming</li>
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1" aria-hidden="true"></i> Built a Flask + Firebase backend and a React Native (Expo) app for live monitoring</li>
-                            <li class="flex items-start gap-2"><i class="fas fa-check text-blue-400 mt-1" aria-hidden="true"></i> Implemented FCM push alerts and demonstrated real-time fire detection end-to-end</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-400 mt-1" aria-hidden="true"></i> Led hardware selection, circuit design and ESP32 programming</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-400 mt-1" aria-hidden="true"></i> Built a Flask + Firebase backend and a React Native (Expo) app for live monitoring</li>
+                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-400 mt-1" aria-hidden="true"></i> Implemented FCM push alerts and demonstrated real-time fire detection end-to-end</li>
                         </ul>
                     </div>
                 </div>
@@ -422,7 +422,7 @@
             <div class="max-w-3xl mx-auto fade-up">
                 <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-start">
                     <div class="w-14 h-14 shrink-0 bg-blue-600/20 rounded-xl flex items-center justify-center">
-                        <i class="fas fa-graduation-cap text-blue-400 text-2xl" aria-hidden="true"></i>
+                        <i class="fa-solid fa-graduation-cap text-blue-400 text-2xl" aria-hidden="true"></i>
                     </div>
                     <div class="flex-1">
                         <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
@@ -456,7 +456,7 @@
                             <span class="px-3 py-1 bg-cyan-500/20 text-cyan-300 text-xs font-semibold rounded-full">IoT + Cloud</span>
                             <span class="px-3 py-1 bg-violet-500/20 text-violet-300 text-xs font-semibold rounded-full">Full-Stack</span>
                             <span class="inline-flex items-center gap-1.5 text-emerald-400 text-xs font-semibold">
-                                <i class="fas fa-circle-check" aria-hidden="true"></i> Successfully Defended
+                                <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Successfully Defended
                             </span>
                         </div>
 
@@ -470,24 +470,24 @@
                         <div class="grid sm:grid-cols-2 gap-6 mb-8">
                             <div>
                                 <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
-                                    <i class="fas fa-microchip text-blue-400" aria-hidden="true"></i> Hardware Components
+                                    <i class="fa-solid fa-microchip text-blue-400" aria-hidden="true"></i> Hardware Components
                                 </h4>
                                 <ul class="space-y-2 text-zinc-400 text-sm">
-                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-blue-500 text-xs" aria-hidden="true"></i> <strong>ESP32</strong> – Main microcontroller with Wi-Fi</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-blue-500 text-xs" aria-hidden="true"></i> <strong>MQ-2</strong> – Smoke &amp; gas detection sensor</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-blue-500 text-xs" aria-hidden="true"></i> <strong>DHT11</strong> – Temperature &amp; humidity sensor</li>
-                                    <li class="flex items-center gap-2"><i class="fas fa-circle text-blue-500 text-xs" aria-hidden="true"></i> <strong>Buzzer</strong> – Local audible alarm</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle text-blue-500 text-xs" aria-hidden="true"></i> <strong>ESP32</strong> – Main microcontroller with Wi-Fi</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle text-blue-500 text-xs" aria-hidden="true"></i> <strong>MQ-2</strong> – Smoke &amp; gas detection sensor</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle text-blue-500 text-xs" aria-hidden="true"></i> <strong>DHT11</strong> – Temperature &amp; humidity sensor</li>
+                                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle text-blue-500 text-xs" aria-hidden="true"></i> <strong>Buzzer</strong> – Local audible alarm</li>
                                 </ul>
                             </div>
                             <div>
                                 <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
-                                    <i class="fas fa-cloud text-blue-400" aria-hidden="true"></i> Software &amp; Cloud Architecture
+                                    <i class="fa-solid fa-cloud text-blue-400" aria-hidden="true"></i> Software &amp; Cloud Architecture
                                 </h4>
                                 <ul class="space-y-2 text-zinc-400 text-sm">
-                                    <li class="flex items-start gap-2"><i class="fas fa-arrow-right text-blue-500 text-xs mt-1.5" aria-hidden="true"></i> ESP32 streams smoke, gas and temperature readings to a Flask API</li>
-                                    <li class="flex items-start gap-2"><i class="fas fa-arrow-right text-blue-500 text-xs mt-1.5" aria-hidden="true"></i> Flask relays readings into a Firebase Realtime Database</li>
-                                    <li class="flex items-start gap-2"><i class="fas fa-arrow-right text-blue-500 text-xs mt-1.5" aria-hidden="true"></i> A React Native (Expo) app subscribes to Firebase for live updates</li>
-                                    <li class="flex items-start gap-2"><i class="fas fa-arrow-right text-blue-500 text-xs mt-1.5" aria-hidden="true"></i> FCM pushes remote alerts the moment a threshold is crossed</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-arrow-right text-blue-500 text-xs mt-1.5" aria-hidden="true"></i> ESP32 streams smoke, gas and temperature readings to a Flask API</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-arrow-right text-blue-500 text-xs mt-1.5" aria-hidden="true"></i> Flask relays readings into a Firebase Realtime Database</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-arrow-right text-blue-500 text-xs mt-1.5" aria-hidden="true"></i> A React Native (Expo) app subscribes to Firebase for live updates</li>
+                                    <li class="flex items-start gap-2"><i class="fa-solid fa-arrow-right text-blue-500 text-xs mt-1.5" aria-hidden="true"></i> FCM pushes remote alerts the moment a threshold is crossed</li>
                                 </ul>
                             </div>
                         </div>
@@ -537,7 +537,7 @@
             document.getElementById('progress-bar').style.width = scrolled + '%';
         });
 
-        // Mobile Menu Toggle logic (locks body scroll when open)
+        // Mobile Menu Toggle
         const menuBtn = document.getElementById('menu-btn');
         const closeMenuBtn = document.getElementById('close-menu');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -558,12 +558,11 @@
         menuBtn.addEventListener('click', toggleMenu);
         closeMenuBtn.addEventListener('click', toggleMenu);
 
-        // Close mobile menu when a link is clicked
         document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', toggleMenu);
         });
 
-        // Typing Effect in Hero Section
+        // Typing Effect
         const text = "aws cloud practitioner | devops enthusiast";
         const typingElement = document.getElementById('typing-text');
         let index = 0;
@@ -577,7 +576,7 @@
         }
         setTimeout(type, 1000);
 
-        // Intersection Observer for Fade-Up Animations
+        // Intersection Observer
         const observerOptions = {
             threshold: 0.1,
             rootMargin: "0px 0px -50px 0px"

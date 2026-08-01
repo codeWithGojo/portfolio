@@ -1,648 +1,1095 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Favour Imegu EwoMazino | Cloud Engineer</title>
-    <meta name="description" content="Portfolio of Favour Imegu EwoMazino — Cloud Engineer & Computer Science graduate specializing in cloud infrastructure, automation, and IoT.">
-    <meta name="theme-color" content="#09090b">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Favour Imegu EwoMazino | Cloud Engineer</title>
+<meta name="description" content="Cloud Engineer & Computer Science graduate specializing in cloud infrastructure, automation, and IoT. Portfolio of Favour Imegu EwoMazino.">
+<meta property="og:title" content="Favour Imegu EwoMazino | Cloud Engineer">
+<meta property="og:description" content="Cloud infrastructure, automation, and IoT — designed, built, deployed.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%237c8cff'/%3E%3Ctext x='50' y='69' font-family='Arial,sans-serif' font-size='58' font-weight='700' fill='%230a0d12' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Favour Imegu EwoMazino",
+  "jobTitle": "Cloud Engineer",
+  "email": "mailto:Imegufavour30@gmail.com",
+  "sameAs": ["https://github.com/codeWithGojo"],
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "Bowen University" }
+}
+</script>
+<style>
+/* ============================================
+   TOKENS
+   ============================================ */
+:root {
+  --bg: #0a0d12;
+  --surface: #10141b;
+  --surface-2: #161b24;
+  --border: #232a36;
+  --text: #e7eaf0;
+  --text-dim: #8a93a6;
+  --text-faint: #545e70;
+  --accent: #7c8cff;
+  --accent-soft: rgba(124, 140, 255, 0.12);
+  --success: #4ade80;
+  --warn: #f2b155;
 
-    <!-- Open Graph / Twitter -->
-    <meta property="og:title" content="Favour Imegu EwoMazino | Cloud Engineer">
-    <meta property="og:description" content="Cloud Engineer & Computer Science graduate specializing in cloud infrastructure, automation, and IoT.">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Favour Imegu EwoMazino | Cloud Engineer">
-    <meta name="twitter:description" content="Cloud Engineer & Computer Science graduate specializing in cloud infrastructure, automation, and IoT.">
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%232563eb'/%3E%3Ctext x='50' y='69' font-family='Arial,sans-serif' font-size='58' font-weight='700' fill='white' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+  --max-w: 1120px;
+  --radius: 10px;
+}
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
-    <!-- Font Awesome (Fixed CDN link) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
 
-    <!-- Structured data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Favour Imegu EwoMazino",
-        "jobTitle": "Cloud Engineer",
-        "email": "mailto:Imegufavour30@gmail.com",
-        "sameAs": [
-            "https://github.com/codeWithGojo"
-        ],
-        "alumniOf": {
-            "@type": "CollegeOrUniversity",
-            "name": "Bowen University"
-        }
-    }
-    </script>
+.mono { font-family: var(--font-mono); letter-spacing: 0.02em; }
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        heading: ['Space Grotesk', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    }
-                }
-            }
-        }
-    </script>
+a { color: inherit; text-decoration: none; }
+ul { margin: 0; padding: 0; list-style: none; }
+h1, h2, h3, h4 { font-family: var(--font-display); margin: 0; line-height: 1.15; }
+p { margin: 0; }
 
-    <style>
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background-color: #09090b;
-        }
-        .heading {
-            font-family: 'Space Grotesk', sans-serif;
-        }
+::selection { background: var(--accent); color: #0a0d12; }
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #18181b;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #3b82f6;
-            border-radius: 4px;
-        }
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
 
-        /* Animations */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+/* subtle background grid, dashboard feel */
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(124,140,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124,140,255,0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 90%);
+}
 
-        noscript .fade-up,
-        html.no-js .fade-up {
-            opacity: 1;
-            transform: none;
-        }
+/* SCROLL PROGRESS BAR */
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--accent);
+  z-index: 200;
+  transition: width 0.1s ease-out;
+}
 
-        .skill-card {
-            transition: all 0.3s ease;
-        }
-        .skill-card:hover {
-            transform: translateY(-6px);
-            border-color: #3b82f6;
-        }
+/* TERMINAL TYPING LINE */
+.terminal-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  min-height: 20px;
+}
+.terminal-prompt { color: var(--success); }
+#typing-text { color: var(--accent); }
+.typing-cursor {
+  display: inline-block;
+  width: 0.5ch;
+  height: 1.05em;
+  background: var(--accent);
+  vertical-align: -0.15em;
+  animation: cursor-blink 1s steps(1) infinite;
+}
+@keyframes cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .typing-cursor { animation: none; }
+}
 
-        .project-card {
-            transition: all 0.35s ease;
-        }
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
-        }
+/* ============================================
+   NAV
+   ============================================ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 13, 18, 0.82);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
 
-        /* Navbar solid state on scroll */
-        #navbar.scrolled {
-            background-color: rgba(9, 9, 11, 0.95);
-            border-bottom-color: rgba(59, 130, 246, 0.2);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-        }
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-        /* Typing effect cursor — block style, accent colored, smoother blink */
-        .typing-cursor {
-            display: inline-block;
-            width: 0.55ch;
-            height: 1.1em;
-            background-color: #3b82f6;
-            margin-left: 2px;
-            vertical-align: -0.15em;
-            animation: cursor-blink 1s steps(1) infinite;
-            box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
-        }
-        @keyframes cursor-blink {
-            0%, 49% { opacity: 1; }
-            50%, 100% { opacity: 0; }
-        }
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.nav-logo .dot { color: var(--accent); }
 
-        /* Gradient text */
-        .gradient-text {
-            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+.nav-links a {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  transition: color 0.15s ease;
+}
+.nav-links a:hover { color: var(--text); }
 
-        @media (prefers-reduced-motion: reduce) {
-            html {
-                scroll-behavior: auto;
-            }
-            .fade-up {
-                transition: none !important;
-                opacity: 1 !important;
-                transform: none !important;
-            }
-            .typing-cursor {
-                animation: none;
-                opacity: 1;
-            }
-            .skill-card, .project-card, #progress-bar {
-                transition: none !important;
-            }
-        }
-    </style>
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-ghost {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  padding: 7px 14px;
+  border-radius: var(--radius);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--text); }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav-toggle span {
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  position: relative;
+  z-index: 1;
+  padding: 96px 24px 80px;
+}
+
+.hero-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 28px;
+}
+.status-pill .mono { font-size: 0.72rem; color: var(--text-dim); }
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6);
+  animation: pulse 2.4s infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.55); }
+  70%  { box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+}
+
+.hero-title {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.hero-title-accent { color: var(--accent); }
+
+.hero-role {
+  margin-top: 16px;
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+.hero-role .sep { color: var(--text-faint); margin: 0 6px; }
+
+.hero-desc {
+  margin-top: 20px;
+  max-width: 46ch;
+  color: var(--text-dim);
+  font-size: 1.02rem;
+}
+
+.hero-actions {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #0a0d12;
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: var(--radius);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 24px -8px rgba(124,140,255,0.5); }
+
+.btn-secondary {
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 12px 22px;
+  border-radius: var(--radius);
+  transition: border-color 0.15s ease;
+}
+.btn-secondary:hover { border-color: var(--accent); }
+
+.btn-small { padding: 9px 16px; font-size: 0.85rem; }
+
+.btn-text {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.btn-text:hover { color: var(--text); border-color: var(--text-dim); }
+
+.hero-meta {
+  margin-top: 56px;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.meta-item { display: flex; flex-direction: column; gap: 4px; max-width: 160px; }
+.meta-num { font-size: 1.4rem; color: var(--accent); font-weight: 600; }
+.meta-label { font-size: 0.8rem; color: var(--text-faint); line-height: 1.4; }
+
+/* hero visual — stack diagram */
+.hero-visual { display: flex; justify-content: center; }
+
+.stack-diagram {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px 24px 20px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.stack-node {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  opacity: 0;
+  animation: node-in 0.5s ease forwards;
+  animation-delay: calc(var(--i) * 0.15s + 0.2s);
+}
+@keyframes node-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stack-tag { font-size: 0.68rem; color: var(--accent); }
+.stack-name { font-size: 0.88rem; color: var(--text); }
+
+.stack-wire {
+  width: 1px;
+  height: 20px;
+  margin: 0 auto;
+  background: linear-gradient(var(--border), var(--accent));
+}
+
+.stack-caption {
+  margin-top: 18px;
+  font-size: 0.68rem;
+  color: var(--text-faint);
+}
+
+/* ============================================
+   SECTIONS (shared)
+   ============================================ */
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 110px 24px;
+}
+.section-alt { background: var(--surface); }
+
+.section-inner { max-width: var(--max-w); margin: 0 auto; }
+
+.eyebrow {
+  font-size: 0.78rem;
+  color: var(--accent);
+  margin: 0 0 12px;
+}
+
+.section-title {
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  margin-bottom: 40px;
+}
+
+/* ABOUT */
+.about-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 48px;
+}
+.about-lead {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--text);
+}
+.about-body p { color: var(--text-dim); margin-bottom: 16px; }
+.about-body p:last-child { margin-bottom: 0; }
+
+/* NOW BAR */
+.now-bar {
+  margin-top: 48px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.now-label { font-size: 0.68rem; color: var(--accent); white-space: nowrap; }
+.now-items { display: flex; flex-wrap: wrap; gap: 10px 20px; }
+.now-item { font-size: 0.78rem; color: var(--text-dim); }
+
+/* APPROACH */
+.approach-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.approach-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+}
+.approach-num {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.approach-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+}
+.approach-card p {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+/* STACK GRID */
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.stack-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px 22px;
+}
+.stack-card h3 {
+  font-size: 0.78rem;
+  color: var(--accent);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.stack-desc {
+  font-size: 0.82rem;
+  color: var(--text-faint);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag-list li {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+
+/* EXPERIENCE / LOG */
+.log { display: flex; flex-direction: column; gap: 0; margin-bottom: 40px; }
+.log-entry {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 32px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+}
+.log-entry:first-child { border-top: 1px solid var(--border); }
+.log-time { color: var(--text-faint); font-size: 0.82rem; padding-top: 2px; }
+.log-body h3 { font-size: 1.1rem; margin-bottom: 8px; }
+.log-body p { color: var(--text-dim); margin-bottom: 12px; }
+.log-body ul { display: flex; flex-direction: column; gap: 6px; }
+.log-body li {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  padding-left: 16px;
+  position: relative;
+}
+.log-body li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+.edu-card {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.edu-time { color: var(--text-faint); font-size: 0.82rem; }
+.edu-card h3 { font-size: 1.05rem; margin-bottom: 6px; }
+.edu-card p { color: var(--text-dim); font-size: 0.92rem; margin-bottom: 4px; }
+.edu-note { color: var(--text-faint); font-size: 0.85rem; }
+
+/* PROJECTS */
+.project-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 36px;
+}
+.project-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.tag-pill {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.tag-pill-success { color: var(--success); border-color: rgba(74,222,128,0.3); }
+
+.project-title { font-size: 1.5rem; margin-bottom: 24px; }
+
+.project-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.project-cols h4 { font-size: 0.72rem; color: var(--accent); margin-bottom: 8px; }
+.project-cols p { color: var(--text-dim); font-size: 0.9rem; }
+
+.project-tech {
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.project-links { display: flex; gap: 12px; }
+
+.more-work-note {
+  margin-top: 28px;
+  color: var(--text-faint);
+  font-size: 0.88rem;
+  text-align: center;
+}
+.more-work-note a { color: var(--accent); }
+
+/* CONTACT */
+.contact-inner { text-align: center; }
+.contact-lead {
+  max-width: 46ch;
+  margin: 0 auto 40px;
+  color: var(--text-dim);
+  font-size: 1.05rem;
+}
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.contact-link {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 24px;
+  min-width: 220px;
+  text-align: left;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.contact-link:hover { border-color: var(--accent); transform: translateY(-2px); }
+.contact-link .mono { font-size: 0.7rem; color: var(--accent); }
+
+/* FOOTER */
+.footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 32px 24px;
+  border-top: 1px solid var(--border);
+  color: var(--text-faint);
+  font-size: 0.82rem;
+}
+
+/* scroll reveal */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-visual { order: -1; }
+  .about-grid { grid-template-columns: 1fr; }
+  .stack-grid { grid-template-columns: repeat(2, 1fr); }
+  .approach-grid { grid-template-columns: 1fr; }
+  .project-cols { grid-template-columns: 1fr; }
+  .now-bar { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 640px) {
+  .nav-links { 
+    position: fixed;
+    top: 65px; left: 0; right: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    padding: 20px 24px;
+    gap: 18px;
+    transform: translateY(-120%);
+    transition: transform 0.25s ease;
+  }
+  .nav-links.is-open { transform: translateY(0); }
+  .nav-toggle { display: flex; }
+  .btn-ghost { display: none; }
+
+  .stack-grid { grid-template-columns: 1fr; }
+  .log-entry, .edu-card { grid-template-columns: 1fr; gap: 8px; }
+  .hero-meta { gap: 24px; }
+}
+
+</style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 overflow-x-hidden">
+<body>
 
-    <!-- Scroll progress bar -->
-    <div id="progress-bar" class="fixed top-0 left-0 h-1 bg-blue-500 z-[60]" style="width:0%"></div>
+<div id="progress-bar"></div>
+<div class="grid-overlay" aria-hidden="true"></div>
 
-    <!-- ========== NAVIGATION ========== -->
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-40 bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-800/50 transition-all duration-300">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="#" class="text-2xl font-bold heading tracking-tight text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded">
-                Favour<span class="text-white">.</span>
-            </a>
-
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center gap-6 text-sm font-medium">
-                <a href="#about" class="hover:text-blue-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded px-1">About</a>
-                <a href="#skills" class="hover:text-blue-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded px-1">Skills</a>
-                <a href="#experience" class="hover:text-blue-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded px-1">Experience</a>
-                <a href="#education" class="hover:text-blue-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded px-1">Education</a>
-                <a href="#projects" class="hover:text-blue-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded px-1">Projects</a>
-                <a href="#contact" class="hover:text-blue-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded px-1">Contact</a>
-            </div>
-
-            <!-- Mobile Menu Button -->
-            <button id="menu-btn" type="button" aria-label="Open menu" class="md:hidden text-2xl text-zinc-300 hover:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded p-1">
-                <i class="fas fa-bars" aria-hidden="true"></i>
-            </button>
-        </div>
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo">Favour<span class="dot">.</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#stack">Stack</a>
+      <a href="#approach">Approach</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
     </nav>
-
-    <!-- ========== MOBILE MENU OVERLAY ========== -->
-    <div id="mobile-menu" class="fixed inset-0 z-[100] bg-zinc-950/95 backdrop-blur-2xl flex flex-col items-center justify-center transition-all duration-300 opacity-0 pointer-events-none md:hidden">
-        <button id="close-menu" type="button" aria-label="Close menu" class="absolute top-6 right-6 text-3xl text-zinc-400 hover:text-white p-2">
-            <i class="fas fa-times" aria-hidden="true"></i>
-        </button>
-        <div class="flex flex-col items-center gap-8 text-2xl font-semibold heading">
-            <a href="#about" class="hover:text-blue-400 transition-colors">About</a>
-            <a href="#skills" class="hover:text-blue-400 transition-colors">Skills</a>
-            <a href="#experience" class="hover:text-blue-400 transition-colors">Experience</a>
-            <a href="#education" class="hover:text-blue-400 transition-colors">Education</a>
-            <a href="#projects" class="hover:text-blue-400 transition-colors">Projects</a>
-            <a href="#contact" class="hover:text-blue-400 transition-colors">Contact</a>
-        </div>
+    <div class="nav-actions">
+      <a class="btn-ghost" href="https://github.com/codeWithGojo" target="_blank" rel="noopener">GitHub ↗</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+  </div>
+</header>
 
-    <!-- ========== HERO SECTION ========== -->
-    <section class="min-h-screen flex items-center relative overflow-hidden pt-20">
-        <div class="absolute inset-0 bg-gradient-to-br from-zinc-950 via-blue-950/40 to-zinc-950"></div>
-        <div class="absolute top-20 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-20 left-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
+<main>
 
-        <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
-            <div class="fade-up">
-                <p class="text-blue-400 font-medium mb-4 tracking-wide">Hello, I'm</p>
-                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold heading tracking-tight mb-4 leading-tight">
-                    Favour Imegu<br>
-                    <span class="gradient-text">EwoMazino</span>
-                </h1>
-                <p class="text-xl sm:text-2xl text-zinc-400 mb-2">Computer Science Graduate</p>
-                <p class="text-2xl sm:text-3xl text-blue-400 font-semibold mb-6">Cloud Engineer</p>
-
-                <div class="inline-flex items-center gap-2 bg-zinc-900/80 border border-zinc-800 rounded-lg px-4 py-2.5 mb-8 font-mono text-sm sm:text-base max-w-full">
-                    <span class="text-emerald-400 shrink-0" aria-hidden="true">$</span>
-                    <span id="typing-text" class="text-blue-300"></span><span class="typing-cursor" aria-hidden="true"></span>
-                </div>
-
-                <p class="text-lg text-zinc-400 max-w-lg mb-10 leading-relaxed">
-                    I design, build and optimize scalable cloud infrastructure. Passionate about automation, IoT systems, and creating reliable solutions that make a real impact.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#projects" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg shadow-blue-600/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
-                        View My Work
-                    </a>
-                    <a href="#contact" class="border border-zinc-700 hover:border-blue-500 hover:bg-zinc-900 px-8 py-4 rounded-full font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
-                        Contact Me
-                    </a>
-                </div>
-            </div>
-
-            <div class="flex justify-center lg:justify-end fade-up" style="transition-delay: 0.2s;">
-                <div class="relative">
-                    <div class="absolute -inset-4 bg-gradient-to-r from-blue-600 to-blue-400 rounded-3xl blur opacity-30"></div>
-                    <div class="relative w-72 h-72 sm:w-80 sm:h-80 rounded-3xl overflow-hidden border-2 border-blue-500/40 shadow-2xl bg-gradient-to-br from-blue-600 via-blue-500 to-blue-700 flex items-center justify-center">
-                        <span class="heading text-8xl sm:text-9xl font-bold text-white/90 select-none">FI</span>
-                    </div>
-                </div>
-            </div>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="status-pill">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span class="mono">STATUS: OPEN TO OPPORTUNITIES</span>
         </div>
-    </section>
 
-    <!-- ========== ABOUT SECTION ========== -->
-    <section id="about" class="py-24 bg-zinc-900/50 scroll-mt-24">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-up">
-                <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-4">About Me</h2>
-                <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
-            </div>
+        <h1 class="hero-title">
+          Favour Imegu<br>
+          <span class="hero-title-accent">EwoMazino</span>
+        </h1>
 
-            <div class="max-w-3xl mx-auto text-lg text-zinc-300 leading-relaxed space-y-6 fade-up">
-                <p>
-                    I'm a <span class="text-blue-400 font-medium">Computer Science graduate</span> and aspiring Cloud Engineer with a strong passion for building reliable, scalable systems. My journey in technology has taken me from embedded systems and IoT projects to cloud infrastructure and DevOps practices.
-                </p>
-                <p>
-                    For my final year project, I designed and built a <span class="text-blue-400 font-medium">Smart Fire Detection System</span> — an ESP32-based sensor rig that streams readings through a Flask backend into Firebase, with a React Native mobile app and push notifications for real-time alerts. It combines hardware, backend, and mobile into one working safety system.
-                </p>
-                <p>
-                    I am constantly learning and exploring new tools in the cloud ecosystem (AWS, Azure, Terraform, Docker, Kubernetes) while applying solid engineering principles to every project I work on.
-                </p>
-            </div>
+        <p class="hero-role mono">Computer&nbsp;Science Graduate <span class="sep">/</span> Cloud&nbsp;Engineer</p>
+
+        <div class="terminal-line mono">
+          <span class="terminal-prompt">$</span>
+          <span id="typing-text"></span><span class="typing-cursor" aria-hidden="true"></span>
         </div>
-    </section>
 
-    <!-- ========== SKILLS SECTION ========== -->
-    <section id="skills" class="py-24 scroll-mt-24">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-up">
-                <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-4">Skills &amp; Tools</h2>
-                <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
-            </div>
+        <p class="hero-desc">
+          I design, build, and operate cloud infrastructure — the layer between
+          hardware sending data and a person seeing it update in real time.
+          Currently deep in AWS, Terraform, and the automation that keeps systems
+          running without babysitting.
+        </p>
 
-            <div class="space-y-12">
-                <!-- Cloud Platforms -->
-                <div class="fade-up">
-                    <h3 class="text-sm font-semibold uppercase tracking-wider text-blue-400 mb-5">Cloud Platforms</h3>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
-                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fa-brands fa-aws text-4xl text-orange-400 mb-4" aria-hidden="true"></i>
-                            <h4 class="font-semibold">AWS</h4>
-                        </div>
-                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fa-brands fa-microsoft text-4xl text-blue-400 mb-4" aria-hidden="true"></i>
-                            <h4 class="font-semibold">Azure</h4>
-                        </div>
-                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fa-solid fa-cloud text-4xl text-blue-300 mb-4" aria-hidden="true"></i>
-                            <h4 class="font-semibold">Google Cloud</h4>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Infrastructure & DevOps -->
-                <div class="fade-up">
-                    <h3 class="text-sm font-semibold uppercase tracking-wider text-blue-400 mb-5">Infrastructure &amp; DevOps</h3>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
-                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fa-solid fa-code text-4xl text-purple-400 mb-4" aria-hidden="true"></i>
-                            <h4 class="font-semibold">Terraform</h4>
-                        </div>
-                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fa-brands fa-docker text-4xl text-blue-500 mb-4" aria-hidden="true"></i>
-                            <h4 class="font-semibold">Docker</h4>
-                        </div>
-                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fa-solid fa-dharmachakra text-4xl text-blue-400 mb-4" aria-hidden="true"></i>
-                            <h4 class="font-semibold">Kubernetes</h4>
-                        </div>
-                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fa-solid fa-cogs text-4xl text-zinc-300 mb-4" aria-hidden="true"></i>
-                            <h4 class="font-semibold">CI/CD</h4>
-                        </div>
-                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fa-brands fa-linux text-4xl text-zinc-300 mb-4" aria-hidden="true"></i>
-                            <h4 class="font-semibold">Linux &amp; Bash</h4>
-                        </div>
-                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fa-solid fa-network-wired text-4xl text-cyan-400 mb-4" aria-hidden="true"></i>
-                            <h4 class="font-semibold">Networking</h4>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Programming & Data -->
-                <div class="fade-up">
-                    <h3 class="text-sm font-semibold uppercase tracking-wider text-blue-400 mb-5">Programming &amp; Data</h3>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
-                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fa-brands fa-python text-4xl text-yellow-400 mb-4" aria-hidden="true"></i>
-                            <h4 class="font-semibold">Python</h4>
-                        </div>
-                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fa-solid fa-database text-4xl text-blue-300 mb-4" aria-hidden="true"></i>
-                            <h4 class="font-semibold">Databases</h4>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- IoT & Embedded -->
-                <div class="fade-up">
-                    <h3 class="text-sm font-semibold uppercase tracking-wider text-blue-400 mb-5">IoT &amp; Embedded</h3>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
-                        <div class="skill-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center">
-                            <i class="fa-solid fa-microchip text-4xl text-green-400 mb-4" aria-hidden="true"></i>
-                            <h4 class="font-semibold">ESP32 / IoT</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="hero-actions">
+          <a href="#projects" class="btn-primary">View My Work</a>
+          <a href="#contact" class="btn-secondary">Contact Me</a>
+          <a href="resume.pdf" class="btn-text mono" download>Download Résumé ↓</a>
         </div>
-    </section>
 
-    <!-- ========== EXPERIENCE SECTION ========== -->
-    <section id="experience" class="py-24 bg-zinc-900/50 scroll-mt-24">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-up">
-                <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-4">Experience</h2>
-                <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
-            </div>
-
-            <div class="max-w-3xl mx-auto space-y-8">
-                <!-- Industrial Training / Intern -->
-                <div class="fade-up border-l-2 border-blue-500 pl-8 relative">
-                    <div class="absolute -left-2.5 top-0 w-5 h-5 rounded-full bg-blue-500"></div>
-                    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
-                        <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
-                            <h3 class="text-xl font-semibold text-white">Cloud Engineering Intern (IT)</h3>
-                            <span class="text-sm text-blue-400 font-medium">2026</span>
-                        </div>
-                        <p class="text-zinc-400 mb-4">Worked on cloud infrastructure setup, automation scripts, and monitoring solutions during Industrial Training.</p>
-                        <ul class="text-zinc-400 text-sm space-y-2">
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-400 mt-1" aria-hidden="true"></i> Assisted in deploying and managing cloud resources</li>
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-400 mt-1" aria-hidden="true"></i> Wrote automation scripts for infrastructure tasks</li>
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-400 mt-1" aria-hidden="true"></i> Monitored system performance and reliability</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Final Year Project Lead -->
-                <div class="fade-up border-l-2 border-blue-500 pl-8 relative">
-                    <div class="absolute -left-2.5 top-0 w-5 h-5 rounded-full bg-blue-500"></div>
-                    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
-                        <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
-                            <h3 class="text-xl font-semibold text-white">Final Year Project Lead</h3>
-                            <span class="text-sm text-blue-400 font-medium">2025 – 2026</span>
-                        </div>
-                        <p class="text-zinc-400 mb-4">Designed and built a complete Smart Fire Detection System, from circuit to cloud to mobile app — successfully defended.</p>
-                        <ul class="text-zinc-400 text-sm space-y-2">
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-400 mt-1" aria-hidden="true"></i> Led hardware selection, circuit design and ESP32 programming</li>
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-400 mt-1" aria-hidden="true"></i> Built a Flask + Firebase backend and a React Native (Expo) app for live monitoring</li>
-                            <li class="flex items-start gap-2"><i class="fa-solid fa-check text-blue-400 mt-1" aria-hidden="true"></i> Implemented FCM push alerts and demonstrated real-time fire detection end-to-end</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <div class="hero-meta">
+          <div class="meta-item">
+            <span class="meta-num mono">1</span>
+            <span class="meta-label">End-to-end system shipped &amp; defended</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-num mono">6+</span>
+            <span class="meta-label">Cloud &amp; infra tools in active use</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-num mono">2026</span>
+            <span class="meta-label">Bowen University graduate</span>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <!-- ========== EDUCATION SECTION ========== -->
-    <section id="education" class="py-24 scroll-mt-24">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-up">
-                <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-4">Education</h2>
-                <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
-            </div>
-
-            <div class="max-w-3xl mx-auto fade-up">
-                <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-start">
-                    <div class="w-14 h-14 shrink-0 bg-blue-600/20 rounded-xl flex items-center justify-center">
-                        <i class="fa-solid fa-graduation-cap text-blue-400 text-2xl" aria-hidden="true"></i>
-                    </div>
-                    <div class="flex-1">
-                        <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
-                            <h3 class="text-xl font-semibold text-white">B.Sc. Computer Science</h3>
-                            <span class="text-sm text-blue-400 font-medium">2022 – 2026</span>
-                        </div>
-                        <p class="text-zinc-400 mb-3">Bowen University, Iwo, Nigeria</p>
-                        <p class="text-zinc-400 text-sm leading-relaxed">
-                            Final year project: Smart Fire Detection System (ESP32, Flask, Firebase, React Native) — successfully defended.
-                        </p>
-                    </div>
-                </div>
-            </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="stack-diagram">
+          <div class="stack-node" style="--i:0">
+            <span class="stack-tag mono">DEVICE</span>
+            <span class="stack-name">ESP32 sensor rig</span>
+          </div>
+          <div class="stack-wire"></div>
+          <div class="stack-node" style="--i:1">
+            <span class="stack-tag mono">API</span>
+            <span class="stack-name">Flask backend</span>
+          </div>
+          <div class="stack-wire"></div>
+          <div class="stack-node" style="--i:2">
+            <span class="stack-tag mono">STORE</span>
+            <span class="stack-name">Firebase Realtime DB</span>
+          </div>
+          <div class="stack-wire"></div>
+          <div class="stack-node" style="--i:3">
+            <span class="stack-tag mono">CLIENT</span>
+            <span class="stack-name">React Native + FCM alerts</span>
+          </div>
+          <div class="stack-caption mono">// live data flow — smart fire detection system</div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- ========== PROJECTS SECTION ========== -->
-    <section id="projects" class="py-24 bg-zinc-900/50 scroll-mt-24">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-up">
-                <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-4">Featured Projects</h2>
-                <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- PROJECT 1: Smart Fire System -->
-                <div class="project-card bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden fade-up md:col-span-2">
-                    <div class="p-8 lg:p-10">
-                        <div class="flex flex-wrap items-center gap-3 mb-4">
-                            <span class="px-3 py-1 bg-blue-600/20 text-blue-400 text-xs font-semibold rounded-full">Final Year Project</span>
-                            <span class="px-3 py-1 bg-cyan-500/20 text-cyan-300 text-xs font-semibold rounded-full">IoT + Cloud</span>
-                            <span class="px-3 py-1 bg-violet-500/20 text-violet-300 text-xs font-semibold rounded-full">Full-Stack</span>
-                            <span class="inline-flex items-center gap-1.5 text-emerald-400 text-xs font-semibold">
-                                <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Successfully Defended
-                            </span>
-                        </div>
-
-                        <h3 class="text-2xl lg:text-3xl font-bold heading mb-4">Smart Fire Detection &amp; Alert System</h3>
-
-                        <p class="text-zinc-400 text-lg leading-relaxed mb-6">
-                            Designed and built a complete real-time fire detection and early warning system as my final year project.
-                            The system continuously monitors the environment for signs of fire and triggers both a local alarm and remote mobile alerts.
-                        </p>
-
-                        <div class="grid sm:grid-cols-2 gap-6 mb-8">
-                            <div>
-                                <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
-                                    <i class="fa-solid fa-microchip text-blue-400" aria-hidden="true"></i> Hardware Components
-                                </h4>
-                                <ul class="space-y-2 text-zinc-400 text-sm">
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle text-blue-500 text-xs" aria-hidden="true"></i> <strong>ESP32</strong> – Main microcontroller with Wi-Fi</li>
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle text-blue-500 text-xs" aria-hidden="true"></i> <strong>MQ-2</strong> – Smoke &amp; gas detection sensor</li>
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle text-blue-500 text-xs" aria-hidden="true"></i> <strong>DHT11</strong> – Temperature &amp; humidity sensor</li>
-                                    <li class="flex items-center gap-2"><i class="fa-solid fa-circle text-blue-500 text-xs" aria-hidden="true"></i> <strong>Buzzer</strong> – Local audible alarm</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-white mb-3 flex items-center gap-2">
-                                    <i class="fa-solid fa-cloud text-blue-400" aria-hidden="true"></i> Software &amp; Cloud Architecture
-                                </h4>
-                                <ul class="space-y-2 text-zinc-400 text-sm">
-                                    <li class="flex items-start gap-2"><i class="fa-solid fa-arrow-right text-blue-500 text-xs mt-1.5" aria-hidden="true"></i> ESP32 streams smoke, gas and temperature readings to a Flask API</li>
-                                    <li class="flex items-start gap-2"><i class="fa-solid fa-arrow-right text-blue-500 text-xs mt-1.5" aria-hidden="true"></i> Flask relays readings into a Firebase Realtime Database</li>
-                                    <li class="flex items-start gap-2"><i class="fa-solid fa-arrow-right text-blue-500 text-xs mt-1.5" aria-hidden="true"></i> A React Native (Expo) app subscribes to Firebase for live updates</li>
-                                    <li class="flex items-start gap-2"><i class="fa-solid fa-arrow-right text-blue-500 text-xs mt-1.5" aria-hidden="true"></i> FCM pushes remote alerts the moment a threshold is crossed</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800">
-                            <h4 class="font-semibold text-white mb-3">What I Accomplished</h4>
-                            <p class="text-zinc-400 text-sm leading-relaxed">
-                                I designed the circuit, selected and integrated the sensors (MQ-2 + DHT11), programmed the ESP32, built a Flask backend to receive sensor data and relay it to a Firebase Realtime Database, developed a companion React Native (Expo) app for live monitoring, wired up FCM push notifications for remote alerts, and implemented the local buzzer as a hardware-level failsafe that fires even if the network connection drops. Successfully built, demonstrated, and defended as my final year project.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="section-inner">
+      <p class="eyebrow mono">01 · About</p>
+      <div class="about-grid">
+        <p class="about-lead">
+          I'm a Computer Science graduate and aspiring Cloud Engineer with a strong
+          pull toward building systems that stay reliable long after the demo is over.
+        </p>
+        <div class="about-body">
+          <p>
+            My path into engineering started with hardware and embedded systems and
+            has moved steadily up the stack into cloud infrastructure and DevOps.
+            I like the layer where a physical sensor's reading becomes a decision
+            a system — or a person — can act on.
+          </p>
+          <p>
+            For my final year project, my partner and I designed and built a Smart
+            Fire Detection System: an ESP32-based sensor rig streaming live readings
+            through a Flask backend into Firebase, with a React Native app and push
+            notifications closing the loop in real time. Circuit to cloud to
+            phone, one working pipeline, defended end to end.
+          </p>
+          <p>
+            I'm currently deepening my hands-on time with AWS, Azure, Terraform,
+            Docker, and Kubernetes — applying the same engineering discipline to
+            infrastructure that I applied to circuits and firmware. My focus for
+            2026 is turning "I understand cloud concepts" into "I've deployed
+            and operated real infrastructure."
+          </p>
         </div>
-    </section>
+      </div>
 
-    <!-- ========== CONTACT SECTION ========== -->
-    <section id="contact" class="py-24 scroll-mt-24">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16 fade-up">
-                <h2 class="text-4xl sm:text-5xl font-bold heading tracking-tight mb-4">Get In Touch</h2>
-                <div class="w-20 h-1 bg-blue-500 mx-auto rounded-full"></div>
-            </div>
-            <div class="max-w-xl mx-auto text-center fade-up">
-                <p class="text-zinc-400 text-lg mb-8">
-                    Whether you have a question about my projects, want to discuss cloud infrastructure, or just want to say hi, my inbox is always open.
-                </p>
-                <a href="mailto:Imegufavour30@gmail.com" class="inline-block bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg shadow-blue-600/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
-                    Say Hello
-                </a>
-            </div>
+      <div class="now-bar">
+        <span class="now-label mono">CURRENTLY DEEPENING</span>
+        <div class="now-items">
+          <span class="now-item mono">AWS Solutions Architecture</span>
+          <span class="now-item mono">Terraform / IaC</span>
+          <span class="now-item mono">Kubernetes fundamentals</span>
+          <span class="now-item mono">CI/CD pipelines</span>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- ========== FOOTER ========== -->
-    <footer class="py-8 border-t border-zinc-800/50 text-center text-zinc-500 text-sm">
-        <p>&copy; 2026 Favour Imegu EwoMazino. Built with Tailwind CSS.</p>
-    </footer>
+  <!-- APPROACH -->
+  <section class="section section-alt" id="approach">
+    <div class="section-inner">
+      <p class="eyebrow mono">03 · Approach</p>
+      <h2 class="section-title">How I Work</h2>
 
-    <!-- ========== SCRIPTS ========== -->
-    <script>
-        // Scroll Progress Bar + navbar solid state
-        const navbarEl = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById('progress-bar').style.width = scrolled + '%';
+      <div class="approach-grid">
+        <article class="approach-card">
+          <span class="approach-num mono">01</span>
+          <h3>Reliability first</h3>
+          <p>A system that only works in the demo isn't finished. I design for the
+          case where the network drops, the sensor lies, or the request times out —
+          like the local buzzer failsafe in my fire detection system, which fires
+          even without a connection.</p>
+        </article>
+        <article class="approach-card">
+          <span class="approach-num mono">02</span>
+          <h3>Automate the boring part</h3>
+          <p>If I'm doing it by hand twice, it becomes a script the third time.
+          Automation isn't a nice-to-have on top of infrastructure — it's what
+          makes infrastructure trustworthy at scale.</p>
+        </article>
+        <article class="approach-card">
+          <span class="approach-num mono">03</span>
+          <h3>Instrument everything</h3>
+          <p>You can't fix what you can't see. Monitoring and alerting go in from
+          day one, not bolted on after something breaks — the same principle
+          behind the push-alert loop my partner and I built into our own project.</p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-            if (winScroll > 20) {
-                navbarEl.classList.add('scrolled');
-            } else {
-                navbarEl.classList.remove('scrolled');
-            }
-        });
+  <!-- STACK / SKILLS -->
+  <section class="section section-alt" id="stack">
+    <div class="section-inner">
+      <p class="eyebrow mono">02 · Stack</p>
+      <h2 class="section-title">Skills &amp; Tools</h2>
 
-        // Mobile Menu Toggle
-        const menuBtn = document.getElementById('menu-btn');
-        const closeMenuBtn = document.getElementById('close-menu');
-        const mobileMenu = document.getElementById('mobile-menu');
+      <div class="stack-grid">
+        <article class="stack-card">
+          <h3 class="mono">Cloud Platforms</h3>
+          <p class="stack-desc">Provisioning and managing resources across major providers.</p>
+          <ul class="tag-list">
+            <li>AWS</li><li>Azure</li><li>Google Cloud</li>
+          </ul>
+        </article>
 
-        function toggleMenu() {
-            const isOpen = mobileMenu.classList.contains('opacity-100');
-            if (isOpen) {
-                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
-                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
-                document.body.classList.remove('overflow-hidden');
-            } else {
-                mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
-                mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
-                document.body.classList.add('overflow-hidden');
-            }
+        <article class="stack-card">
+          <h3 class="mono">Infrastructure &amp; DevOps</h3>
+          <p class="stack-desc">Automating deployment, scaling, and the systems that keep infrastructure honest.</p>
+          <ul class="tag-list">
+            <li>Terraform</li><li>Docker</li><li>Kubernetes</li>
+            <li>CI/CD</li><li>Linux &amp; Bash</li><li>Networking</li>
+          </ul>
+        </article>
+
+        <article class="stack-card">
+          <h3 class="mono">Programming &amp; Data</h3>
+          <p class="stack-desc">The backend layer — talking to sensors, APIs, and storage.</p>
+          <ul class="tag-list">
+            <li>Python</li><li>Databases</li>
+          </ul>
+        </article>
+
+        <article class="stack-card">
+          <h3 class="mono">IoT &amp; Embedded</h3>
+          <p class="stack-desc">Where infrastructure meets hardware — firmware to first byte.</p>
+          <ul class="tag-list">
+            <li>ESP32 / IoT</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section" id="experience">
+    <div class="section-inner">
+      <p class="eyebrow mono">04 · Experience</p>
+      <h2 class="section-title">Work &amp; Leadership</h2>
+
+      <div class="log">
+        <article class="log-entry">
+          <div class="log-time mono">2026</div>
+          <div class="log-body">
+            <h3>Cloud Engineering Intern (IT)</h3>
+            <p>Worked on cloud infrastructure setup, automation scripts, and monitoring solutions during Industrial Training.</p>
+            <ul>
+              <li>Assisted in deploying and managing cloud resources</li>
+              <li>Wrote automation scripts for infrastructure tasks</li>
+              <li>Monitored system performance and reliability</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="log-entry">
+          <div class="log-time mono">2025 – 2026</div>
+          <div class="log-body">
+            <h3>Final Year Project — Smart Fire Detection System</h3>
+            <p>Designed and built, with a partner, a complete Smart Fire Detection System, from circuit to cloud to mobile app — successfully defended.</p>
+            <ul>
+              <li>Collaborated on hardware selection, circuit design, and ESP32 programming</li>
+              <li>Built a Flask + Firebase backend and a React Native (Expo) app for live monitoring</li>
+              <li>Implemented FCM push alerts and demonstrated real-time detection end-to-end</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-time mono">2022 – 2026</div>
+        <div>
+          <h3>B.Sc. Computer Science</h3>
+          <p>Bowen University, Iwo, Nigeria</p>
+          <p class="edu-note">Final year project: Smart Fire Detection System (ESP32, Flask, Firebase, React Native) — successfully defended.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section section-alt" id="projects">
+    <div class="section-inner">
+      <p class="eyebrow mono">05 · Projects</p>
+      <h2 class="section-title">Featured Project</h2>
+
+      <article class="project-card">
+        <div class="project-tags">
+          <span class="tag-pill">Final Year Project</span>
+          <span class="tag-pill">IoT + Cloud Full-Stack</span>
+          <span class="tag-pill">Built with a partner</span>
+          <span class="tag-pill tag-pill-success">Successfully Defended</span>
+        </div>
+
+        <h3 class="project-title">Smart Fire Detection &amp; Alert System</h3>
+
+        <div class="project-cols">
+          <div>
+            <h4 class="mono">Problem</h4>
+            <p>Fire needs to be caught in seconds, not minutes — and someone away from the room still needs to know the moment it starts.</p>
+          </div>
+          <div>
+            <h4 class="mono">What We Built</h4>
+            <p>An ESP32 rig (MQ-2 smoke/gas + DHT11 temp/humidity + buzzer) streaming live readings through a Flask API into Firebase, with a React Native app subscribed for real-time updates and FCM push alerts the instant a threshold is crossed. The buzzer fires locally even if the network drops.</p>
+          </div>
+          <div>
+            <h4 class="mono">Impact</h4>
+            <p>Built, demonstrated, and successfully defended as a complete final year project — circuit to cloud to mobile app, working end to end.</p>
+          </div>
+        </div>
+
+        <div class="project-tech mono">
+          ESP32 · MQ-2 · DHT11 · Flask · Firebase Realtime DB · React Native (Expo) · FCM
+        </div>
+
+        <div class="project-links">
+          <a href="#" class="btn-secondary btn-small" data-placeholder="github">GitHub ↗</a>
+          <a href="#" class="btn-secondary btn-small" data-placeholder="demo">Demo Video ↗</a>
+        </div>
+      </article>
+
+      <p class="more-work-note">More projects in progress — check back soon, or see what I'm shipping on <a href="https://github.com/codeWithGojo" target="_blank" rel="noopener">GitHub</a>.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="section-inner contact-inner">
+      <p class="eyebrow mono">06 · Contact</p>
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="contact-lead">
+        Whether it's a question about a project, a role, or cloud infrastructure
+        in general — my inbox is open.
+      </p>
+
+      <div class="contact-links">
+        <a href="mailto:Imegufavour30@gmail.com" class="contact-link">
+          <span class="mono">Email</span>
+          <span>Imegufavour30@gmail.com</span>
+        </a>
+        <a href="https://github.com/codeWithGojo" target="_blank" rel="noopener" class="contact-link">
+          <span class="mono">GitHub</span>
+          <span>github.com/codeWithGojo</span>
+        </a>
+        <a href="#" class="contact-link" data-placeholder="linkedin">
+          <span class="mono">LinkedIn</span>
+          <span>Add your profile link</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>© 2026 Favour Imegu EwoMazino. Built with care, deployed on GitHub Pages.</p>
+</footer>
+
+<script>
+// Mobile nav toggle
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+
+navToggle.addEventListener('click', () => {
+  const isOpen = navLinks.classList.toggle('is-open');
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+});
+
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('is-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// Scroll progress bar
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  progressBar.style.width = (height > 0 ? (scrollTop / height) * 100 : 0) + '%';
+});
+
+// Terminal typing effect
+const typingPhrases = [
+  "aws cloud practitioner",
+  "devops enthusiast",
+  "cloud infrastructure builder"
+];
+const typingEl = document.getElementById('typing-text');
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (typingEl) {
+  if (prefersReducedMotion) {
+    typingEl.textContent = typingPhrases[0];
+  } else {
+    let phraseIndex = 0, charIndex = 0, deleting = false;
+    const typeLoop = () => {
+      const phrase = typingPhrases[phraseIndex];
+      if (!deleting) {
+        charIndex++;
+        typingEl.textContent = phrase.slice(0, charIndex);
+        if (charIndex === phrase.length) {
+          deleting = true;
+          setTimeout(typeLoop, 1600);
+          return;
         }
-
-        menuBtn.addEventListener('click', toggleMenu);
-        closeMenuBtn.addEventListener('click', toggleMenu);
-
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', toggleMenu);
-        });
-
-        // Typing Effect — loops through multiple taglines, type/pause/delete
-        const phrases = [
-            "aws cloud practitioner",
-            "devops enthusiast",
-            "cloud infrastructure builder"
-        ];
-        const typingElement = document.getElementById('typing-text');
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let deleting = false;
-
-        function typeLoop() {
-            const currentPhrase = phrases[phraseIndex];
-
-            if (!deleting) {
-                charIndex++;
-                typingElement.textContent = currentPhrase.slice(0, charIndex);
-                if (charIndex === currentPhrase.length) {
-                    deleting = true;
-                    setTimeout(typeLoop, 1600); // pause on full phrase
-                    return;
-                }
-                setTimeout(typeLoop, 70);
-            } else {
-                charIndex--;
-                typingElement.textContent = currentPhrase.slice(0, charIndex);
-                if (charIndex === 0) {
-                    deleting = false;
-                    phraseIndex = (phraseIndex + 1) % phrases.length;
-                    setTimeout(typeLoop, 300); // pause before next phrase
-                    return;
-                }
-                setTimeout(typeLoop, 35);
-            }
+        setTimeout(typeLoop, 70);
+      } else {
+        charIndex--;
+        typingEl.textContent = phrase.slice(0, charIndex);
+        if (charIndex === 0) {
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % typingPhrases.length;
+          setTimeout(typeLoop, 300);
+          return;
         }
+        setTimeout(typeLoop, 35);
+      }
+    };
+    setTimeout(typeLoop, 900);
+  }
+}
 
-        if (prefersReducedMotion) {
-            // Show a static phrase instead of animating, respecting the user's motion preference
-            typingElement.textContent = phrases[0];
-        } else {
-            setTimeout(typeLoop, 1000);
-        }
+// Scroll reveal
+const revealEls = document.querySelectorAll(
+  '.about-grid, .now-bar, .approach-card, .stack-card, .log-entry, .edu-card, .project-card, .contact-link'
+);
+revealEls.forEach(el => el.classList.add('reveal'));
 
-        // Intersection Observer
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
+revealEls.forEach(el => io.observe(el));
 
-        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-    </script>
+// Placeholder link guard — projects/contact links not yet filled in
+document.querySelectorAll('[data-placeholder]').forEach(el => {
+  el.addEventListener('click', (e) => {
+    if (el.getAttribute('href') === '#') {
+      e.preventDefault();
+      alert('Add your ' + el.dataset.placeholder + ' link in index.html to activate this.');
+    }
+  });
+});
+
+</script>
 </body>
 </html>

@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Favour Imegu | DevOps Engineer</title>
     <meta name="description" content="Portfolio of Favour Imegu EwoMazino — Aspiring DevOps Engineer & Computer Science graduate specializing in cloud infrastructure, automation, and IoT.">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://portfolio-favour12.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Favour Imegu | DevOps & Cloud Engineer">
+    <meta property="og:description" content="Cloud infrastructure, automation, IoT systems, and selected projects by Favour Imegu.">
+    <meta property="og:url" content="https://portfolio-favour12.vercel.app/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Favour Imegu | DevOps & Cloud Engineer">
+    <meta name="twitter:description" content="Cloud infrastructure, automation, IoT systems, and selected projects by Favour Imegu.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -111,15 +120,20 @@
         .contact-box a, .contact-box p { font-size: 1.5rem; color: #fff; }
         footer { text-align: center; padding: 2.5rem; border-top: 1px solid #1a1a1a; font-size: 1.4rem; color: #666; }
         footer span { color: #b74b4b; }
+        .skip-link { position: fixed; top: -100px; left: 2rem; z-index: 2000; padding: 1rem 1.5rem; border-radius: 0.8rem; background: #b74b4b; color: #000; font-size: 1.4rem; font-weight: 700; transition: top 0.2s ease; }
+        .skip-link:focus { top: 1.5rem; }
+        :focus-visible { outline: 3px solid #e87979; outline-offset: 4px; }
         @media (max-width: 1100px) { .home { gap: 4rem; } .home-content h1 { font-size: 4.5rem; } .typing-text { font-size: 2.6rem; } }
         @media (max-width: 900px) { header { padding: 1.5rem 5%; } nav { position: fixed; top: 0; right: -100%; width: 70%; max-width: 320px; height: 100vh; background: #111; flex-direction: column; justify-content: flex-start; padding: 8rem 3rem; gap: 2rem; transition: 0.4s ease; border-left: 3px solid #b74b4b; } nav.active { right: 0; } nav a { margin-left: 0; font-size: 2rem; } .menu-btn { display: block; } section { padding: 9rem 5% 5rem; } .home { flex-direction: column-reverse; text-align: center; gap: 3rem; } .home-img img { width: 65vw; max-width: 280px; } .home-content h1 { font-size: 4rem; } .typing-text { font-size: 2.4rem; } .social-icons { justify-content: center; } .about-grid { grid-template-columns: 1fr; } .project-cols { grid-template-columns: 1fr; } .about-stats { justify-content: center; } }
         @media (max-width: 500px) { .home-content h1 { font-size: 3.4rem; } .typing-text { font-size: 2rem; } .section-title { font-size: 3rem; } }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
     </style>
 </head>
 <body>
+    <a href="#home" class="skip-link">Skip to main content</a>
     <header>
         <a href="#home" class="logo">Favour</a>
-        <nav id="navMenu">
+        <nav id="navMenu" aria-label="Primary navigation">
             <a href="#home" class="active">Home</a>
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
@@ -128,7 +142,7 @@
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
         </nav>
-        <button class="menu-btn" id="menuBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu"><i class="fas fa-bars"></i></button>
     </header>
 
     <section class="home" id="home">
@@ -142,8 +156,7 @@
             <div class="social-icons">
                 <a href="https://github.com/codeWithGojo" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
                 <a href="mailto:Imegufavour30@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-                <a href="https://github.com/codeWithGojo" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="#" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://x.com/not_favour" target="_blank" rel="noopener" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
             </div>
             <a href="#contact" class="btn">Hire me</a>
         </div>
@@ -226,6 +239,7 @@
         const navMenu = document.getElementById('navMenu');
         menuBtn.addEventListener('click', () => {
             navMenu.classList.toggle('active');
+            menuBtn.setAttribute('aria-expanded', navMenu.classList.contains('active') ? 'true' : 'false');
             const icon = menuBtn.querySelector('i');
             if (navMenu.classList.contains('active')) icon.classList.replace('fa-bars', 'fa-times');
             else icon.classList.replace('fa-times', 'fa-bars');
@@ -233,6 +247,7 @@
         navMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
+                menuBtn.setAttribute('aria-expanded', 'false');
                 menuBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
             });
         });

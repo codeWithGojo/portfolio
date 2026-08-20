@@ -105,6 +105,22 @@ const projects = [
       { label: "Live demo", href: "https://portfolio-favour12.vercel.app/afri-index.html" },
     ],
   },
+  {
+    number: "06",
+    title: "TerraScope — Living World Encyclopedia",
+    tags: ["Next.js", "Interactive Data", "Editorial Research"],
+    status: "Redesigned & live",
+    why: "I wanted a world atlas that felt worth exploring, not another page of copied country facts. The idea was to connect the numbers to the people, places, sports and stories that make each country recognisable.",
+    built: "A 195-country encyclopedia with a black-and-red world dashboard, interactive dotted map, country rankings, comparison tools, travel guides and detailed profiles. The People archive now includes 63 footballers across new generation, modern icon and legend eras, with searchable filters and expandable dossiers.",
+    learned: "Country data looks clean only after a lot of decisions. Names, borders, population years, currencies and rankings all arrive in different formats. I learned to separate structured records from editorial writing so the facts can update without flattening every country into the same template.",
+    challenge: "Keeping the project detailed without turning it into a wall of text. The hardest part was making 195 country records consistent while still giving the deeper profiles and football archive enough personality and context.",
+    outcome: "A portfolio-scale living atlas with interactive discovery, eight ranking lenses, 195 country records and an extensive football archive covering 63 current and historic players.",
+    tech: ["Next.js", "React", "TypeScript", "SVG Maps", "World Countries", "Responsive UI", "Vercel"],
+    links: [
+      { label: "GitHub", href: "https://github.com/codeWithGojo/terrascope-world-encyclopedia" },
+      { label: "Interactive preview", href: "https://terrascope-world-encyclopedia.vercel.app" },
+    ],
+  },
 ];
 
 function MarkIcon({ name }: { name: "github" | "mail" | "x" | "moon" | "sun" | "menu" | "close" | "arrow" }) {

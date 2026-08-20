@@ -89,6 +89,22 @@ const projects = [
       { label: "Live demo", href: "https://codewithgojo.github.io/PredictArena/" },
     ],
   },
+  {
+    number: "05",
+    title: "AFR/INDEX — The Living Afrobeats Index",
+    tags: ["Editorial Data", "Music Analytics", "Frontend"],
+    status: "Living index · live",
+    why: "Most Afrobeats rankings read like fan arguments with numbers added afterwards. I wanted to build one where the method is visible, the data has dates and sources, and disagreement can start with the actual weighting instead of hype.",
+    built: "A dark editorial index with an All-Time 50, a researched Current 50, weekly rank movement, side-by-side era comparison, eleven weighted Current metrics, and artist files with portraits, biographies, monthly listeners, and tracked Spotify streams.",
+    learned: "Public music data is far messier than a polished chart suggests. Monthly audiences move daily, catalogue totals differ between trackers, and cross-era comparisons need qualitative context as much as platform numbers.",
+    challenge: "Ranking real named artists means every position has to be defensible. I had to keep streaming evidence useful without letting Spotify erase the achievements of artists whose biggest work predates it.",
+    outcome: "Turned a static ranking into a transparent living index with update history, sourced streaming signals, reliable artist imagery, and a methodology readers can inspect.",
+    tech: ["HTML", "CSS", "JavaScript", "Editorial Research", "Local Storage", "Spotify Data", "Vercel"],
+    links: [
+      { label: "GitHub", href: "https://github.com/codeWithGojo/afrobeats-index" },
+      { label: "Live demo", href: "https://portfolio-favour12.vercel.app/afri-index.html" },
+    ],
+  },
 ];
 
 function MarkIcon({ name }: { name: "github" | "mail" | "x" | "moon" | "sun" | "menu" | "close" | "arrow" }) {

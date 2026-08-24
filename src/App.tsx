@@ -86,7 +86,7 @@ const projects = [
     tech: ["Next.js", "React", "TypeScript", "TheSportsDB API", "Poisson Model", "Local Storage", "Responsive UI"],
     links: [
       { label: "GitHub", href: "https://github.com/codeWithGojo/PredictArena" },
-      { label: "Live demo", href: "https://predictarena.imegufavour30.chatgpt.site" },
+      { label: "Live demo", href: "https://predictarena-favour12.vercel.app" },
     ],
   },
   {

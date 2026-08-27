@@ -30,6 +30,22 @@ const skills = [
 const projects = [
   {
     number: "01",
+    title: "CoDM Squad Hub — Cloud-Native Esports Platform",
+    tags: ["React Native", "Cloud Engineering", "Esports + AI"],
+    status: "Interactive v6 · live preview",
+    why: "Bad connections, scattered tournament records, and team management happening across different chats cost African CODM players real matches. I wanted one serious platform where competition, team operations, player history and gaming-specific network tools actually connect.",
+    built: "A mobile-first competitive esports platform with Owner HQ, T1–T4 roster management, Tournament Control, Player Passport, rankings, Scrim Finder, scouting, AI Training, VOD workflows and a Connection Check for gaming-focused ping, speed and Nigerian ISP coverage.",
+    learned: "Building this pushed me beyond frontend work into event-driven cloud architecture, asynchronous jobs, auditability, player identity, network quality and how Nigerian ISP performance can change heavily by region.",
+    challenge: "The hardest part is keeping official competitive history trustworthy while connecting a lot of workflows, and getting useful Nigerian ISP data without pretending limited public coverage data is more precise than it is.",
+    outcome: "A clickable Expo/React Native development build backed by FastAPI foundations, cloud infrastructure docs and event-driven workflows, with the Owner HQ and AI Training flows now interactive.",
+    tech: ["React Native", "Expo", "FastAPI", "PostgreSQL", "Redis", "Docker", "Terraform", "AWS", "SQS", "S3", "Gemini"],
+    links: [
+      { label: "GitHub", href: "https://github.com/codeWithGojo/CODM-SQUAD-HUB" },
+      { label: "Interactive preview", href: "https://codm-squad-hub-preview-test-favour12.vercel.app" },
+    ],
+  },
+  {
+    number: "01",
     title: "Smart Fire Detection & Alert System",
     tags: ["Final Year Project", "IoT + Cloud Full-Stack"],
     status: "Successfully defended",

@@ -1,0 +1,51 @@
+name: Add CoDM Squad Hub to portfolio
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/add-codm-project.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Add CoDM Squad Hub project
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p = Path('src/App.tsx')
+          s = p.read_text()
+          title = 'CoDM Squad Hub — Cloud-Native Esports Platform'
+          if title not in s:
+              marker = 'const projects = [\n'
+              entry = '''  {\n    number: "01",\n    title: "CoDM Squad Hub — Cloud-Native Esports Platform",\n    tags: ["React Native", "Cloud Engineering", "Esports + AI"],\n    status: "Interactive v6 · live preview",\n    why: "Bad connections, scattered tournament records, and team management happening across different chats cost African CODM players real matches. I wanted one serious platform where competition, team operations, player history and gaming-specific network tools actually connect.",\n    built: "A mobile-first competitive esports platform with Owner HQ, T1–T4 roster management, Tournament Control, Player Passport, rankings, Scrim Finder, scouting, AI Training, VOD workflows and a Connection Check for gaming-focused ping, speed and Nigerian ISP coverage.",\n    learned: "Building this pushed me beyond frontend work into event-driven cloud architecture, asynchronous jobs, auditability, player identity, network quality and how Nigerian ISP performance can change heavily by region.",\n    challenge: "The hardest part is keeping official competitive history trustworthy while connecting a lot of workflows, and getting useful Nigerian ISP data without pretending limited public coverage data is more precise than it is.",\n    outcome: "A clickable Expo/React Native development build backed by FastAPI foundations, cloud infrastructure docs and event-driven workflows, with the Owner HQ and AI Training flows now interactive.",\n    tech: ["React Native", "Expo", "FastAPI", "PostgreSQL", "Redis", "Docker", "Terraform", "AWS", "SQS", "S3", "Gemini"],\n    links: [\n      { label: "GitHub", href: "https://github.com/codeWithGojo/CODM-SQUAD-HUB" },\n      { label: "Interactive preview", href: "https://codm-squad-hub-preview-test-favour12.vercel.app" },\n    ],\n  },\n'''
+              s = s.replace(marker, marker + entry, 1)
+              # Renumber project cards in their displayed order.
+              counter = 0
+              def repl(m):
+                  nonlocal_counter[0] += 1
+                  return f'number: "{nonlocal_counter[0]:02d}"'
+              nonlocal_counter = [0]
+              s = re.sub(r'number: "\\d{2}"', repl, s)
+              p.write_text(s)
+          PY
+      - name: Commit portfolio update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/App.tsx
+          if git diff --cached --quiet; then
+            echo "Portfolio already updated"
+          else
+            git commit -m "feat: add CoDM Squad Hub to portfolio"
+            git push origin main
+          fi

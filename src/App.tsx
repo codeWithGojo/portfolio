@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { projects } from "./projects";
 
 const skills = [
   {
@@ -27,117 +28,6 @@ const skills = [
   },
 ];
 
-const projects = [
-  {
-    number: "01",
-    title: "CoDM Squad Hub — Cloud-Native Esports Platform",
-    tags: ["React Native", "Cloud Engineering", "Esports + AI"],
-    status: "Interactive v6 · live preview",
-    why: "Bad connections, scattered tournament records, and team management happening across different chats cost African CODM players real matches. I wanted one serious platform where competition, team operations, player history and gaming-specific network tools actually connect.",
-    built: "A mobile-first competitive esports platform with Owner HQ, T1–T4 roster management, Tournament Control, Player Passport, rankings, Scrim Finder, scouting, AI Training, VOD workflows and a Connection Check for gaming-focused ping, speed and Nigerian ISP coverage.",
-    learned: "Building this pushed me beyond frontend work into event-driven cloud architecture, asynchronous jobs, auditability, player identity, network quality and how Nigerian ISP performance can change heavily by region.",
-    challenge: "The hardest part is keeping official competitive history trustworthy while connecting a lot of workflows, and getting useful Nigerian ISP data without pretending limited public coverage data is more precise than it is.",
-    outcome: "A clickable Expo/React Native development build backed by FastAPI foundations, cloud infrastructure docs and event-driven workflows, with the Owner HQ and AI Training flows now interactive.",
-    tech: ["React Native", "Expo", "FastAPI", "PostgreSQL", "Redis", "Docker", "Terraform", "AWS", "SQS", "S3", "Gemini"],
-    links: [
-      { label: "GitHub", href: "https://github.com/codeWithGojo/CODM-SQUAD-HUB" },
-      { label: "Interactive preview", href: "https://codm-squad-hub-preview-test-favour12.vercel.app" },
-    ],
-  },
-  {
-    number: "01",
-    title: "Smart Fire Detection & Alert System",
-    tags: ["Final Year Project", "IoT + Cloud Full-Stack"],
-    status: "Successfully defended",
-    why: "I didn’t want my final-year project to be another app made only for presentation day. A fire in a hostel room is easy to understand and hard to ignore, so we chose a problem where a fast alert could genuinely matter.",
-    built: "An ESP32 rig with an MQ-2, DHT11, and buzzer streaming live readings through a Flask API into Firebase. A React Native app shows the readings and FCM sends push alerts. The local buzzer still works if the network does not.",
-    learned: "How different an end-to-end system feels from separate pieces that work on their own. The circuit, API, database, app, and notifications all had to agree before the demo meant anything.",
-    challenge: "Keeping detection useful when connectivity is unreliable. We treated the buzzer as a local failsafe instead of making the cloud the only path to an alert.",
-    outcome: "Built, demonstrated, and successfully defended from circuit to cloud to mobile.",
-    tech: ["ESP32", "MQ-2", "DHT11", "Flask", "Firebase", "React Native", "FCM"],
-    links: [{ label: "GitHub", href: "https://github.com/codeWithGojo" }],
-  },
-  {
-    number: "02",
-    title: "ExpenseAI — Personal Finance Dashboard",
-    tags: ["Full-Stack", "FinTech", "AI Insights"],
-    status: "Redesigned & live",
-    why: "Most finance apps make everyday spending feel like accounting homework. I wanted something simpler, built around Naira, that tells you what your numbers mean instead of only listing transactions.",
-    built: "A responsive three-screen dashboard for checking a balance, reviewing transactions, comparing salary against expenses, and opening a useful category breakdown. The API uses JWT authentication with per-user data isolation.",
-    learned: "A chart is only helpful when the question behind it is clear. I learned more from writing the budget rules and short financial explanations than I did from adding extra widgets.",
-    challenge: "The hard part was making category breakdowns useful instead of decorative, while keeping the mobile view calm and every user’s records properly separated.",
-    outcome: "Redesigned into a Naira-first mobile finance flow with budget progress, monthly analytics, category totals, and plain-language insights.",
-    tech: ["React", "TypeScript", "Node.js", "Express", "Prisma", "SQLite", "JWT", "Responsive UI"],
-    links: [
-      { label: "GitHub", href: "https://github.com/codeWithGojo/ExpenseAI-redesigned" },
-      { label: "Live demo", href: "https://expense-ai-redesigned.vercel.app/" },
-    ],
-  },
-  {
-    number: "03",
-    title: "Cantica — Fashion Storefront",
-    tags: ["Frontend", "UI/UX"],
-    status: "Pre-launch · live",
-    why: "I wanted to practise the parts of e-commerce that happen before checkout: brand direction, product discovery, and giving a small fashion label a clear path to launch.",
-    built: "A responsive storefront with a full-bleed campaign hero, a six-piece collection, search and filters, a device-local launch bag, waitlist states, and direct contact flows.",
-    learned: "A pre-launch store still has to help people browse and remember products. Clear details and saved items matter more than pretending checkout already exists.",
-    challenge: "Making the product behaviour believable without inventing stock, prices, or fulfilment for a concept brand.",
-    outcome: "A polished pre-launch storefront that communicates the brand honestly and is ready to grow when real inventory arrives.",
-    tech: ["HTML", "CSS", "JavaScript", "Responsive Design", "Local Storage", "Vercel"],
-    links: [
-      { label: "GitHub", href: "https://github.com/codeWithGojo/Cantica" },
-      { label: "Live demo", href: "https://cantica.vercel.app" },
-    ],
-  },
-  {
-    number: "04",
-    title: "PredictArena — Sports Prediction Platform",
-    tags: ["Next.js", "Sports Analytics", "Prediction Models"],
-    status: "Rebuilt & live",
-    why: "I wanted African esports—especially CODM and EA FC—to stand beside the big leagues instead of being treated as an afterthought. PredictArena is my attempt to give those scenes the same visual weight while being honest about where the data is still thin.",
-    built: "A dark, high-density prediction dashboard using real upcoming fixtures from TheSportsDB. It covers Europe’s top five football leagues, the Champions League, NBA, tennis, CODM Africa and EA FC Africa, with league filters, probability chips, explainable models and a sport-by-sport Knowledge Test.",
-    learned: "How to build and explain a Poisson football model, and how difficult it is to source African esports schedules and historical results that are reliable enough to support a prediction.",
-    challenge: "Making CODM Africa and EA FC Africa predictions credible without pretending a small historical sample is deep data. Community-maintained fixtures are clearly labelled, confidence is reduced, and every model exposes its inputs and caveats.",
-    outcome: "A working multi-sport analysis product with live fixtures, six selectable football competitions, model reasoning, local leaderboard tracking, 2,000 generated history questions per major sport, and 100 each for CODM and EA FC.",
-    tech: ["Next.js", "React", "TypeScript", "TheSportsDB API", "Poisson Model", "Local Storage", "Responsive UI"],
-    links: [
-      { label: "GitHub", href: "https://github.com/codeWithGojo/PredictArena" },
-      { label: "Live demo", href: "https://predictarena-favour12.vercel.app" },
-    ],
-  },
-  {
-    number: "05",
-    title: "AFR/INDEX — The Living Afrobeats Index",
-    tags: ["Editorial Data", "Music Analytics", "Frontend"],
-    status: "Living index · live",
-    why: "Most Afrobeats rankings read like fan arguments with numbers added afterwards. I wanted to build one where the method is visible, the data has dates and sources, and disagreement can start with the actual weighting instead of hype.",
-    built: "A dark editorial index with an All-Time 50, a researched Current 50, weekly rank movement, side-by-side era comparison, eleven weighted Current metrics, and artist files covering biographies, verified Spotify totals, awards, touring history, FIFA/EA FC soundtrack placements, and official Gold, Platinum and Diamond certifications.",
-    learned: "Public music data is far messier than a polished chart suggests. Monthly audiences move daily, catalogue totals differ between trackers, and cross-era comparisons need qualitative context as much as platform numbers.",
-    challenge: "Ranking real named artists means every position has to be defensible. I had to keep streaming evidence useful without letting Spotify erase the achievements of artists whose biggest work predates it.",
-    outcome: "Turned a static ranking into a transparent living index with update history, sourced streaming signals, reliable artist imagery, official certification records, and a methodology readers can inspect.",
-    tech: ["HTML", "CSS", "JavaScript", "Editorial Research", "Local Storage", "Spotify Data", "Vercel"],
-    links: [
-      { label: "GitHub", href: "https://github.com/codeWithGojo/afrobeats-index" },
-      { label: "Live demo", href: "https://afrobeats-index.vercel.app/" },
-    ],
-  },
-  {
-    number: "06",
-    title: "TerraScope — Living World Encyclopedia",
-    tags: ["Next.js", "Interactive Data", "Editorial Research"],
-    status: "Redesigned & live",
-    why: "I wanted a world atlas that felt worth exploring, not another page of copied country facts. The idea was to connect the numbers to the people, places, sports and stories that make each country recognisable.",
-    built: "A 195-country encyclopedia with a black-and-red world dashboard, interactive dotted map, country rankings, comparison tools, travel guides and detailed profiles. The People archive now includes 63 footballers across new generation, modern icon and legend eras, with searchable filters and expandable dossiers.",
-    learned: "Country data looks clean only after a lot of decisions. Names, borders, population years, currencies and rankings all arrive in different formats. I learned to separate structured records from editorial writing so the facts can update without flattening every country into the same template.",
-    challenge: "Keeping the project detailed without turning it into a wall of text. The hardest part was making 195 country records consistent while still giving the deeper profiles and football archive enough personality and context.",
-    outcome: "A portfolio-scale living atlas with interactive discovery, eight ranking lenses, 195 country records and an extensive football archive covering 63 current and historic players.",
-    tech: ["Next.js", "React", "TypeScript", "SVG Maps", "World Countries", "Responsive UI", "Vercel"],
-    links: [
-      { label: "GitHub", href: "https://github.com/codeWithGojo/terrascope-world-encyclopedia" },
-      { label: "Interactive preview", href: "https://terrascope-world-encyclopedia.vercel.app" },
-    ],
-  },
-];
 
 function MarkIcon({ name }: { name: "github" | "mail" | "x" | "moon" | "sun" | "menu" | "close" | "arrow" }) {
   const paths = {
@@ -156,10 +46,19 @@ function MarkIcon({ name }: { name: "github" | "mail" | "x" | "moon" | "sun" | "
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [lightMode, setLightMode] = useState(false);
+  const [lightMode, setLightMode] = useState(() => {
+    try { return localStorage.getItem("portfolio-theme") === "light"; } catch { return false; }
+  });
+  const [preview, setPreview] = useState<{ image: string; title: string } | null>(null);
+  const previewDialog = useRef<HTMLDialogElement>(null);
+  useEffect(() => {
+    if (preview) previewDialog.current?.showModal();
+    else previewDialog.current?.close();
+  }, [preview]);
 
   useEffect(() => {
     document.documentElement.dataset.theme = lightMode ? "light" : "dark";
+    try { localStorage.setItem("portfolio-theme", lightMode ? "light" : "dark"); } catch { /* Storage may be disabled. */ }
   }, [lightMode]);
 
   useEffect(() => {
@@ -175,7 +74,7 @@ export default function Home() {
 
       <header className="site-header">
         <a className="wordmark" href="#home" aria-label="Favour, back to top">favour<span>.</span></a>
-        <nav className={menuOpen ? "nav-pill is-open" : "nav-pill"} aria-label="Primary navigation">
+        <nav id="primary-navigation" className={menuOpen ? "nav-pill is-open" : "nav-pill"} aria-label="Primary navigation">
           <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
           <a href="#skills" onClick={() => setMenuOpen(false)}>Skills</a>
           <a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a>
@@ -183,7 +82,7 @@ export default function Home() {
           <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
           <button className="mobile-theme" onClick={() => setLightMode(!lightMode)}>{lightMode ? "Dark theme" : "Light theme"}</button>
         </nav>
-        <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Toggle navigation">
+        <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="primary-navigation" aria-label="Toggle navigation">
           <MarkIcon name={menuOpen ? "close" : "menu"} />
         </button>
       </header>
@@ -203,7 +102,7 @@ export default function Home() {
       <main id="main">
         <section className="hero shell" id="home">
           <div className="portrait-wrap" aria-label="Favour Imegu">
-            <div className="portrait-ring"><span>FI</span><img className="portrait-photo" src="/profile.jpg" alt="Favour Imegu" onError={(event) => { event.currentTarget.style.display = "none"; }} /></div>
+            <div className="portrait-ring"><span>FI</span></div>
             <span className="availability-dot" title="Open to opportunities" />
           </div>
 
@@ -220,7 +119,7 @@ export default function Home() {
         </section>
 
         <section className="proof-strip" aria-label="Quick facts">
-          <div><strong>01</strong><span>end-to-end system shipped</span></div>
+          <div><strong>{String(projects.length).padStart(2, "0")}</strong><span>selected projects</span></div>
           <div><strong>06+</strong><span>cloud &amp; infrastructure tools</span></div>
           <div><strong>2026</strong><span>Bowen University graduate</span></div>
         </section>
@@ -232,7 +131,7 @@ export default function Home() {
             <div className="body-copy">
               <p>I’m a Computer Science graduate from Bowen University with a strong pull toward systems that stay reliable long after they’re presented.</p>
               <p>I started close to the hardware, working with sensors and embedded systems, then kept moving up the stack into cloud infrastructure and DevOps. That path still shapes how I think: follow the data, understand every handoff, and make the whole thing easier to trust.</p>
-              <p>For my final year project, my partner and I built a Smart Fire Detection System from scratch: ESP32 sensor rig → Flask backend → Firebase → React Native app with push alerts. One working pipeline, from circuit to cloud to phone, defended end to end.</p>
+              <p>For my final year project, my partner and I built a Smart Fire Detection System from scratch: ESP32 sensor rig → Flask backend → Supabase → React Native app with push alerts. One working pipeline, from circuit to cloud to phone, defended end to end.</p>
               <blockquote>“I like building the part people only notice when it stops working.”</blockquote>
             </div>
           </div>
@@ -265,11 +164,14 @@ export default function Home() {
             </div>
           </div>
 
+          <nav className="project-index shell" aria-label="Jump to a project">
+            {projects.map((project, index) => <a key={project.id} href={`#${project.id}`}><span>{String(index + 1).padStart(2, "0")}</span>{project.title.split(" — ")[0]}</a>)}
+          </nav>
           <div className="projects-list">
-            {projects.map((project) => (
-              <article className="project shell" key={project.title}>
+            {projects.map((project, index) => (
+              <article className="project shell" key={project.id} id={project.id}>
                 <div className="project-top">
-                  <span className="project-number">{project.number}</span>
+                  <span className="project-number">{String(index + 1).padStart(2, "0")}</span>
                   <div className="project-title-wrap">
                     <div className="project-tags">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
                     <h3>{project.title}</h3>
@@ -277,11 +179,20 @@ export default function Home() {
                   <span className="project-status"><i />{project.status}</span>
                 </div>
 
+                {project.image ? <figure className="project-preview">
+                  <button type="button" onClick={() => setPreview({ image: project.image!, title: project.title })} aria-label={`Enlarge screenshot of ${project.title}`}>
+                    <img src={project.image} alt={`${project.title} interface screenshot`} width="1440" height="900" loading="lazy" decoding="async" />
+                    <span className="preview-open">Enlarge screenshot ↗</span>
+                  </button>
+                  <figcaption>Project screenshot · September 2026</figcaption>
+                </figure> : <div className="preview-note"><span>{project.id === "firesafe" ? "ESP32 → Flask → Supabase → Expo" : "Project preview"}</span><p>{project.previewNote || "A current screenshot is not yet available."}</p></div>}
                 <div className="why-note">
                   <span>Why I built it</span>
                   <p>{project.why}</p>
                 </div>
 
+                <details className="project-details">
+                  <summary>Built, learned &amp; challenge <span>Read the project story</span></summary>
                 <div className="project-notes">
                   <div><span>Built</span><p>{project.built}</p></div>
                   <div><span>Learned</span><p>{project.learned}</p></div>
@@ -289,6 +200,11 @@ export default function Home() {
                 </div>
 
                 <div className="project-outcome"><span>Outcome</span><p>{project.outcome}</p></div>
+                </details>
+                {project.companion && <aside className="companion-project" aria-label="Companion project">
+                  {project.companion.image && <button className="companion-preview" onClick={() => setPreview({ image: project.companion!.image!, title: project.companion!.title })} aria-label="Enlarge Afri Image Generator screenshot"><img src={project.companion.image} alt="Afri Image Generator interface" loading="lazy" decoding="async" width="1440" height="900" /></button>}
+                  <div><p className="companion-label">Alongside Afri Index</p><h4>{project.companion.title}</h4><p>{project.companion.description}</p><div className="project-links"><a href={project.companion.href} target="_blank" rel="noreferrer">Open generator <MarkIcon name="arrow" /></a><a href={project.companion.github} target="_blank" rel="noreferrer">GitHub <MarkIcon name="arrow" /></a></div></div>
+                </aside>}
                 <div className="project-footer">
                   <div className="tech-list">{project.tech.map((item) => <span key={item}>{item}</span>)}</div>
                   <div className="project-links">
@@ -314,11 +230,11 @@ export default function Home() {
               </article>
               <article className="timeline-item">
                 <span className="timeline-year">2025 — 2026</span>
-                <div><p className="timeline-type">Project experience</p><h3>Smart Fire Detection System</h3><p>Designed and built, with a partner, a complete system from circuit to cloud to mobile app—and successfully defended it.</p><ul><li>Collaborated on hardware selection, circuit design, and ESP32 programming</li><li>Built a Flask + Firebase backend and a React Native (Expo) live-monitoring app</li><li>Implemented FCM push alerts and demonstrated real-time detection end to end</li></ul></div>
+                <div><p className="timeline-type">Project experience</p><h3>Smart Fire Detection System</h3><p>Designed and built, with a partner, a complete system from circuit to cloud to mobile app—and successfully defended it.</p><ul><li>Collaborated on hardware selection, circuit design, and ESP32 programming</li><li>Built a Flask + Supabase backend and a React Native (Expo) live-monitoring app</li><li>Implemented Expo Push push alerts and demonstrated real-time detection end to end</li></ul></div>
               </article>
               <article className="timeline-item" id="education">
                 <span className="timeline-year">2022 — 2026</span>
-                <div><p className="timeline-type">Education</p><h3>B.Sc. Computer Science</h3><p>Bowen University, Iwo, Nigeria.</p><p>Final year project: Smart Fire Detection System using ESP32, Flask, Firebase, and React Native—successfully defended.</p></div>
+                <div><p className="timeline-type">Education</p><h3>B.Sc. Computer Science</h3><p>Bowen University, Iwo, Nigeria.</p><p>Final year project: Smart Fire Detection System using ESP32, Flask, Supabase, and React Native—successfully defended.</p></div>
               </article>
             </div>
           </div>
@@ -343,6 +259,9 @@ export default function Home() {
         </section>
       </main>
 
+      <dialog className="screenshot-dialog" ref={previewDialog} onCancel={() => setPreview(null)} onClose={() => setPreview(null)} onClick={(event) => { if (event.target === event.currentTarget) setPreview(null); }} aria-labelledby="preview-title">
+        {preview && <><div className="dialog-header"><h2 id="preview-title">{preview.title}</h2><button autoFocus onClick={() => setPreview(null)} aria-label="Close screenshot"><MarkIcon name="close" /></button></div><img src={preview.image} alt={`${preview.title} enlarged screenshot`} /></>}
+      </dialog>
       <footer className="site-footer shell">
         <p>© 2026 Favour Imegu EwoMazino.</p>
         <span>Built with care, then rebuilt with more care.</span>

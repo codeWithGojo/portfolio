@@ -74,7 +74,6 @@ export const projects: Project[] = [
   },
   {
     id: "predictarena",
-    image: "/previews/predict.webp",
     title: "PredictArena — Sports Prediction Platform",
     tags: ["Next.js", "Sports Analytics", "Prediction Models"],
     status: "Live · model in development",
@@ -84,10 +83,7 @@ export const projects: Project[] = [
     challenge: "Getting dependable match data and checking predictions against outcomes without tuning the model to the same matches used to judge it.",
     outcome: "A live interface and an evolving prediction engine. Fixture entry, the connected backend, and subscriptions are still in progress.",
     tech: ["Next.js", "React", "TypeScript", "TheSportsDB API", "Poisson Model", "Local Storage", "Responsive UI"],
-    links: [
-      { label: "GitHub", href: "https://github.com/codeWithGojo/PredictArena" },
-      { label: "Live demo", href: "https://predictarena-favour12.vercel.app" },
-    ],
+    links: [],
   },
   {
     id: "afri-index",

@@ -12,12 +12,21 @@ A responsive portfolio focused on DevOps, cloud infrastructure, IoT, and the rea
 - Each case study also explains what was built, what I learned, the challenge, outcome, technology, and live/source links.
 - Added responsive navigation and light/dark display modes.
 
-## Projects
+## Selected projects
 
-1. Smart Fire Detection & Alert System
-2. ExpenseAI — Personal Finance Dashboard
-3. Cantica — Fashion Storefront
-4. PredictArena — Sports Prediction Platform
+- CoDM Squad Hub
+- FireSafe: Smart Fire & Gas Detection
+- ExpenseAI
+- Cantica
+- PredictArena
+- Afri Index and the separate Afri Index Flier Studio
+- TerraScope
+- NairaScope
+- FPL Squad Command Centre
+- Safe Net Recovery
+- Midas FA Foundation website redesign sample
+
+The case studies distinguish live products, development work and concept samples. Links and current project notes are maintained in `src/projects.ts`.
 
 ## Run locally
 

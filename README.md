@@ -23,8 +23,6 @@ A responsive portfolio focused on DevOps, cloud infrastructure, IoT, and the rea
 - TerraScope
 - NairaScope
 - FPL Squad Command Centre
-- Safe Net Recovery
-- Midas FA Foundation website redesign sample
 
 The case studies distinguish live products, development work and concept samples. Links and current project notes are maintained in `src/projects.ts`.
 

@@ -4,28 +4,34 @@ import { projects } from "./projects";
 const skills = [
   {
     index: "01",
-    title: "Cloud platforms",
-    note: "Provisioning resources and learning how the pieces behave once they leave localhost.",
-    tools: ["AWS", "Azure", "Google Cloud"],
+    title: "Web & mobile",
+    note: "I build responsive interfaces and app flows people can actually use.",
+    tools: ["React", "React Native", "Expo", "HTML/CSS"],
   },
   {
     index: "02",
-    title: "Infrastructure & DevOps",
-    note: "Automating deployments, watching system health, and removing repetitive work.",
-    tools: ["Terraform", "Docker", "Kubernetes", "CI/CD", "Linux"],
+    title: "APIs & data",
+    note: "I connect the interface to the logic, data, and services behind it.",
+    tools: ["Node.js", "Express", "Python", "Flask", "PostgreSQL"],
   },
   {
     index: "03",
-    title: "Programming & data",
-    note: "The backend layer that helps sensors, APIs, and storage speak to one another.",
-    tools: ["Python", "Flask", "Databases"],
+    title: "Cloud & delivery",
+    note: "I’m building hands-on experience with infrastructure and repeatable deployments.",
+    tools: ["AWS", "Terraform", "GitHub Actions", "Vercel"],
   },
   {
     index: "04",
-    title: "IoT & embedded",
-    note: "Where my interest started: getting useful data off a physical device and into a real system.",
-    tools: ["ESP32", "IoT", "Sensors"],
+    title: "Connected devices",
+    note: "My final-year project took live sensor readings from an ESP32 to a phone alert.",
+    tools: ["ESP32", "MQ-2", "DHT11", "Push notifications"],
   },
+];
+
+const stack = [
+  { label: "Frontend", tools: ["JavaScript", "TypeScript", "React", "React Native", "Expo"] },
+  { label: "Backend & data", tools: ["Node.js", "Express", "Python", "Flask", "PostgreSQL", "Firebase", "MongoDB"] },
+  { label: "Cloud & workflow", tools: ["AWS", "Terraform", "GitHub Actions", "Git", "Vercel", "Postman", "Figma"] },
 ];
 
 
@@ -101,38 +107,41 @@ export default function Home() {
 
       <main id="main">
         <section className="hero shell" id="home">
-          <div className="portrait-wrap" aria-label="Favour Imegu">
-            <div className="portrait-ring"><span>FI</span></div>
-            <span className="availability-dot" title="Open to opportunities" />
+          <div className="hero-intro">
+            <div className="hero-text">
+              <p className="eyebrow"><span /> Web, mobile &amp; cloud · Nigeria</p>
+              <h1>Hi, I’m Favour.<br /><em>Gojo to my friends.</em></h1>
+              <p className="hero-copy">I build websites, apps, and the systems behind them. I like taking an idea from a rough sketch to something people can open and use.</p>
+              <p className="hero-copy secondary">Outside of code, I’m Lambo or Gojo. I’m a game addict, especially when it comes to CODM and EA FC. That side of me shows up in the products I choose to build, too.</p>
+              <div className="hero-actions">
+                <a className="primary-link" href="#projects">See my projects <MarkIcon name="arrow" /></a>
+                <a className="resume-link" href="/Imegu_Favour_Resume.docx" download>Download résumé <span aria-hidden="true">↓</span></a>
+              </div>
+            </div>
+            <div className="portrait-wrap">
+              <div className="portrait-orbit" aria-hidden="true" />
+              <div className="portrait-ring"><img className="portrait-photo" src="/favour-portrait.jpeg" alt="Favour Imegu" width="719" height="1280" /></div>
+              <span className="portrait-caption">Favour / Gojo</span>
+            </div>
           </div>
-
-          <p className="eyebrow"><span /> DevOps &amp; Cloud Engineering · Nigeria</p>
-          <h1>Hi, I’m Favour.<br /><em>I build the systems behind the screen.</em></h1>
-          <p className="hero-copy">I’m a Computer Science graduate and aspiring DevOps engineer. My work lives in the space between hardware sending data and a person seeing it update in real time.</p>
-          <p className="hero-copy secondary">Right now I’m deep in AWS, Terraform, Docker, and the automation that keeps systems running without someone constantly watching them.</p>
-          <div className="role-line" aria-label="Roles and interests"><span>DevOps Engineer</span><span>Cloud Engineer</span><span>Infrastructure Builder</span><span>Automation Enthusiast</span></div>
-          <div className="hero-actions">
-            <a className="primary-link" href="#projects">See what I’ve built <MarkIcon name="arrow" /></a>
-            <a className="text-link" href="mailto:Imegufavour30@gmail.com">Imegufavour30@gmail.com</a>
-          </div>
-          <div className="now-line"><span className="status-pulse" /> Open to cloud and DevOps opportunities</div>
+          <div className="now-line"><span className="status-pulse" /> Open to web, mobile, and cloud opportunities</div>
         </section>
 
         <section className="proof-strip" aria-label="Quick facts">
           <div><strong>{String(projects.length).padStart(2, "0")}</strong><span>selected projects</span></div>
-          <div><strong>06+</strong><span>cloud &amp; infrastructure tools</span></div>
+          <div><strong>03</strong><span>things I love: code, CODM &amp; FC</span></div>
           <div><strong>2026</strong><span>Bowen University graduate</span></div>
         </section>
 
         <section className="section shell" id="about">
           <div className="section-kicker"><span>01</span><p>About</p></div>
           <div className="about-layout">
-            <h2>I care about what happens <em>after</em> the demo works.</h2>
+            <h2>I like making ideas <em>real.</em></h2>
             <div className="body-copy">
-              <p>I’m a Computer Science graduate from Bowen University with a strong pull toward systems that stay reliable long after they’re presented.</p>
-              <p>I started close to the hardware, working with sensors and embedded systems, then kept moving up the stack into cloud infrastructure and DevOps. That path still shapes how I think: follow the data, understand every handoff, and make the whole thing easier to trust.</p>
-              <p>For my final year project, my partner and I built a Smart Fire Detection System from scratch: ESP32 sensor rig → Flask backend → Supabase → React Native app with push alerts. One working pipeline, from circuit to cloud to phone, defended end to end.</p>
-              <blockquote>“I like building the part people only notice when it stops working.”</blockquote>
+              <p>I’m a Computer Science graduate from Bowen University and a developer who enjoys the whole build, from the first screen to the data that makes it work.</p>
+              <p>Gaming is a big part of my life. Leading a CODM team made me notice how much competitive players have to manage through scattered chats and spreadsheets. That’s one reason I started building CoDM Squad Hub.</p>
+              <p>For my final-year project, my partner and I built a fire and gas detection system using an ESP32, sensors, a backend, and a mobile app. Seeing a real reading turn into a phone alert taught me a lot about making separate pieces work together.</p>
+              <blockquote>“I enjoy the moment an idea becomes something you can actually use.”</blockquote>
             </div>
           </div>
         </section>
@@ -140,8 +149,8 @@ export default function Home() {
         <section className="section shell" id="skills">
           <div className="section-kicker"><span>02</span><p>Skills</p></div>
           <div className="section-heading">
-            <h2>Tools I use—and what I use them for.</h2>
-            <p>I’m still learning, but I prefer learning by making the pieces talk to each other.</p>
+            <h2>What I work on.</h2>
+            <p>I learn fastest when I have a real problem to solve and a working version to improve.</p>
           </div>
           <div className="skills-list">
             {skills.map((skill) => (
@@ -152,6 +161,10 @@ export default function Home() {
                 <div className="tool-list">{skill.tools.map((tool) => <span key={tool}>{tool}</span>)}</div>
               </article>
             ))}
+          </div>
+          <div className="stack-section" aria-labelledby="stack-title">
+            <div className="stack-heading"><h3 id="stack-title">My tech stack</h3><p>The tools I’ve used across my projects and freelance work.</p></div>
+            <div className="stack-grid">{stack.map((group) => <div className="stack-group" key={group.label}><h4>{group.label}</h4><div>{group.tools.map((tool) => <span key={tool}>{tool}</span>)}</div></div>)}</div>
           </div>
         </section>
 
@@ -220,21 +233,22 @@ export default function Home() {
           <div className="section-kicker"><span>04</span><p>Background</p></div>
           <div className="background-grid">
             <div className="background-heading">
-              <h2>Learning in public. Building for real.</h2>
-              <p>My path so far is short, but every step has moved me closer to reliable systems work.</p>
+              <h2>A little more about my work.</h2>
+              <p>For the full project history and experience, you can download my résumé.</p>
+              <a className="resume-link background-resume" href="/Imegu_Favour_Resume.docx" download>Download résumé <span aria-hidden="true">↓</span></a>
             </div>
             <div className="timeline">
               <article className="timeline-item">
                 <span className="timeline-year">2026</span>
-                <div><p className="timeline-type">Experience</p><h3>Cloud Engineering Intern (IT)</h3><p>Worked on cloud infrastructure setup, automation scripts, and monitoring solutions during Industrial Training.</p><ul><li>Assisted in deploying and managing cloud resources</li><li>Wrote automation scripts for infrastructure tasks</li><li>Monitored system performance and reliability</li></ul></div>
+                <div><p className="timeline-type">Experience</p><h3>Freelance web developer</h3><p>I design and build sites for businesses, schools, and academies, and handle the conversations from first pitch to the finished work.</p></div>
               </article>
               <article className="timeline-item">
                 <span className="timeline-year">2025 — 2026</span>
-                <div><p className="timeline-type">Project experience</p><h3>Smart Fire Detection System</h3><p>Designed and built, with a partner, a complete system from circuit to cloud to mobile app—and successfully defended it.</p><ul><li>Collaborated on hardware selection, circuit design, and ESP32 programming</li><li>Built a Flask + Supabase backend and a React Native (Expo) live-monitoring app</li><li>Implemented Expo Push push alerts and demonstrated real-time detection end to end</li></ul></div>
+                <div><p className="timeline-type">Project experience</p><h3>Smart Fire Detection System</h3><p>With a project partner, I connected an ESP32 and sensors to a backend and a React Native app so readings could trigger alerts on a phone.</p></div>
               </article>
               <article className="timeline-item" id="education">
-                <span className="timeline-year">2022 — 2026</span>
-                <div><p className="timeline-type">Education</p><h3>B.Sc. Computer Science</h3><p>Bowen University, Iwo, Nigeria.</p><p>Final year project: Smart Fire Detection System using ESP32, Flask, Supabase, and React Native—successfully defended.</p></div>
+                <span className="timeline-year">2021 — 2026</span>
+                <div><p className="timeline-type">Education</p><h3>B.Sc. Computer Science</h3><p>Bowen University, Iwo, Nigeria.</p></div>
               </article>
             </div>
           </div>
@@ -244,10 +258,10 @@ export default function Home() {
           <div className="shell contact-layout">
             <div>
               <p className="eyebrow"><span /> Get in touch</p>
-              <h2>Have a role, a project, or a stubborn system problem?</h2>
+              <h2>Have an idea we could build together?</h2>
             </div>
             <div className="contact-copy">
-              <p>Whether it’s a question about one of my projects, a cloud opportunity, or infrastructure in general—my inbox is open. Let’s build something reliable together.</p>
+              <p>Tell me what you’re working on. I’m happy to talk about a website, an app, a role, or one of the projects here.</p>
               <a className="primary-link" href="mailto:Imegufavour30@gmail.com">Say hello <MarkIcon name="arrow" /></a>
             </div>
           </div>

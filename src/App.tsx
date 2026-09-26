@@ -198,7 +198,7 @@ export default function Home() {
                     <span className="preview-open">Enlarge screenshot ↗</span>
                   </button>
                   <figcaption>Project screenshot · September 2026</figcaption>
-                </figure> : <div className="preview-note"><span>{project.id === "firesafe" ? "ESP32 → Flask → Supabase → Expo" : "Project preview"}</span><p>{project.previewNote || "A current screenshot is not yet available."}</p></div>}
+                </figure> : project.previewNote ? <div className="preview-note"><span>{project.id === "firesafe" ? "ESP32 → Flask → Supabase → Expo" : "Project preview"}</span><p>{project.previewNote}</p></div> : null}
                 <div className="why-note">
                   <span>Why I built it</span>
                   <p>{project.why}</p>

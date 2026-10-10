@@ -4,7 +4,7 @@ import { featuredProjects, projects } from "./projects";
 const whatsappHref = "https://wa.me/2347062723107";
 const services = [
   { title: "Business & event websites", description: "Company sites, school websites, portfolios and invitations. Clear content, a considered visual identity and an easy way for visitors to reach you.", example: "See the wedding website", project: "wedding" },
-  { title: "Web apps & business systems", description: "Dashboards, staff portals and tools that connect your team's daily work. We agree the workflows, access and reports before the build.", example: "Explore Matong ERP", project: "matong" },
+  { title: "Web apps & business systems", description: "Dashboards, staff portals and tools that connect your team's daily work. We agree the workflows, access and reports before the build.", example: "See ExpenseAI", project: "expenseai" },
   { title: "Existing website improvements", description: "A clearer layout, better mobile navigation or a feature your current site needs. Share the link and the part that's getting in the way.", example: "See TerraScope", project: "terrascope" },
 ];
 
@@ -181,12 +181,12 @@ export default function Home() {
             <div className="section-kicker"><span>03</span><p>Selected projects</p></div>
             <div className="section-heading project-heading">
               <h2>Selected work.</h2>
-              <p>Start with three projects that show how I approach business workflows, data and interactive interfaces. The full collection follows below.</p>
+              <p>Start with three projects that show how I approach data, product design and interactive interfaces. The full collection follows below.</p>
             </div>
             <div className="featured-work" aria-label="Featured projects">
               {featuredProjects.map((project, index) => (
                 <a className="featured-project" key={project.id} href={`#${project.id}`}>
-                  {project.image ? <img src={project.image} alt="" width="1440" height="900" loading="lazy" decoding="async" /> : <div className="featured-type" aria-hidden="true"><span>MATONG ENERGY</span><strong>People.<br />Purchasing.<br />Operations.</strong><small>Business systems</small></div>}
+                  {project.image && <img src={project.image} alt="" width="1440" height="900" loading="lazy" decoding="async" />}
                   <div className="featured-copy"><span className="featured-label">Featured {String(index + 1).padStart(2, "0")} · {project.tags[0]}</span><h3>{project.title.split(" — ")[0]}</h3><p>{project.summary}</p><span className="featured-action">Read the case study <MarkIcon name="arrow" /></span></div>
                 </a>
               ))}
@@ -265,6 +265,10 @@ export default function Home() {
               <a className="resume-link background-resume" href="/Imegu_Favour_Resume.docx" download>Download résumé <span aria-hidden="true">↓</span></a>
             </div>
             <div className="timeline">
+              <article className="timeline-item">
+                <span className="timeline-year">2026</span>
+                <div><p className="timeline-type">Client work · ongoing</p><h3>Internal operations system</h3><p>I’m working on an ERP that brings personnel, purchasing, inventory and finance into one workspace, with staff permissions and approval workflows.</p></div>
+              </article>
               <article className="timeline-item">
                 <span className="timeline-year">2026</span>
                 <div><p className="timeline-type">Experience</p><h3>Freelance web developer</h3><p>I design and build sites for businesses, schools, and academies, and handle the conversations from first pitch to the finished work.</p></div>

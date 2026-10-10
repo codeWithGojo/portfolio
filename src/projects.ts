@@ -8,22 +8,6 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    id: "matong",
-    title: "Matong Energy — Operations ERP",
-    tags: ["Client project", "Business systems", "Full-stack"],
-    status: "Working ERP · handover in progress",
-    role: "Interface, application workflows & database integration",
-    summary: "Personnel, purchasing, inventory and finance in one workspace, with permissions enforced beyond the interface.",
-    why: "Matong needed its day-to-day operations connected: people, purchase approvals, stock movements, invoices and project records. The system brings those tasks into one workspace with different access for each staff role.",
-    built: "A Next.js operations suite with personnel and leave management, purchasing approvals, warehouse receipts and issues, invoices and payments, engineering tasks, reports and a private document archive. Supabase provides authentication, Postgres and file storage.",
-    learned: "Business rules belong in the database as well as the interface. Role policies, version checks and protected audit records help keep an action consistent even when a request bypasses the screen.",
-    challenge: "Connecting purchasing, stock and finance without allowing duplicate postings, negative stock or one person's edit to silently replace another's. Approval and document access also need to follow the company's actual responsibilities.",
-    outcome: "A working operations suite with six staff roles and a separate browser-local sample workspace. Client handover and production acceptance checks are still in progress.",
-    tech: ["Next.js", "React", "TypeScript", "Supabase Auth", "PostgreSQL", "Row-level security", "Private storage"],
-    links: [{ label: "Explore sample workspace", href: "https://matong-erp.vercel.app/demo" }],
-    previewNote: "The linked demo uses sample records stored in your browser. It is separate from the company's staff portal and private documents.",
-  },
-  {
     id: "wedding",
     title: "#BlessingFoundHerBlessing — Wedding Website",
     tags: ["Event website", "Design & development"],
@@ -86,6 +70,7 @@ export const projects: Project[] = [
   },
   {
     id: "expenseai",
+    summary: "A Naira-first finance interface for reviewing spending, budget progress and monthly category breakdowns.",
     image: "/previews/expense.webp",
     title: "ExpenseAI — Personal Finance Dashboard",
     tags: ["Full-Stack", "FinTech", "AI Insights"],
@@ -217,6 +202,6 @@ export const projects: Project[] = [
 ];
 
 // Keep the featured work first without discarding the rest of the project archive.
-const projectOrder = ["matong", "afri-index", "terrascope", "wedding", "dev-boyz", "expenseai", "firesafe", "squadhub", "cantica", "afri-studio", "nairascope", "fpl", "predictarena"];
+const projectOrder = ["afri-index", "terrascope", "expenseai", "wedding", "dev-boyz", "firesafe", "squadhub", "cantica", "afri-studio", "nairascope", "fpl", "predictarena"];
 projects.sort((a, b) => projectOrder.indexOf(a.id) - projectOrder.indexOf(b.id));
 export const featuredProjects = projects.slice(0, 3);

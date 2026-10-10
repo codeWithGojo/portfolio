@@ -128,9 +128,9 @@ export default function Home() {
         </section>
 
         <section className="proof-strip" aria-label="Quick facts">
-          <div><strong>{String(projects.length).padStart(2, "0")}</strong><span>selected projects</span></div>
-          <div><strong>03</strong><span>things I love: code, CODM &amp; FC</span></div>
-          <div><strong>2026</strong><span>Bowen University graduate</span></div>
+          <div><strong>Work</strong><span>{projects.length} selected projects</span></div>
+          <div><strong>Off-screen</strong><span>CODM &amp; EA FC</span></div>
+          <div><strong>Bowen University</strong><span>Computer Science · 2026</span></div>
         </section>
 
         <section className="section shell" id="about">
@@ -172,8 +172,8 @@ export default function Home() {
           <div className="shell">
             <div className="section-kicker"><span>03</span><p>Selected projects</p></div>
             <div className="section-heading project-heading">
-              <h2>The finished work—and the messy middle.</h2>
-              <p>Not just what I shipped. These are the reasons, lessons, and problems I had to work through.</p>
+              <h2>Selected work.</h2>
+              <p>Open a preview or read how each project came together, from the first idea to the problems I had to solve.</p>
             </div>
           </div>
 
@@ -205,7 +205,7 @@ export default function Home() {
                 </div>
 
                 <details className="project-details">
-                  <summary>Built, learned &amp; challenge <span>Read the project story</span></summary>
+                  <summary>Project notes <span>Read the project story</span></summary>
                 <div className="project-notes">
                   <div><span>Built</span><p>{project.built}</p></div>
                   <div><span>Learned</span><p>{project.learned}</p></div>
@@ -278,7 +278,7 @@ export default function Home() {
       </dialog>
       <footer className="site-footer shell">
         <p>© 2026 Favour Imegu EwoMazino.</p>
-        <span>Built with care, then rebuilt with more care.</span>
+        <span>Design &amp; development by Favour.</span>
         <a href="#home">Back to top ↑</a>
       </footer>
     </>

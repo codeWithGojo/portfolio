@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { featuredProjects, projects } from "./projects";
 
-const whatsappHref = "https://wa.me/2347062723107";
+const whatsappHref = "https://wa.me/2349127971199";
 const services = [
   { title: "Business & event websites", description: "Company sites, school websites, portfolios and invitations. Clear content, a considered visual identity and an easy way for visitors to reach you.", example: "See the wedding website", project: "wedding" },
   { title: "Web apps & business systems", description: "Dashboards, staff portals and tools that connect your team's daily work. We agree the workflows, access and reports before the build.", example: "See ExpenseAI", project: "expenseai" },
@@ -299,7 +299,7 @@ export default function Home() {
           <div className="shell contact-cards">
             <a href="mailto:Imegufavour30@gmail.com"><span>Email</span><strong>Imegufavour30@gmail.com</strong></a>
             <a href="https://github.com/codeWithGojo" target="_blank" rel="noreferrer"><span>GitHub</span><strong>github.com/codeWithGojo</strong></a>
-            <a href={whatsappHref} target="_blank" rel="noreferrer"><span>WhatsApp</span><strong>+234 706 272 3107</strong></a>
+            <a href={whatsappHref} target="_blank" rel="noreferrer"><span>WhatsApp</span><strong>09127971199</strong></a>
           </div>
         </section>
       </main>

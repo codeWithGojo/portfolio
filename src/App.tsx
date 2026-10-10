@@ -1,5 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { projects } from "./projects";
+import { featuredProjects, projects } from "./projects";
+
+const whatsappHref = "https://wa.me/2347062723107";
+const services = [
+  { title: "Business & event websites", description: "Company sites, school websites, portfolios and invitations. Clear content, a considered visual identity and an easy way for visitors to reach you.", example: "See the wedding website", project: "wedding" },
+  { title: "Web apps & business systems", description: "Dashboards, staff portals and tools that connect your team's daily work. We agree the workflows, access and reports before the build.", example: "Explore Matong ERP", project: "matong" },
+  { title: "Existing website improvements", description: "A clearer layout, better mobile navigation or a feature your current site needs. Share the link and the part that's getting in the way.", example: "See TerraScope", project: "terrascope" },
+];
 
 const skills = [
   {
@@ -84,6 +91,7 @@ export default function Home() {
           <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
           <a href="#skills" onClick={() => setMenuOpen(false)}>Skills</a>
           <a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a>
+          <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
           <a href="#experience" onClick={() => setMenuOpen(false)}>Background</a>
           <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
           <button className="mobile-theme" onClick={() => setLightMode(!lightMode)}>{lightMode ? "Dark theme" : "Light theme"}</button>
@@ -173,8 +181,17 @@ export default function Home() {
             <div className="section-kicker"><span>03</span><p>Selected projects</p></div>
             <div className="section-heading project-heading">
               <h2>Selected work.</h2>
-              <p>Open a preview or read how each project came together, from the first idea to the problems I had to solve.</p>
+              <p>Start with three projects that show how I approach business workflows, data and interactive interfaces. The full collection follows below.</p>
             </div>
+            <div className="featured-work" aria-label="Featured projects">
+              {featuredProjects.map((project, index) => (
+                <a className="featured-project" key={project.id} href={`#${project.id}`}>
+                  {project.image ? <img src={project.image} alt="" width="1440" height="900" loading="lazy" decoding="async" /> : <div className="featured-type" aria-hidden="true"><span>MATONG ENERGY</span><strong>People.<br />Purchasing.<br />Operations.</strong><small>Business systems</small></div>}
+                  <div className="featured-copy"><span className="featured-label">Featured {String(index + 1).padStart(2, "0")} · {project.tags[0]}</span><h3>{project.title.split(" — ")[0]}</h3><p>{project.summary}</p><span className="featured-action">Read the case study <MarkIcon name="arrow" /></span></div>
+                </a>
+              ))}
+            </div>
+            <p className="archive-label">All projects · {projects.length} builds and ongoing projects</p>
           </div>
 
           <nav className="project-index shell" aria-label="Jump to a project">
@@ -197,12 +214,14 @@ export default function Home() {
                     <img src={project.image} alt={`${project.title} interface screenshot`} width="1440" height="900" loading="lazy" decoding="async" />
                     <span className="preview-open">Enlarge screenshot ↗</span>
                   </button>
-                  <figcaption>Project screenshot · September 2026</figcaption>
+                  <figcaption>Project interface screenshot · open the live preview for its current version</figcaption>
                 </figure> : project.previewNote ? <div className="preview-note"><span>{project.id === "firesafe" ? "ESP32 → Flask → Supabase → Expo" : "Project preview"}</span><p>{project.previewNote}</p></div> : null}
                 <div className="why-note">
                   <span>Why I built it</span>
                   <p>{project.why}</p>
                 </div>
+
+                {project.role && <p className="project-role"><span>My contribution</span>{project.role}</p>}
 
                 <details className="project-details">
                   <summary>Project notes <span>Read the project story</span></summary>
@@ -229,8 +248,16 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="section shell" id="services">
+          <div className="section-kicker"><span>04</span><p>Services</p></div>
+          <div className="services-layout">
+            <div className="services-intro"><h2>What do you need built?</h2><p>Bring a rough idea, a brief or an existing website. I'll help you work through the scope, then agree the deliverables, timeline and cost with you.</p><a className="primary-link" href={whatsappHref} target="_blank" rel="noreferrer">Discuss a project <MarkIcon name="arrow" /></a><p className="team-note">For team projects, I work with <a href="https://dev-boyz.vercel.app" target="_blank" rel="noreferrer">Dev Boyz ↗</a>.</p></div>
+            <div className="services-list">{services.map((service) => <article key={service.title}><h3>{service.title}</h3><p>{service.description}</p><a className="service-example" href={`#${service.project}`}>{service.example} <span aria-hidden="true">↗</span></a></article>)}</div>
+          </div>
+        </section>
+
         <section className="section shell" id="experience">
-          <div className="section-kicker"><span>04</span><p>Background</p></div>
+          <div className="section-kicker"><span>05</span><p>Background</p></div>
           <div className="background-grid">
             <div className="background-heading">
               <h2>A little more about my work.</h2>
@@ -262,13 +289,13 @@ export default function Home() {
             </div>
             <div className="contact-copy">
               <p>Tell me what you’re working on. I’m happy to talk about a website, an app, a role, or one of the projects here.</p>
-              <a className="primary-link" href="mailto:Imegufavour30@gmail.com">Say hello <MarkIcon name="arrow" /></a>
+              <div className="contact-actions"><a className="primary-link" href={whatsappHref} target="_blank" rel="noreferrer">Chat on WhatsApp <MarkIcon name="arrow" /></a><a className="resume-link" href="mailto:Imegufavour30@gmail.com">Send an email <MarkIcon name="mail" /></a></div>
             </div>
           </div>
           <div className="shell contact-cards">
             <a href="mailto:Imegufavour30@gmail.com"><span>Email</span><strong>Imegufavour30@gmail.com</strong></a>
             <a href="https://github.com/codeWithGojo" target="_blank" rel="noreferrer"><span>GitHub</span><strong>github.com/codeWithGojo</strong></a>
-            <div><span>Availability</span><strong>Open to opportunities</strong></div>
+            <a href={whatsappHref} target="_blank" rel="noreferrer"><span>WhatsApp</span><strong>+234 706 272 3107</strong></a>
           </div>
         </section>
       </main>

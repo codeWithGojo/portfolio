@@ -2,11 +2,57 @@ export type Project = {
   id: string; title: string; tags: string[]; status: string; why: string;
   built: string; learned: string; challenge: string; outcome: string; tech: string[];
   links: { label: string; href: string }[];
-  image?: string; previewNote?: string;
+  image?: string; previewNote?: string; role?: string; summary?: string;
   companion?: { title: string; description: string; href: string; github: string; image?: string };
 };
 
 export const projects: Project[] = [
+  {
+    id: "matong",
+    title: "Matong Energy — Operations ERP",
+    tags: ["Client project", "Business systems", "Full-stack"],
+    status: "Working ERP · handover in progress",
+    role: "Interface, application workflows & database integration",
+    summary: "Personnel, purchasing, inventory and finance in one workspace, with permissions enforced beyond the interface.",
+    why: "Matong needed its day-to-day operations connected: people, purchase approvals, stock movements, invoices and project records. The system brings those tasks into one workspace with different access for each staff role.",
+    built: "A Next.js operations suite with personnel and leave management, purchasing approvals, warehouse receipts and issues, invoices and payments, engineering tasks, reports and a private document archive. Supabase provides authentication, Postgres and file storage.",
+    learned: "Business rules belong in the database as well as the interface. Role policies, version checks and protected audit records help keep an action consistent even when a request bypasses the screen.",
+    challenge: "Connecting purchasing, stock and finance without allowing duplicate postings, negative stock or one person's edit to silently replace another's. Approval and document access also need to follow the company's actual responsibilities.",
+    outcome: "A working operations suite with six staff roles and a separate browser-local sample workspace. Client handover and production acceptance checks are still in progress.",
+    tech: ["Next.js", "React", "TypeScript", "Supabase Auth", "PostgreSQL", "Row-level security", "Private storage"],
+    links: [{ label: "Explore sample workspace", href: "https://matong-erp.vercel.app/demo" }],
+    previewNote: "The linked demo uses sample records stored in your browser. It is separate from the company's staff portal and private documents.",
+  },
+  {
+    id: "wedding",
+    title: "#BlessingFoundHerBlessing — Wedding Website",
+    tags: ["Event website", "Design & development"],
+    status: "Live invitation website",
+    role: "Visual design, responsive pages & event information",
+    why: "The families needed one place guests could find the traditional marriage details, read the couple's story and plan their visit. The invitation had to feel personal while making the practical information easy to reach.",
+    built: "A multi-page invitation with supplied photography, the couple's story, a countdown, programme, aso ebi information, venue directions and an Add to Calendar download. Burgundy, peach, champagne and ivory connect the pages to the celebration.",
+    learned: "An event website has two jobs: carry the family's voice and help a guest make a plan. Clear dates, readable names and direct navigation matter as much as the opening photograph.",
+    challenge: "Balancing the long hashtag, photographs and event information on small screens, while keeping navigation and the calendar action within easy reach.",
+    outcome: "A live invitation for the 12 December 2026 traditional marriage in Ughelli, with event details and calendar access across the public pages.",
+    tech: ["Next.js", "React", "TypeScript", "Responsive design", "Calendar integration", "Vercel"],
+    links: [{ label: "View invitation", href: "https://sample-wedding-mu.vercel.app" }],
+    previewNote: "Explore the live pages for the photographs, story, programme and directions. The calendar button downloads the event to your calendar app.",
+  },
+  {
+    id: "dev-boyz",
+    title: "Dev Boyz — Company & Project Library",
+    tags: ["Team project", "Company website", "Catalogue"],
+    status: "Live website · enquiry catalogue",
+    role: "Frontend & cloud engineering · Dev Boyz team",
+    why: "My team needed a clear introduction to our services and a place for students to explore software project ideas. The site connects those two audiences without making either hunt for the right next step.",
+    built: "A company website with services, selected work, team profiles and an enquiry flow, alongside a searchable library of 100 Computer Science and Software Engineering project topics. Visitors can filter topics and discuss the scope through WhatsApp.",
+    learned: "A catalogue needs useful categories and clear deliverables. The company pages explain who we are; the project library helps visitors narrow their idea before they speak to us.",
+    challenge: "Making 100 topics easy to browse on a phone while keeping the company website focused. The catalogue uses enquiries rather than presenting topics as ready-to-download purchases.",
+    outcome: "A live company presence and project enquiry catalogue. Scope, price and delivery are agreed with the team; automated checkout and instant project downloads are not part of the current site.",
+    tech: ["HTML", "CSS", "JavaScript", "JSON catalogue", "Responsive design", "Vercel"],
+    links: [{ label: "Visit Dev Boyz", href: "https://dev-boyz.vercel.app" }, { label: "Browse project topics", href: "https://dev-boyz.vercel.app/projects.html" }],
+    previewNote: "The company site introduces the team and services. The project library supports searching, filtering and a direct enquiry about a chosen topic.",
+  },
   {
     id: "squadhub",
     previewNote: "Mobile player platform and web organizer in development. The previous browser preview requires a Vercel login.",
@@ -87,6 +133,8 @@ export const projects: Project[] = [
   },
   {
     id: "afri-index",
+    role: "Product design, frontend development & editorial data",
+    summary: "A sourced Afrobeats index that makes its rankings, artist records and methodology open to inspection.",
     image: "/previews/afri.webp",
     title: "AFR/INDEX — The Living Afrobeats Index",
     tags: ["Editorial Data", "Music Analytics", "Frontend"],
@@ -121,15 +169,17 @@ export const projects: Project[] = [
   },
   {
     id: "terrascope",
+    role: "Product design, frontend development & structured content",
+    summary: "An interactive world atlas with country comparisons, travel guides and a practical itinerary planner.",
     image: "/previews/terra.webp",
     title: "TerraScope — Living World Encyclopedia",
     tags: ["Next.js", "Interactive Data", "Editorial Research"],
     status: "Redesigned & live",
     why: "I wanted a world atlas that felt worth exploring, not another page of copied country facts. The idea was to connect the numbers to the people, places, sports and stories that make each country recognisable.",
-    built: "A 195-country encyclopedia with an interactive political world map, country rankings, comparison tools, travel guides and detailed profiles. The People archive now includes 63 footballers across new generation, modern icon and legend eras, with searchable filters and expandable dossiers.",
+    built: "A 195-country encyclopedia with an interactive political world map, rankings, comparisons, travel guides and detailed profiles. A searchable football archive sits alongside a trip planner for selecting activities, estimating a budget and saving a day-by-day itinerary.",
     learned: "Country data looks clean only after a lot of decisions. Names, borders, population years, currencies and rankings all arrive in different formats. I learned to separate structured records from editorial writing so the facts can update without flattening every country into the same template.",
     challenge: "Keeping the project detailed without turning it into a wall of text. The hardest part was making 195 country records consistent while still giving the deeper profiles and football archive enough personality and context.",
-    outcome: "A portfolio-scale living atlas with interactive discovery, eight ranking lenses, 195 country records and an extensive football archive covering 63 current and historic players.",
+    outcome: "A living atlas with eight ranking lenses, 195 country records and a football archive. The public trip planner saves plans in the visitor's browser and exports itineraries; activity allowances are editable estimates, and the site does not make bookings.",
     tech: ["Next.js", "React", "TypeScript", "SVG Maps", "World Countries", "Responsive UI", "Vercel"],
     links: [
       { label: "GitHub", href: "https://github.com/codeWithGojo/terrascope-world-encyclopedia" },
@@ -165,3 +215,8 @@ export const projects: Project[] = [
     links: [{ label: "GitHub", href: "https://github.com/codeWithGojo/fpl-squad-command-centre" }, { label: "Live demo", href: "https://fpl-squad-command-centre.vercel.app" }],
   },
 ];
+
+// Keep the featured work first without discarding the rest of the project archive.
+const projectOrder = ["matong", "afri-index", "terrascope", "wedding", "dev-boyz", "expenseai", "firesafe", "squadhub", "cantica", "afri-studio", "nairascope", "fpl", "predictarena"];
+projects.sort((a, b) => projectOrder.indexOf(a.id) - projectOrder.indexOf(b.id));
+export const featuredProjects = projects.slice(0, 3);

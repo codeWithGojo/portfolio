@@ -186,7 +186,7 @@ export default function Home() {
             <div className="featured-work" aria-label="Featured projects">
               {featuredProjects.map((project, index) => (
                 <a className="featured-project" key={project.id} href={`#${project.id}`}>
-                  {project.image && <img src={project.image} alt="" width="1440" height="900" loading="lazy" decoding="async" />}
+                  {project.image && <img src={project.image} alt="" width={project.imageWidth ?? 1440} height={project.imageHeight ?? 900} loading="lazy" decoding="async" />}
                   <div className="featured-copy"><span className="featured-label">Featured {String(index + 1).padStart(2, "0")} · {project.tags[0]}</span><h3>{project.title.split(" — ")[0]}</h3><p>{project.summary}</p><span className="featured-action">Read the case study <MarkIcon name="arrow" /></span></div>
                 </a>
               ))}
@@ -211,10 +211,10 @@ export default function Home() {
 
                 {project.image ? <figure className="project-preview">
                   <button type="button" onClick={() => setPreview({ image: project.image!, title: project.title })} aria-label={`Enlarge screenshot of ${project.title}`}>
-                    <img src={project.image} alt={`${project.title} interface screenshot`} width="1440" height="900" loading="lazy" decoding="async" />
+                    <img src={project.image} alt={`${project.title} interface screenshot`} width={project.imageWidth ?? 1440} height={project.imageHeight ?? 900} loading="lazy" decoding="async" />
                     <span className="preview-open">Enlarge screenshot ↗</span>
                   </button>
-                  <figcaption>Project interface screenshot · open the live preview for its current version</figcaption>
+                  <figcaption>{project.imageCaption ?? "Project interface screenshot · open the live preview for its current version"}</figcaption>
                 </figure> : project.previewNote ? <div className="preview-note"><span>{project.id === "firesafe" ? "ESP32 → Flask → Supabase → Expo" : "Project preview"}</span><p>{project.previewNote}</p></div> : null}
                 <div className="why-note">
                   <span>Why I built it</span>

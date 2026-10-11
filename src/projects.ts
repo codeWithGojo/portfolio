@@ -2,13 +2,17 @@ export type Project = {
   id: string; title: string; tags: string[]; status: string; why: string;
   built: string; learned: string; challenge: string; outcome: string; tech: string[];
   links: { label: string; href: string }[];
-  image?: string; previewNote?: string; role?: string; summary?: string;
+  image?: string; imageCaption?: string; imageWidth?: number; imageHeight?: number;
+  previewNote?: string; role?: string; summary?: string;
   companion?: { title: string; description: string; href: string; github: string; image?: string };
 };
 
 export const projects: Project[] = [
   {
     id: "wedding",
+    image: "/previews/wedding-2026-10-11.jpg",
+    imageCaption: "Wedding welcome page · Captured 11 October 2026",
+    imageWidth: 1348, imageHeight: 926,
     title: "#BlessingFoundHerBlessing — Wedding Website",
     tags: ["Event website", "Design & development"],
     status: "Live invitation website",
@@ -24,6 +28,9 @@ export const projects: Project[] = [
   },
   {
     id: "dev-boyz",
+    image: "/previews/dev-boyz-2026-10-11.jpg",
+    imageCaption: "Dev Boyz company website · Captured 11 October 2026",
+    imageWidth: 1348, imageHeight: 926,
     title: "Dev Boyz — Company & Project Library",
     tags: ["Team project", "Company website", "Catalogue"],
     status: "Live website · enquiry catalogue",
@@ -70,17 +77,19 @@ export const projects: Project[] = [
   },
   {
     id: "expenseai",
-    summary: "A Naira-first finance interface for reviewing spending, budget progress and monthly category breakdowns.",
-    image: "/previews/expense.webp",
-    title: "ExpenseAI — Personal Finance Dashboard",
-    tags: ["Full-Stack", "FinTech", "AI Insights"],
-    status: "Interactive UI demo",
+    summary: "A Naira-first business workspace for recording income, reviewing expenses and planning monthly budgets.",
+    image: "/previews/expense-2026-10-11.jpg",
+    imageCaption: "Business overview · Empty workspace · Captured 11 October 2026",
+    imageWidth: 1348, imageHeight: 926,
+    title: "ExpenseAI — Business Finance Dashboard",
+    tags: ["Business tools", "Finance", "Data interfaces"],
+    status: "Live · browser-local workspace",
     why: "Most finance apps make everyday spending feel like accounting homework. I wanted something simpler, built around Naira, that tells you what your numbers mean instead of only listing transactions.",
-    built: "A responsive three-screen dashboard for checking a balance, reviewing transactions, comparing salary against expenses, and opening a useful category breakdown. The repository also includes an Express/Prisma API with JWT authentication; the linked redesign currently demonstrates the interface with sample data.",
+    built: "A Naira-first business dashboard for recording income and expenses, setting category budgets, reviewing monthly totals and six-month expense history, and exporting filtered CSV reports. The public version starts empty and stores records in the visitor's browser; the private version uses account-scoped D1 storage.",
     learned: "A chart is only helpful when the question behind it is clear. I learned more from writing the budget rules and short financial explanations than I did from adding extra widgets.",
     challenge: "The hard part was making category breakdowns useful instead of decorative, while keeping the mobile view calm and every user’s records properly separated.",
-    outcome: "Redesigned into a Naira-first mobile finance flow with budget progress, monthly analytics, category totals, and plain-language insights.",
-    tech: ["React", "TypeScript", "Node.js", "Express", "Prisma", "SQLite", "JWT", "Responsive UI"],
+    outcome: "A live business finance workspace with transaction entry, budgets, savings goals and plain-language summaries of recorded activity. Public browser records can be exported and are separate from the private ledger.",
+    tech: ["React", "TypeScript", "IndexedDB", "Cloudflare D1", "SQLite", "CSV export", "Responsive UI"],
     links: [
       { label: "GitHub", href: "https://github.com/codeWithGojo/ExpenseAI-redesigned" },
       { label: "Live demo", href: "https://expense-ai-redesigned.vercel.app/" },
@@ -120,7 +129,9 @@ export const projects: Project[] = [
     id: "afri-index",
     role: "Product design, frontend development & editorial data",
     summary: "A sourced Afrobeats index that makes its rankings, artist records and methodology open to inspection.",
-    image: "/previews/afri.webp",
+    image: "/previews/afri-2026-10-11.jpg",
+    imageCaption: "Current 50 and artist ranking · Captured 11 October 2026",
+    imageWidth: 1348, imageHeight: 926,
     title: "AFR/INDEX — The Living Afrobeats Index",
     tags: ["Editorial Data", "Music Analytics", "Frontend"],
     status: "Living index · live",
@@ -156,7 +167,9 @@ export const projects: Project[] = [
     id: "terrascope",
     role: "Product design, frontend development & structured content",
     summary: "An interactive world atlas with country comparisons, travel guides and a practical itinerary planner.",
-    image: "/previews/terra.webp",
+    image: "/previews/terra-2026-10-11.jpg",
+    imageCaption: "Country discovery and interactive atlas · Captured 11 October 2026",
+    imageWidth: 1348, imageHeight: 926,
     title: "TerraScope — Living World Encyclopedia",
     tags: ["Next.js", "Interactive Data", "Editorial Research"],
     status: "Redesigned & live",
@@ -187,7 +200,9 @@ export const projects: Project[] = [
   },
   {
     id: "fpl",
-    image: "/previews/fpl.webp",
+    image: "/previews/fpl-2026-10-11.jpg",
+    imageCaption: "Fixture difficulty grid · Captured 11 October 2026",
+    imageWidth: 1348, imageHeight: 926,
     title: "FPL — Squad Command Centre",
     tags: ["Football", "Data Tools", "Decision Support"],
     status: "Deployed · in development",

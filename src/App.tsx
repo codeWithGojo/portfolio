@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Motion } from "./Motion";
 import { featuredProjects, projects } from "./projects";
 
 const whatsappHref = "https://wa.me/2349127971199";
@@ -82,6 +83,7 @@ export default function Home() {
 
   return (
     <>
+      <Motion />
       <a className="skip-link" href="#main">Skip to main content</a>
       <div className="page-noise" aria-hidden="true" />
 

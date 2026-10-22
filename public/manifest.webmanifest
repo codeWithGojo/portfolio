@@ -1,0 +1,24 @@
+{
+  "id": "/",
+  "name": "Favour Imegu",
+  "short_name": "Favour",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#111110",
+  "theme_color": "#b74b4b",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

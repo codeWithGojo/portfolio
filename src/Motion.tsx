@@ -61,7 +61,7 @@ export function Motion() {
     );
     document
       .querySelectorAll<HTMLElement>(
-        ".hero-text > *, .portrait-wrap, .proof-strip > div, .section-kicker, .section-heading, .about-layout > *, .skill-row, .stack-group, .featured-project, .project-top, .project-preview, .why-note, .project-footer, .service-card, .timeline-item, .contact-heading, .contact-cards > *",
+        ".hero-text > *, .portrait-wrap, .proof-strip > div, .section-kicker, .section-heading, .about-layout > *, .skill-row, .stack-group, .featured-project, .project-top, .project-preview, .why-note, .project-footer, .service-card, .pricing-landing, .pricing-row, .pricing-note, .timeline-item, .contact-heading, .contact-cards > *",
       )
       .forEach((el) => observer.observe(el));
     let frame = 0;

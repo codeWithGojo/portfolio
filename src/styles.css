@@ -128,6 +128,37 @@ body::before { content: ""; position: fixed; inset: 0; z-index: -3; pointer-even
 
 .section-heading { display: grid; grid-template-columns: 1fr .7fr; align-items: end; gap: 3rem; margin-bottom: 3.5rem; }
 .section-heading > p { margin: 0; color: var(--muted); line-height: 1.65; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.pricing-section { border-top: 1px solid var(--line); }
+.pricing-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: start; }
+.pricing-landing { display: grid; gap: 1.75rem; padding: clamp(1.25rem, 3vw, 2.5rem); border: 1px solid var(--line); border-top: 3px solid var(--accent-bright); border-radius: .75rem; background: var(--panel); }
+.pricing-label { margin: 0 0 1rem; color: var(--accent-bright); font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+.pricing-landing h3 { margin: 0; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 520; line-height: 1.15; letter-spacing: -.04em; }
+.pricing-description, .pricing-row > p { margin: .85rem 0 0; color: var(--muted); font-size: .95rem; line-height: 1.7; }
+.pricing-amount > span { display: block; font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 600; line-height: 1.3; letter-spacing: -.045em; font-variant-numeric: lining-nums tabular-nums; }
+.pricing-amount > p { margin: .45rem 0 0; color: var(--muted); font-size: .8rem; }
+.pricing-inclusions { display: grid; gap: .8rem; list-style: none; margin: 0; padding: 1.5rem 0 0; border-top: 1px solid var(--line); }
+.pricing-inclusions li { display: flex; gap: .7rem; font-size: .9rem; }
+.pricing-inclusions li::before { content: "✓"; color: var(--accent-bright); flex-shrink: 0; }
+.pricing-scope { margin: 0; color: var(--muted); font-size: .85rem; }
+.pricing-landing .primary-link { justify-content: space-between; }
+.pricing-custom > .pricing-label { padding-top: .25rem; }
+.pricing-row { padding: 1.5rem 0; border-top: 1px solid var(--line); }
+.pricing-row h3 { margin: 0; font-size: 1.2rem; font-weight: 550; letter-spacing: -.025em; line-height: 1.35; }
+.pricing-factors { display: block; margin: .8rem 0 .5rem; color: var(--muted); font-size: .8rem; }
+.pricing-enquiry { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; font-size: .875rem; font-weight: 600; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: .35em; }
+.pricing-enquiry:hover { color: var(--accent-bright); text-decoration-color: currentColor; }
+.pricing-enquiry svg { width: .9rem; height: .9rem; }
+.pricing-note { display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); font-size: .875rem; }
+.pricing-note > span { font-weight: 600; }
+.pricing-note p { margin: 0; color: var(--muted); }
+@media (max-width: 960px) {
+  .pricing-layout { grid-template-columns: 1fr; }
+  .pricing-amount > span { font-size: clamp(1.5rem, 5vw, 2rem); }
+}
+@media (max-width: 760px) {
+  .pricing-note { grid-template-columns: 1fr; gap: .65rem; }
+}
 .skills-list { border-top: 1px solid var(--line); }
 .skill-row { display: grid; grid-template-columns: .22fr .8fr 1.2fr 1fr; gap: 2rem; align-items: start; padding: 2rem 0; border-bottom: 1px solid var(--line); }
 .skill-index { color: var(--accent-bright); font-family: Georgia, serif; font-size: .8rem; }

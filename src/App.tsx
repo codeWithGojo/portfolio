@@ -3,6 +3,12 @@ import { Motion } from "./Motion";
 import { featuredProjects, projects } from "./projects";
 
 const whatsappHref = "https://wa.me/2349127971199";
+const quoteHref = (service: string) => `${whatsappHref}?text=${encodeURIComponent(`Hi Favour, I'm interested in ${service}. Here's what I have in mind: `)}`;
+const customOffers = [
+  { title: "Business & event websites", description: "Company sites, school websites, portfolios and wedding invitations, with pages and features shaped around your content.", scope: "Page count · content · integrations" },
+  { title: "Web apps & business systems", description: "Dashboards, staff portals and ERP workflows. Quoted around what your users need to do and how the system should work.", scope: "Workflows · user roles · data" },
+  { title: "Website improvements", description: "A redesign, a better mobile experience or a new feature for your existing site. We start with what needs fixing.", scope: "Current site · changes · complexity" },
+];
 const services = [
   { title: "Business & event websites", description: "Company sites, school websites, portfolios and invitations. Clear content, a considered visual identity and an easy way for visitors to reach you.", example: "See the wedding website", project: "wedding" },
   { title: "Web apps & business systems", description: "Dashboards, staff portals and tools that connect your team's daily work. We agree the workflows, access and reports before the build.", example: "See ExpenseAI", project: "expenseai" },
@@ -94,6 +100,7 @@ export default function Home() {
           <a href="#skills" onClick={() => setMenuOpen(false)}>Skills</a>
           <a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a>
           <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
+          <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
           <a href="#experience" onClick={() => setMenuOpen(false)}>Background</a>
           <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
           <button className="mobile-theme" onClick={() => setLightMode(!lightMode)}>{lightMode ? "Dark theme" : "Light theme"}</button>
@@ -258,8 +265,46 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="section shell pricing-section" id="pricing" aria-labelledby="pricing-title">
+          <div className="section-kicker"><span>05</span><p>Pricing</p></div>
+          <div className="section-heading">
+            <h2 id="pricing-title">A clear place to start.</h2>
+            <p>A guide for your budget. The final quote depends on the design, content and features we agree before work begins.</p>
+          </div>
+          <div className="pricing-layout">
+            <article className="pricing-landing" aria-labelledby="landing-title">
+              <div>
+                <p className="pricing-label">One page. One clear goal.</p>
+                <h3 id="landing-title">Landing page</h3>
+                <p className="pricing-description">For a launch, a service or a campaign that needs a focused page and an easy way to get in touch.</p>
+              </div>
+              <div className="pricing-amount"><span>₦150,000–₦300,000</span><p>Project range · priced in NGN</p></div>
+              <ul className="pricing-inclusions">
+                <li>Design tailored to your brand</li>
+                <li>Responsive layout for phone and desktop</li>
+                <li>Clear enquiry or contact action</li>
+                <li>Agreed scope and launch plan</li>
+              </ul>
+              <p className="pricing-scope">The range varies with section count, animation, content and integrations.</p>
+              <a className="primary-link" href={quoteHref("landing page")} target="_blank" rel="noreferrer">Discuss my landing page <MarkIcon name="arrow" /></a>
+            </article>
+            <div className="pricing-custom">
+              <p className="pricing-label">Other projects · custom quotes</p>
+              {customOffers.map((offer) => (
+                <article className="pricing-row" key={offer.title}>
+                  <h3>{offer.title}</h3>
+                  <p>{offer.description}</p>
+                  <span className="pricing-factors">{offer.scope}</span>
+                  <a className="pricing-enquiry" href={quoteHref(offer.title.toLowerCase())} target="_blank" rel="noreferrer">Request a quote<span className="sr-only"> for {offer.title.toLowerCase()}</span> <MarkIcon name="arrow" /></a>
+                </article>
+              ))}
+            </div>
+          </div>
+          <div className="pricing-note"><span>Before we start</span><p>We agree the deliverables, timeline and total cost together. Domain, hosting and any paid services are discussed separately so you know the ongoing costs too.</p></div>
+        </section>
+
         <section className="section shell" id="experience">
-          <div className="section-kicker"><span>05</span><p>Background</p></div>
+          <div className="section-kicker"><span>06</span><p>Background</p></div>
           <div className="background-grid">
             <div className="background-heading">
               <h2>A little more about my work.</h2>

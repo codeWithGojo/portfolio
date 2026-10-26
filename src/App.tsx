@@ -132,8 +132,9 @@ export default function Home() {
               <p className="hero-copy secondary">Outside of code, I’m Lambo or Gojo. I’m a game addict, especially when it comes to CODM and EA FC. That side of me shows up in the products I choose to build, too.</p>
               <div className="hero-actions">
                 <a className="primary-link" href="#projects">See my projects <MarkIcon name="arrow" /></a>
-                <a className="resume-link" href="/Imegu_Favour_Resume.docx" download>Download résumé <span aria-hidden="true">↓</span></a>
+                <a className="resume-link" href="#pricing">Plan a project <MarkIcon name="arrow" /></a>
               </div>
+              <a className="hero-resume" href="/Imegu_Favour_Resume.docx" download>Looking to hire? Download my résumé <span aria-hidden="true">↓</span></a>
             </div>
             <div className="portrait-wrap">
               <div className="portrait-orbit" aria-hidden="true" />
@@ -194,10 +195,10 @@ export default function Home() {
             </div>
             <div className="featured-work" aria-label="Featured projects">
               {featuredProjects.map((project, index) => (
-                <a className="featured-project" key={project.id} href={`#${project.id}`}>
-                  {project.image && <img src={project.image} alt="" width={project.imageWidth ?? 1440} height={project.imageHeight ?? 900} loading="lazy" decoding="async" />}
-                  <div className="featured-copy"><span className="featured-label">Featured {String(index + 1).padStart(2, "0")} · {project.tags[0]}</span><h3>{project.title.split(" — ")[0]}</h3><p>{project.summary}</p><span className="featured-action">Read the case study <MarkIcon name="arrow" /></span></div>
-                </a>
+                <article className="featured-project" key={project.id}>
+                  {project.image && <a className="featured-image" href={`#${project.id}`} aria-label={`Read the ${project.title.split(" — ")[0]} case study`}><img src={project.image} alt={`${project.title.split(" — ")[0]} interface preview`} width={project.imageWidth ?? 1440} height={project.imageHeight ?? 900} loading="lazy" decoding="async" /></a>}
+                  <div className="featured-copy"><span className="featured-label">Featured {String(index + 1).padStart(2, "0")} · {project.tags[0]}</span><h3>{project.title.split(" — ")[0]}</h3><p>{project.summary}</p><div className="featured-actions"><a className="featured-action" href={`#${project.id}`}>Read the case study <MarkIcon name="arrow" /></a>{project.links.filter(link => !link.href.includes("github.com")).slice(0, 1).map(link => <a className="featured-live" href={link.href} target="_blank" rel="noreferrer" key={link.href}>Open live site <MarkIcon name="arrow" /></a>)}</div></div>
+                </article>
               ))}
             </div>
             <p className="archive-label">All projects · {projects.length} builds and ongoing projects</p>

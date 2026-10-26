@@ -121,32 +121,20 @@ export default function Home() {
         </button>
       </header>
 
-      <aside className="social-rail" aria-label="Social links and display settings">
-        <div className="rail-links">
-          <a href="https://github.com/codeWithGojo" target="_blank" rel="noreferrer"><MarkIcon name="github" /><span>GitHub</span></a>
-          <a href="https://x.com/not_favour" target="_blank" rel="noreferrer"><MarkIcon name="x" /><span>X / Twitter</span></a>
-          <a href="mailto:Imegufavour30@gmail.com"><MarkIcon name="mail" /><span>Email</span></a>
-        </div>
-        <button className="theme-toggle" onClick={() => setLightMode(!lightMode)} aria-label={lightMode ? "Use dark theme" : "Use light theme"}>
-          <MarkIcon name={lightMode ? "moon" : "sun"} />
-          <span>{lightMode ? "Dark" : "Light"}</span>
-        </button>
-      </aside>
-
       <main id="main">
         <section className="hero shell" id="home">
           <div className="hero-topline"><p className="eyebrow"><span /> Favour Imegu · Independent developer</p><a href="#contact">Based in Nigeria. Building for the web. <MarkIcon name="arrow" /></a></div>
           <div className="hero-intro">
             <div className="hero-text">
-              <h1>Good ideas.<br />Thoughtfully<br /><span>built.</span></h1>
+              <h1>Good ideas.<br />Thoughtfully<br />{" "}<span>built.</span></h1>
               <p className="hero-copy">Websites with personality. Apps that solve real problems. I’m Favour—Gojo to my friends—and I take care of the design, code and details in between.</p>
-              <div className="hero-actions"><a className="primary-link" href="#projects">Explore my work <MarkIcon name="arrow" /></a><a className="resume-link" href="#pricing">Let’s build something <MarkIcon name="arrow" /></a></div>
+              <div className="hero-actions"><a className="primary-link" href="#projects">Explore my work <MarkIcon name="arrow" /></a><a className="resume-link" href="#pricing">Start a project <MarkIcon name="arrow" /></a></div>
               <div className="maker-note"><img src="/favour-portrait.jpeg" alt="Favour Imegu" width="64" height="64"/><div><strong>Favour / Gojo</strong><span><i /> Open to projects & opportunities</span></div><a href="/Imegu_Favour_Resume.docx" download aria-label="Download Favour’s résumé">Résumé ↓</a></div>
             </div>
             <div className="folio-stage">
               <div className="stage-heading"><span>ON MY DESK</span><span>0{spotlightIndex + 1} / 03</span></div>
-              <div className="stage-window"><div className="window-chrome" aria-hidden="true"><span/><span/><span/><i>{spotlight.title.split(" — ")[0]}</i></div><a href={`#${spotlight.id}`} aria-label={`Explore ${spotlight.title.split(" — ")[0]}`}><motion.img key={spotlight.id} src={spotlight.image} alt={`${spotlight.title.split(" — ")[0]} project interface`} width={1440} height={900} initial={reduced?false:{opacity:.4,y:14}} animate={{opacity:1,y:0}} transition={{duration:.35,ease:"easeOut"}} /></a></div>
-              <div className="stage-caption" aria-live="polite"><div><strong>{spotlight.title.split(" — ")[0]}</strong><p>{spotlight.summary}</p></div><a href={`#${spotlight.id}`} aria-label={`Read about ${spotlight.title.split(" — ")[0]}`}><MarkIcon name="arrow"/></a></div>
+              <div className="stage-window"><div className="window-chrome" aria-hidden="true"><span/><span/><span/><i>{spotlight.title.split(" — ")[0]}</i></div><a href={`#${spotlight.id}`} onClick={()=>setProjectQuery("")} aria-label={`Explore ${spotlight.title.split(" — ")[0]}`}><motion.img key={spotlight.id} src={spotlight.image} alt={`${spotlight.title.split(" — ")[0]} project interface`} width={1440} height={900} initial={reduced?false:{opacity:.4,y:14}} animate={{opacity:1,y:0}} transition={{duration:.35,ease:"easeOut"}} /></a></div>
+              <div className="stage-caption" aria-live="polite"><div><strong>{spotlight.title.split(" — ")[0]}</strong><p>{spotlight.summary}</p></div><a href={`#${spotlight.id}`} onClick={()=>setProjectQuery("")} aria-label={`Read about ${spotlight.title.split(" — ")[0]}`}><MarkIcon name="arrow"/></a></div>
               <div className="stage-tabs" role="group" aria-label="Preview a featured project">{featuredProjects.map((project,index)=><button key={project.id} type="button" onClick={()=>setSpotlightIndex(index)} aria-pressed={index===spotlightIndex}><span>0{index+1}</span>{project.title.split(" — ")[0]}</button>)}</div>
             </div>
           </div>
@@ -169,8 +157,8 @@ export default function Home() {
             <div className="featured-work" aria-label="Featured projects">
               {featuredProjects.map((project, index) => (
                 <article className="featured-project" key={project.id}>
-                  {project.image && <a className="featured-image" href={`#${project.id}`} aria-label={`Read the ${project.title.split(" — ")[0]} case study`}><img src={project.image} alt={`${project.title.split(" — ")[0]} interface preview`} width={project.imageWidth ?? 1440} height={project.imageHeight ?? 900} loading="lazy" decoding="async" /></a>}
-                  <div className="featured-copy"><span className="featured-label">Featured {String(index + 1).padStart(2, "0")} · {project.tags[0]}</span><h3>{project.title.split(" — ")[0]}</h3><p>{project.summary}</p><div className="featured-actions"><a className="featured-action" href={`#${project.id}`}>Read the case study <MarkIcon name="arrow" /></a>{project.links.filter(link => !link.href.includes("github.com")).slice(0, 1).map(link => <a className="featured-live" href={link.href} target="_blank" rel="noreferrer" key={link.href}>Open live site <MarkIcon name="arrow" /></a>)}</div></div>
+                  {project.image && <a className="featured-image" href={`#${project.id}`} onClick={()=>setProjectQuery("")} aria-label={`Read the ${project.title.split(" — ")[0]} case study`}><img src={project.image} alt={`${project.title.split(" — ")[0]} interface preview`} width={project.imageWidth ?? 1440} height={project.imageHeight ?? 900} loading="lazy" decoding="async" /></a>}
+                  <div className="featured-copy"><span className="featured-label">Featured {String(index + 1).padStart(2, "0")} · {project.tags[0]}</span><h3>{project.title.split(" — ")[0]}</h3><p>{project.summary}</p><div className="featured-actions"><a className="featured-action" href={`#${project.id}`} onClick={()=>setProjectQuery("")}>Read the case study <MarkIcon name="arrow" /></a>{project.links.filter(link => !link.href.includes("github.com")).slice(0, 1).map(link => <a className="featured-live" href={link.href} target="_blank" rel="noreferrer" key={link.href}>Open live site <MarkIcon name="arrow" /></a>)}</div></div>
                 </article>
               ))}
             </div>
@@ -362,6 +350,18 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      <aside className="social-rail" aria-label="Social links and display settings">
+        <div className="rail-links">
+          <a href="https://github.com/codeWithGojo" target="_blank" rel="noreferrer"><MarkIcon name="github" /><span>GitHub</span></a>
+          <a href="https://x.com/not_favour" target="_blank" rel="noreferrer"><MarkIcon name="x" /><span>X / Twitter</span></a>
+          <a href="mailto:Imegufavour30@gmail.com"><MarkIcon name="mail" /><span>Email</span></a>
+        </div>
+        <button className="theme-toggle" onClick={() => setLightMode(!lightMode)} aria-label={lightMode ? "Use dark theme" : "Use light theme"}>
+          <MarkIcon name={lightMode ? "moon" : "sun"} />
+          <span>{lightMode ? "Dark" : "Light"}</span>
+        </button>
+      </aside>
 
       <dialog className="screenshot-dialog" ref={previewDialog} onCancel={() => setPreview(null)} onClose={() => setPreview(null)} onClick={(event) => { if (event.target === event.currentTarget) setPreview(null); }} aria-labelledby="preview-title">
         {preview && <><div className="dialog-header"><h2 id="preview-title">{preview.title}</h2><button autoFocus onClick={() => setPreview(null)} aria-label="Close screenshot"><MarkIcon name="close" /></button></div><img src={preview.image} alt={`${preview.title} enlarged screenshot`} /></>}

@@ -10,8 +10,8 @@ export type Project = {
 export const projects: Project[] = [
   {
     id: "wedding",
-    image: "/previews/wedding-2026-10-11.jpg",
-    imageCaption: "Wedding welcome page · Captured 11 October 2026",
+    image: "/previews/wedding-premium-2026-10-26.jpg",
+    imageCaption: "Wedding welcome page · Captured 26 October 2026",
     imageWidth: 1348, imageHeight: 926,
     title: "#BlessingFoundHerBlessing — Wedding Website",
     tags: ["Event website", "Design & development"],
@@ -114,6 +114,9 @@ export const projects: Project[] = [
   },
   {
     id: "predictarena",
+    image: "/previews/predictarena-premium-2026-10-26.jpg",
+    imageCaption: "Match centre and live fixture analysis · Captured 26 October 2026",
+    imageWidth: 1348, imageHeight: 926,
     title: "PredictArena — Sports Prediction Platform",
     tags: ["Next.js", "Sports Analytics", "Prediction Models"],
     status: "Live · model in development",
@@ -123,7 +126,7 @@ export const projects: Project[] = [
     challenge: "Getting dependable match data and checking predictions against outcomes without tuning the model to the same matches used to judge it.",
     outcome: "A live interface and an evolving prediction engine. Fixture entry, the connected backend, and subscriptions are still in progress.",
     tech: ["Next.js", "React", "TypeScript", "TheSportsDB API", "Poisson Model", "Local Storage", "Responsive UI"],
-    links: [],
+    links: [{ label: "Live site", href: "https://predictarena-woad.vercel.app/" }, { label: "GitHub", href: "https://github.com/codeWithGojo/PredictArena" }],
   },
   {
     id: "afri-index",
@@ -200,9 +203,9 @@ export const projects: Project[] = [
   },
   {
     id: "fpl",
-    image: "/previews/fpl-2026-10-11.jpg",
-    imageCaption: "Fixture difficulty grid · Captured 11 October 2026",
-    imageWidth: 1348, imageHeight: 926,
+    image: "/previews/fpl-premium-2026-10-26.jpg",
+    imageCaption: "Squad planning workspace · Captured 26 October 2026",
+    imageWidth: 1363, imageHeight: 936,
     title: "FPL — Squad Command Centre",
     tags: ["Football", "Data Tools", "Decision Support"],
     status: "Deployed · in development",

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { Motion } from "./Motion";
 import { featuredProjects, projects } from "./projects";
 
@@ -66,6 +67,16 @@ function MarkIcon({ name }: { name: "github" | "mail" | "x" | "moon" | "sun" | "
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [spotlightIndex, setSpotlightIndex] = useState(0);
+  const [projectQuery, setProjectQuery] = useState("");
+  const reduced = useReducedMotion();
+  const spotlight = featuredProjects[spotlightIndex];
+  const visibleProjects = projects.filter(project => `${project.title} ${project.tags.join(" ")} ${project.tech.join(" ")}`.toLowerCase().includes(projectQuery.trim().toLowerCase()));
+  useEffect(() => {
+    const revealLinkedProject = () => { if (projects.some(project => location.hash === `#${project.id}`)) setProjectQuery(""); };
+    window.addEventListener("hashchange", revealLinkedProject);
+    return () => window.removeEventListener("hashchange", revealLinkedProject);
+  }, []);
   const [lightMode, setLightMode] = useState(() => {
     try { return localStorage.getItem("portfolio-theme") === "light"; } catch { return false; }
   });
@@ -124,25 +135,22 @@ export default function Home() {
 
       <main id="main">
         <section className="hero shell" id="home">
+          <div className="hero-topline"><p className="eyebrow"><span /> Favour Imegu · Independent developer</p><a href="#contact">Based in Nigeria. Building for the web. <MarkIcon name="arrow" /></a></div>
           <div className="hero-intro">
             <div className="hero-text">
-              <p className="eyebrow"><span /> Web, mobile &amp; cloud · Nigeria</p>
-              <h1>Hi, I’m Favour.<br /><em>Gojo to my friends.</em></h1>
-              <p className="hero-copy">I build websites, apps, and the systems behind them. I like taking an idea from a rough sketch to something people can open and use.</p>
-              <p className="hero-copy secondary">Outside of code, I’m Lambo or Gojo. I’m a game addict, especially when it comes to CODM and EA FC. That side of me shows up in the products I choose to build, too.</p>
-              <div className="hero-actions">
-                <a className="primary-link" href="#projects">See my projects <MarkIcon name="arrow" /></a>
-                <a className="resume-link" href="#pricing">Plan a project <MarkIcon name="arrow" /></a>
-              </div>
-              <a className="hero-resume" href="/Imegu_Favour_Resume.docx" download>Looking to hire? Download my résumé <span aria-hidden="true">↓</span></a>
+              <h1>Good ideas.<br />Thoughtfully<br /><span>built.</span></h1>
+              <p className="hero-copy">Websites with personality. Apps that solve real problems. I’m Favour—Gojo to my friends—and I take care of the design, code and details in between.</p>
+              <div className="hero-actions"><a className="primary-link" href="#projects">Explore my work <MarkIcon name="arrow" /></a><a className="resume-link" href="#pricing">Let’s build something <MarkIcon name="arrow" /></a></div>
+              <div className="maker-note"><img src="/favour-portrait.jpeg" alt="Favour Imegu" width="64" height="64"/><div><strong>Favour / Gojo</strong><span><i /> Open to projects & opportunities</span></div><a href="/Imegu_Favour_Resume.docx" download aria-label="Download Favour’s résumé">Résumé ↓</a></div>
             </div>
-            <div className="portrait-wrap">
-              <div className="portrait-orbit" aria-hidden="true" />
-              <div className="portrait-ring"><img className="portrait-photo" src="/favour-portrait.jpeg" alt="Favour Imegu" width="719" height="1280" /></div>
-              <span className="portrait-caption">Favour / Gojo</span>
+            <div className="folio-stage">
+              <div className="stage-heading"><span>ON MY DESK</span><span>0{spotlightIndex + 1} / 03</span></div>
+              <div className="stage-window"><div className="window-chrome" aria-hidden="true"><span/><span/><span/><i>{spotlight.title.split(" — ")[0]}</i></div><a href={`#${spotlight.id}`} aria-label={`Explore ${spotlight.title.split(" — ")[0]}`}><motion.img key={spotlight.id} src={spotlight.image} alt={`${spotlight.title.split(" — ")[0]} project interface`} width={1440} height={900} initial={reduced?false:{opacity:.4,y:14}} animate={{opacity:1,y:0}} transition={{duration:.35,ease:"easeOut"}} /></a></div>
+              <div className="stage-caption" aria-live="polite"><div><strong>{spotlight.title.split(" — ")[0]}</strong><p>{spotlight.summary}</p></div><a href={`#${spotlight.id}`} aria-label={`Read about ${spotlight.title.split(" — ")[0]}`}><MarkIcon name="arrow"/></a></div>
+              <div className="stage-tabs" role="group" aria-label="Preview a featured project">{featuredProjects.map((project,index)=><button key={project.id} type="button" onClick={()=>setSpotlightIndex(index)} aria-pressed={index===spotlightIndex}><span>0{index+1}</span>{project.title.split(" — ")[0]}</button>)}</div>
             </div>
           </div>
-          <div className="now-line"><span className="status-pulse" /> Open to web, mobile, and cloud opportunities</div>
+          <div className="hero-bottom"><span>DESIGN / DEVELOPMENT / DELIVERY</span><a href="#projects">Scroll into the work <span aria-hidden="true">↓</span></a></div>
         </section>
 
         <section className="proof-strip" aria-label="Quick facts">
@@ -151,46 +159,11 @@ export default function Home() {
           <div><strong>Bowen University</strong><span>Computer Science · 2026</span></div>
         </section>
 
-        <section className="section shell" id="about">
-          <div className="section-kicker"><span>01</span><p>About</p></div>
-          <div className="about-layout">
-            <h2>I like making ideas <em>real.</em></h2>
-            <div className="body-copy">
-              <p>I’m a Computer Science graduate from Bowen University and a developer who enjoys the whole build, from the first screen to the data that makes it work.</p>
-              <p>Gaming is a big part of my life. Leading a CODM team made me notice how much competitive players have to manage through scattered chats and spreadsheets. That’s one reason I started building CoDM Squad Hub.</p>
-              <p>For my final-year project, my partner and I built a fire and gas detection system using an ESP32, sensors, a backend, and a mobile app. Seeing a real reading turn into a phone alert taught me a lot about making separate pieces work together.</p>
-              <blockquote>“I enjoy the moment an idea becomes something you can actually use.”</blockquote>
-            </div>
-          </div>
-        </section>
-
-        <section className="section shell" id="skills">
-          <div className="section-kicker"><span>02</span><p>Skills</p></div>
-          <div className="section-heading">
-            <h2>What I work on.</h2>
-            <p>I learn fastest when I have a real problem to solve and a working version to improve.</p>
-          </div>
-          <div className="skills-list">
-            {skills.map((skill) => (
-              <article className="skill-row" key={skill.title}>
-                <span className="skill-index">{skill.index}</span>
-                <h3>{skill.title}</h3>
-                <p>{skill.note}</p>
-                <div className="tool-list">{skill.tools.map((tool) => <span key={tool}>{tool}</span>)}</div>
-              </article>
-            ))}
-          </div>
-          <div className="stack-section" aria-labelledby="stack-title">
-            <div className="stack-heading"><h3 id="stack-title">My tech stack</h3><p>The tools I’ve used across my projects and freelance work.</p></div>
-            <div className="stack-grid">{stack.map((group) => <div className="stack-group" key={group.label}><h4>{group.label}</h4><div>{group.tools.map((tool) => <span key={tool}>{tool}</span>)}</div></div>)}</div>
-          </div>
-        </section>
-
         <section className="section projects-section" id="projects">
           <div className="shell">
-            <div className="section-kicker"><span>03</span><p>Selected projects</p></div>
+            <div className="section-kicker"><span>01</span><p>Selected projects</p></div>
             <div className="section-heading project-heading">
-              <h2>Selected work.</h2>
+              <h2>Built with a point of view.</h2>
               <p>Start with three projects that show how I approach data, product design and interactive interfaces. The full collection follows below.</p>
             </div>
             <div className="featured-work" aria-label="Featured projects">
@@ -201,17 +174,19 @@ export default function Home() {
                 </article>
               ))}
             </div>
-            <p className="archive-label">All projects · {projects.length} builds and ongoing projects</p>
+            <div className="archive-toolbar"><div><p className="eyebrow">THE FULL COLLECTION</p><h3>A few more things I’ve made.</h3></div><label className="archive-search" htmlFor="project-search"><span>Find a project</span><input id="project-search" type="search" value={projectQuery} onChange={event=>setProjectQuery(event.target.value)} placeholder="Try React, music or web…" /></label><p className="archive-label" role="status">{visibleProjects.length} of {projects.length} projects</p></div>
           </div>
 
           <nav className="project-index shell" aria-label="Jump to a project">
-            {projects.map((project, index) => <a key={project.id} href={`#${project.id}`}><span>{String(index + 1).padStart(2, "0")}</span>{project.title.split(" — ")[0]}</a>)}
+            {projects.map((project, index) => <a key={project.id} href={`#${project.id}`} onClick={()=>setProjectQuery("")}><span>{String(index + 1).padStart(2, "0")}</span>{project.title.split(" — ")[0]}</a>)}
           </nav>
-          <div className="projects-list">
-            {projects.map((project, index) => (
-              <article className="project shell" key={project.id} id={project.id}>
+          {!visibleProjects.length && <div className="archive-empty shell"><h3>No projects found.</h3><p>Try a different tool or project name.</p><button onClick={()=>setProjectQuery("")}>Show all projects</button></div>}
+          <div className="projects-list shell">
+            {visibleProjects.map((project) => (
+
+              <article className="project" key={project.id} id={project.id}>
                 <div className="project-top">
-                  <span className="project-number">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="project-number">{String(projects.indexOf(project) + 1).padStart(2, "0")}</span>
                   <div className="project-title-wrap">
                     <div className="project-tags">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
                     <h3>{project.title}</h3>
@@ -258,6 +233,41 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="section shell" id="about">
+          <div className="section-kicker"><span>02</span><p>About</p></div>
+          <div className="about-layout">
+            <h2>I like making ideas <em>real.</em></h2>
+            <div className="body-copy">
+              <p>I’m a Computer Science graduate from Bowen University and a developer who enjoys the whole build, from the first screen to the data that makes it work.</p>
+              <p>Outside of code, I’m usually Lambo or Gojo. Gaming is a big part of my life. Leading a CODM team made me notice how much competitive players have to manage through scattered chats and spreadsheets. That’s one reason I started building CoDM Squad Hub.</p>
+              <p>For my final-year project, my partner and I built a fire and gas detection system using an ESP32, sensors, a backend, and a mobile app. Seeing a real reading turn into a phone alert taught me a lot about making separate pieces work together.</p>
+              <blockquote>“I enjoy the moment an idea becomes something you can actually use.”</blockquote>
+            </div>
+          </div>
+        </section>
+
+        <section className="section shell" id="skills">
+          <div className="section-kicker"><span>03</span><p>Skills</p></div>
+          <div className="section-heading">
+            <h2>What I work on.</h2>
+            <p>I learn fastest when I have a real problem to solve and a working version to improve.</p>
+          </div>
+          <div className="skills-list">
+            {skills.map((skill) => (
+              <article className="skill-row" key={skill.title}>
+                <span className="skill-index">{skill.index}</span>
+                <h3>{skill.title}</h3>
+                <p>{skill.note}</p>
+                <div className="tool-list">{skill.tools.map((tool) => <span key={tool}>{tool}</span>)}</div>
+              </article>
+            ))}
+          </div>
+          <div className="stack-section" aria-labelledby="stack-title">
+            <div className="stack-heading"><h3 id="stack-title">My tech stack</h3><p>The tools I’ve used across my projects and freelance work.</p></div>
+            <div className="stack-grid">{stack.map((group) => <div className="stack-group" key={group.label}><h4>{group.label}</h4><div>{group.tools.map((tool) => <span key={tool}>{tool}</span>)}</div></div>)}</div>
+          </div>
+        </section>
+
         <section className="section shell" id="services">
           <div className="section-kicker"><span>04</span><p>Services</p></div>
           <div className="services-layout">
@@ -266,6 +276,7 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="build-process shell" aria-label="How we work together"><div><span>01 / MAKE IT CLEAR</span><h3>Talk through the idea.</h3><p>We agree the audience, pages, features, budget and timeline.</p></div><div><span>02 / MAKE IT REAL</span><h3>Design. Build. Refine.</h3><p>Review the direction, try a working version and shape the details.</p></div><div><span>03 / PUT IT TO WORK</span><h3>Check it. Launch it.</h3><p>We test the agreed flows and get your project ready to share.</p></div></section>
         <section className="section shell pricing-section" id="pricing" aria-labelledby="pricing-title">
           <div className="section-kicker"><span>05</span><p>Pricing</p></div>
           <div className="section-heading">
@@ -337,7 +348,7 @@ export default function Home() {
           <div className="shell contact-layout">
             <div>
               <p className="eyebrow"><span /> Get in touch</p>
-              <h2>Have an idea we could build together?</h2>
+              <h2>Have something<br />in mind? <span>Let’s talk.</span></h2>
             </div>
             <div className="contact-copy">
               <p>Tell me what you’re working on. I’m happy to talk about a website, an app, a role, or one of the projects here.</p>

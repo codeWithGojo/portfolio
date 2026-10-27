@@ -126,7 +126,7 @@ export default function Home() {
           <div className="hero-topline"><p className="eyebrow"><span /> Favour Imegu · Independent developer</p><a href="#contact">Based in Nigeria. Building for the web. <MarkIcon name="arrow" /></a></div>
           <div className="hero-intro">
             <div className="hero-text">
-              <h1>Good ideas.<br />Thoughtfully<br />{" "}<span>built.</span></h1>
+              <h1 aria-label="Good ideas. Thoughtfully built."><span className="hero-line" aria-hidden="true"><span>Good ideas.</span></span><br /><span className="hero-line" aria-hidden="true"><span>Thoughtfully</span></span><br />{" "}<span className="hero-line hero-line-accent" aria-hidden="true"><span>built.</span></span></h1>
               <p className="hero-copy">Websites with personality. Apps that solve real problems. I’m Favour—Gojo to my friends—and I take care of the design, code and details in between.</p>
               <div className="hero-actions"><a className="primary-link" href="#projects">Explore my work <MarkIcon name="arrow" /></a><a className="resume-link" href="#pricing">Start a project <MarkIcon name="arrow" /></a></div>
               <div className="maker-note"><img src="/favour-portrait.jpeg" alt="Favour Imegu" width="64" height="64"/><div><strong>Favour / Gojo</strong><span><i /> Open to projects & opportunities</span></div><a href="/Imegu_Favour_Resume.docx" download aria-label="Download Favour’s résumé">Résumé ↓</a></div>
@@ -146,6 +146,8 @@ export default function Home() {
           <div><strong>Off-screen</strong><span>CODM &amp; EA FC</span></div>
           <div><strong>Bowen University</strong><span>Computer Science · 2026</span></div>
         </section>
+
+        <div className="motion-ribbon" aria-hidden="true"><div className="ribbon-track">{[0, 1].map(copy => <div className="ribbon-group" key={copy}><span>Design with intention</span><i>✳</i><span>Code with character</span><i>✳</i><span>Built by Favour</span><i>✳</i></div>)}</div></div>
 
         <section className="section projects-section" id="projects">
           <div className="shell">

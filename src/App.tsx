@@ -43,6 +43,11 @@ const skills = [
   },
 ];
 
+const projectGroups = ["All projects", "Websites", "Data & discovery", "Apps & tools"] as const;
+type ProjectGroup = typeof projectGroups[number];
+const groupFor = (id: string): ProjectGroup => ["wedding", "dev-boyz", "cantica"].includes(id) ? "Websites" : ["afri-index", "terrascope", "nairascope", "fpl", "predictarena"].includes(id) ? "Data & discovery" : "Apps & tools";
+const gallery = projects.filter(project => project.image);
+
 const stack = [
   { label: "Frontend", tools: ["JavaScript", "TypeScript", "React", "React Native", "Expo"] },
   { label: "Backend & data", tools: ["Node.js", "Express", "Python", "Flask", "PostgreSQL", "Firebase", "MongoDB"] },
@@ -69,11 +74,12 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [spotlightIndex, setSpotlightIndex] = useState(0);
   const [projectQuery, setProjectQuery] = useState("");
+  const [projectGroup, setProjectGroup] = useState<ProjectGroup>("All projects");
   const reduced = useReducedMotion();
   const spotlight = featuredProjects[spotlightIndex];
-  const visibleProjects = projects.filter(project => `${project.title} ${project.tags.join(" ")} ${project.tech.join(" ")}`.toLowerCase().includes(projectQuery.trim().toLowerCase()));
+  const visibleProjects = projects.filter(project => (projectGroup === "All projects" || groupFor(project.id) === projectGroup) && `${project.title} ${project.tags.join(" ")} ${project.tech.join(" ")}`.toLowerCase().includes(projectQuery.trim().toLowerCase()));
   useEffect(() => {
-    const revealLinkedProject = () => { if (projects.some(project => location.hash === `#${project.id}`)) setProjectQuery(""); };
+    const revealLinkedProject = () => { if (projects.some(project => location.hash === `#${project.id}`)) { setProjectQuery(""); setProjectGroup("All projects"); } };
     window.addEventListener("hashchange", revealLinkedProject);
     return () => window.removeEventListener("hashchange", revealLinkedProject);
   }, []);
@@ -82,6 +88,12 @@ export default function Home() {
   });
   const [preview, setPreview] = useState<{ image: string; title: string } | null>(null);
   const previewDialog = useRef<HTMLDialogElement>(null);
+  const movePreview = (direction: number) => {
+    if (!preview) return;
+    const current = gallery.findIndex(project => project.image === preview.image);
+    const next = gallery[(current + direction + gallery.length) % gallery.length];
+    setPreview({image: next.image!, title: next.title});
+  };
   useEffect(() => {
     if (preview) previewDialog.current?.showModal();
     else previewDialog.current?.close();
@@ -133,8 +145,8 @@ export default function Home() {
             </div>
             <div className="folio-stage">
               <div className="stage-heading"><span>ON MY DESK</span><span>0{spotlightIndex + 1} / 03</span></div>
-              <div className="stage-window"><div className="window-chrome" aria-hidden="true"><span/><span/><span/><i>{spotlight.title.split(" — ")[0]}</i></div><a href={`#${spotlight.id}`} onClick={()=>setProjectQuery("")} aria-label={`Explore ${spotlight.title.split(" — ")[0]}`}><motion.img key={spotlight.id} src={spotlight.image} alt={`${spotlight.title.split(" — ")[0]} project interface`} width={1440} height={900} initial={reduced?false:{opacity:.4,y:14}} animate={{opacity:1,y:0}} transition={{duration:.35,ease:"easeOut"}} /></a></div>
-              <div className="stage-caption" aria-live="polite"><div><strong>{spotlight.title.split(" — ")[0]}</strong><p>{spotlight.summary}</p></div><a href={`#${spotlight.id}`} onClick={()=>setProjectQuery("")} aria-label={`Read about ${spotlight.title.split(" — ")[0]}`}><MarkIcon name="arrow"/></a></div>
+              <div className="stage-window"><div className="window-chrome" aria-hidden="true"><span/><span/><span/><i>{spotlight.title.split(" — ")[0]}</i></div><a href={`#${spotlight.id}`} onClick={()=>{setProjectQuery("");setProjectGroup("All projects");}} aria-label={`Explore ${spotlight.title.split(" — ")[0]}`}><motion.img key={spotlight.id} src={spotlight.image} alt={`${spotlight.title.split(" — ")[0]} project interface`} width={1440} height={900} initial={reduced?false:{opacity:.4,y:14}} animate={{opacity:1,y:0}} transition={{duration:.35,ease:"easeOut"}} /></a></div>
+              <div className="stage-caption" aria-live="polite"><div><strong>{spotlight.title.split(" — ")[0]}</strong><p>{spotlight.summary}</p></div><a href={`#${spotlight.id}`} onClick={()=>{setProjectQuery("");setProjectGroup("All projects");}} aria-label={`Read about ${spotlight.title.split(" — ")[0]}`}><MarkIcon name="arrow"/></a></div>
               <div className="stage-tabs" role="group" aria-label="Preview a featured project">{featuredProjects.map((project,index)=><button key={project.id} type="button" onClick={()=>setSpotlightIndex(index)} aria-pressed={index===spotlightIndex}><span>0{index+1}</span>{project.title.split(" — ")[0]}</button>)}</div>
             </div>
           </div>
@@ -159,18 +171,19 @@ export default function Home() {
             <div className="featured-work" aria-label="Featured projects">
               {featuredProjects.map((project, index) => (
                 <article className="featured-project" key={project.id}>
-                  {project.image && <a className="featured-image" href={`#${project.id}`} onClick={()=>setProjectQuery("")} aria-label={`Read the ${project.title.split(" — ")[0]} case study`}><img src={project.image} alt={`${project.title.split(" — ")[0]} interface preview`} width={project.imageWidth ?? 1440} height={project.imageHeight ?? 900} loading="lazy" decoding="async" /></a>}
-                  <div className="featured-copy"><span className="featured-label">Featured {String(index + 1).padStart(2, "0")} · {project.tags[0]}</span><h3>{project.title.split(" — ")[0]}</h3><p>{project.summary}</p><div className="featured-actions"><a className="featured-action" href={`#${project.id}`} onClick={()=>setProjectQuery("")}>Read the case study <MarkIcon name="arrow" /></a>{project.links.filter(link => !link.href.includes("github.com")).slice(0, 1).map(link => <a className="featured-live" href={link.href} target="_blank" rel="noreferrer" key={link.href}>Open live site <MarkIcon name="arrow" /></a>)}</div></div>
+                  {project.image && <a className="featured-image" href={`#${project.id}`} onClick={()=>{setProjectQuery("");setProjectGroup("All projects");}} aria-label={`Read the ${project.title.split(" — ")[0]} case study`}><img src={project.image} alt={`${project.title.split(" — ")[0]} interface preview`} width={project.imageWidth ?? 1440} height={project.imageHeight ?? 900} loading="lazy" decoding="async" /></a>}
+                  <div className="featured-copy"><span className="featured-label">Featured {String(index + 1).padStart(2, "0")} · {project.tags[0]}</span><h3>{project.title.split(" — ")[0]}</h3><p>{project.summary}</p><div className="featured-actions"><a className="featured-action" href={`#${project.id}`} onClick={()=>{setProjectQuery("");setProjectGroup("All projects");}}>Read the case study <MarkIcon name="arrow" /></a>{project.links.filter(link => !link.href.includes("github.com")).slice(0, 1).map(link => <a className="featured-live" href={link.href} target="_blank" rel="noreferrer" key={link.href}>Open live site <MarkIcon name="arrow" /></a>)}</div></div>
                 </article>
               ))}
             </div>
             <div className="archive-toolbar"><div><p className="eyebrow">THE FULL COLLECTION</p><h3>A few more things I’ve made.</h3></div><label className="archive-search" htmlFor="project-search"><span>Find a project</span><input id="project-search" type="search" value={projectQuery} onChange={event=>setProjectQuery(event.target.value)} placeholder="Try React, music or web…" /></label><p className="archive-label" role="status">{visibleProjects.length} of {projects.length} projects</p></div>
           </div>
 
+          <div className="collection-filters shell" role="group" aria-label="Filter projects by type">{projectGroups.map(group => <button type="button" key={group} aria-pressed={group === projectGroup} onClick={() => setProjectGroup(group)}>{group}<span>{group === "All projects" ? projects.length : projects.filter(project => groupFor(project.id) === group).length}</span></button>)}<button className="collection-reset" type="button" disabled={!projectQuery && projectGroup === "All projects"} onClick={() => {setProjectQuery(""); setProjectGroup("All projects");}}>Reset filters</button></div>
           <nav className="project-index shell" aria-label="Jump to a project">
-            {projects.map((project, index) => <a key={project.id} href={`#${project.id}`} onClick={()=>setProjectQuery("")}><span>{String(index + 1).padStart(2, "0")}</span>{project.title.split(" — ")[0]}</a>)}
+            {projects.map((project, index) => <a key={project.id} href={`#${project.id}`} onClick={()=>{setProjectQuery("");setProjectGroup("All projects");}}><span>{String(index + 1).padStart(2, "0")}</span>{project.title.split(" — ")[0]}</a>)}
           </nav>
-          {!visibleProjects.length && <div className="archive-empty shell"><h3>No projects found.</h3><p>Try a different tool or project name.</p><button onClick={()=>setProjectQuery("")}>Show all projects</button></div>}
+          {!visibleProjects.length && <div className="archive-empty shell"><h3>No projects found.</h3><p>Try a different tool or project name.</p><button onClick={()=>{setProjectQuery("");setProjectGroup("All projects");}}>Show all projects</button></div>}
           <div className="projects-list shell">
             {visibleProjects.map((project) => (
 
@@ -365,13 +378,13 @@ export default function Home() {
         </button>
       </aside>
 
-      <dialog className="screenshot-dialog" ref={previewDialog} onCancel={() => setPreview(null)} onClose={() => setPreview(null)} onClick={(event) => { if (event.target === event.currentTarget) setPreview(null); }} aria-labelledby="preview-title">
-        {preview && <><div className="dialog-header"><h2 id="preview-title">{preview.title}</h2><button autoFocus onClick={() => setPreview(null)} aria-label="Close screenshot"><MarkIcon name="close" /></button></div><img src={preview.image} alt={`${preview.title} enlarged screenshot`} /></>}
+      <dialog className="screenshot-dialog" ref={previewDialog} onKeyDown={event => {if (event.key === "ArrowLeft") {event.preventDefault(); movePreview(-1);} if (event.key === "ArrowRight") {event.preventDefault(); movePreview(1);}}} onCancel={() => setPreview(null)} onClose={() => setPreview(null)} onClick={(event) => { if (event.target === event.currentTarget) setPreview(null); }} aria-labelledby="preview-title">
+        {preview && <><div className="dialog-header"><h2 id="preview-title">{preview.title}</h2><button autoFocus onClick={() => setPreview(null)} aria-label="Close screenshot"><MarkIcon name="close" /></button></div><img src={preview.image} alt={`${preview.title} enlarged screenshot`} /><div className="gallery-controls"><button type="button" onClick={() => movePreview(-1)} aria-label="Previous project screenshot">← Previous</button><p role="status">{gallery.findIndex(project => project.image === preview.image) + 1} / {gallery.length}</p><button type="button" onClick={() => movePreview(1)} aria-label="Next project screenshot">Next →</button></div></>}
       </dialog>
-      <footer className="site-footer shell">
-        <p>© 2026 Favour Imegu EwoMazino.</p>
-        <span>Design &amp; development by Favour.</span>
-        <a href="#home">Back to top ↑</a>
+      <footer className="folio-footer shell">
+        <div className="folio-footer-top"><a className="footer-signature" href="#home" aria-label="Favour, back to top">favour<span>.</span></a><p>Independent developer.<br/>A personal approach to every build.</p></div>
+        <div className="folio-footer-links"><nav aria-label="Footer portfolio links"><span>Take a look</span><a href="#projects">Selected work</a><a href="#services">Services</a><a href="#pricing">Project pricing</a></nav><nav aria-label="Footer contact links"><span>Start a conversation</span><a href={whatsappHref} target="_blank" rel="noreferrer">WhatsApp ↗</a><a href="mailto:Imegufavour30@gmail.com">Email ↗</a><a href="https://github.com/codeWithGojo" target="_blank" rel="noreferrer">GitHub ↗</a></nav><div><span>Have a brief ready?</span><p>A few lines about the idea, your timeline and what you need is a good start.</p><a className="resume-link" href={quoteHref("a new project")} target="_blank" rel="noreferrer">Tell me about it <MarkIcon name="arrow"/></a></div></div>
+        <div className="folio-footer-bottom"><p>© 2026 Favour Imegu EwoMazino.</p><span>Designed &amp; built by Favour.</span><a href="#home">Back to top ↑</a></div>
       </footer>
     </>
   );

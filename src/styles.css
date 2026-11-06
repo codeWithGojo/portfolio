@@ -64,3 +64,18 @@
 .stage-tabs button[aria-pressed=true]{background:var(--accent-wash);color:var(--text);box-shadow:inset 0 -2px var(--accent)}
 .hero-copy{color:var(--text)}
 @media(max-width:560px){.hero h1{font-size:clamp(48px,13.2vw,72px)}}
+
+/* Mobile menu is a bounded sheet, with one scroll area and a quiet backdrop. */
+.menu-backdrop{display:none}
+@media(max-width:800px){
+  .site-header{isolation:isolate}
+  .menu-is-open .wordmark,.menu-toggle{position:relative;z-index:3}
+  .menu-backdrop{display:block;position:fixed;inset:72px 0 0;width:100%;height:calc(100dvh - 72px);border:0;border-radius:0;background:#071321aa;z-index:1}
+  .nav-pill.is-open{z-index:2;grid-template-columns:1fr 1fr;align-content:start;gap:6px 10px;padding:18px var(--gutter) 22px;max-height:calc(100dvh - 88px);overscroll-behavior:contain;box-shadow:0 16px 32px #0002;border-radius:0 0 18px 18px}
+  .nav-pill a{min-height:46px;padding:10px 12px;font-size:15px;border-radius:6px;color:var(--text)}
+  .nav-pill a:hover,.nav-pill a[aria-current=location]{background:var(--accent-wash)}
+  .nav-pill a::after{display:none}
+  .nav-pill .mobile-theme,.nav-pill .app-install{grid-column:1/-1;width:100%;justify-content:space-between;min-height:46px;font-size:14px;padding:10px 12px;margin:4px 0 0;background:var(--bg);border:1px solid var(--line);border-radius:7px;color:var(--text)}
+  .nav-pill .app-install svg{order:2}
+  .nav-pill .app-install[hidden]{display:none}
+}

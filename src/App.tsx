@@ -72,6 +72,8 @@ function MarkIcon({ name }: { name: "github" | "mail" | "x" | "moon" | "sun" | "
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const menuPanel = useRef<HTMLElement>(null);
   const [spotlightIndex, setSpotlightIndex] = useState(0);
   const [projectQuery, setProjectQuery] = useState("");
   const [projectGroup, setProjectGroup] = useState<ProjectGroup>("All projects");
@@ -105,10 +107,33 @@ export default function Home() {
   }, [lightMode]);
 
   useEffect(() => {
-    const close = (event: KeyboardEvent) => event.key === "Escape" && setMenuOpen(false);
-    window.addEventListener("keydown", close);
-    return () => window.removeEventListener("keydown", close);
-  }, []);
+    if (!menuOpen) return;
+    const mobile = matchMedia("(max-width: 800px)");
+    if (!mobile.matches) return;
+    const before = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const main = document.querySelector<HTMLElement>("main");
+    const wasInert = main?.inert ?? false;
+    if (main) main.inert = true;
+    menuPanel.current?.querySelector<HTMLElement>("a")?.focus();
+    const close = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { setMenuOpen(false); menuButton.current?.focus(); }
+      if (event.key !== "Tab") return;
+      const controls = [...(menuPanel.current?.querySelectorAll<HTMLElement>('a,button:not([hidden])') ?? []), menuButton.current!].filter(Boolean);
+      const first = controls[0], last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
+    const resize = () => { if (!mobile.matches) setMenuOpen(false); };
+    document.addEventListener("keydown", close);
+    mobile.addEventListener("change", resize);
+    return () => {
+      document.body.style.overflow = before;
+      if (main) main.inert = wasInert;
+      document.removeEventListener("keydown", close);
+      mobile.removeEventListener("change", resize);
+    };
+  }, [menuOpen]);
 
   return (
     <>
@@ -116,9 +141,10 @@ export default function Home() {
       <a className="skip-link" href="#main">Skip to main content</a>
       <div className="page-noise" aria-hidden="true" />
 
-      <header className="site-header">
+      <header className={menuOpen ? "site-header menu-is-open" : "site-header"}>
         <a className="wordmark" href="#home" aria-label="Favour, back to top">favour<span>.</span></a>
-        <nav id="primary-navigation" className={menuOpen ? "nav-pill is-open" : "nav-pill"} aria-label="Primary navigation">
+        {menuOpen && <button className="menu-backdrop" aria-label="Close navigation" tabIndex={-1} onClick={() => { setMenuOpen(false); menuButton.current?.focus(); }} />}
+        <nav ref={menuPanel} id="primary-navigation" className={menuOpen ? "nav-pill is-open" : "nav-pill"} aria-label="Primary navigation">
           <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
           <a href="#skills" onClick={() => setMenuOpen(false)}>Skills</a>
           <a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a>
@@ -128,7 +154,7 @@ export default function Home() {
           <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
           <button className="mobile-theme" onClick={() => setLightMode(!lightMode)}>{lightMode ? "Dark theme" : "Light theme"}</button>
         </nav>
-        <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="primary-navigation" aria-label="Toggle navigation">
+        <button ref={menuButton} className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="primary-navigation" aria-label={menuOpen ? "Close menu" : "Open menu"}>
           <MarkIcon name={menuOpen ? "close" : "menu"} />
         </button>
       </header>

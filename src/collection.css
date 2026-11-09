@@ -6,7 +6,7 @@
 @media(prefers-reduced-motion:reduce){.collection-filters button{transition:none}}
 .maker-note img{width:64px;height:64px;object-fit:cover;object-position:50% 50%;border-radius:50%;background:var(--panel)}
 .about-identity{min-width:0}
-.portrait{margin:32px 0 0;background:#3c0a30;overflow:hidden;border-radius:var(--radius)}
-.portrait img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;object-position:50% 50%}
+.portrait{margin:32px 0 0;background:#510b18;overflow:hidden;border-radius:var(--radius)}
+.portrait img{display:block;width:100%;height:auto;aspect-ratio:1.25;object-fit:cover;object-position:53% 42%}
 .portrait figcaption{padding:14px 18px;color:var(--text);font-size:13px;background:var(--panel)}
-@media(max-width:560px){.maker-note img{width:56px;height:56px}.portrait{margin-top:24px}.portrait img{aspect-ratio:1}}
+@media(max-width:560px){.maker-note img{width:56px;height:56px}.portrait{margin-top:24px}.portrait img{aspect-ratio:1.1}}

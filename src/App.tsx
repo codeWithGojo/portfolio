@@ -103,7 +103,7 @@ export default function Home() {
 
   useEffect(() => {
     document.documentElement.dataset.theme = lightMode ? "light" : "dark";
-    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", lightMode ? "#fff7fb" : "#28051f");
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", lightMode ? "#fff7f5" : "#3b0710");
     try { localStorage.setItem("portfolio-theme", lightMode ? "light" : "dark"); } catch { /* Storage may be disabled. */ }
   }, [lightMode]);
 
@@ -168,7 +168,7 @@ export default function Home() {
               <h1 aria-label="Good ideas. Thoughtfully built."><span className="hero-line" aria-hidden="true"><span>Good ideas.</span></span><br /><span className="hero-line" aria-hidden="true"><span>Thoughtfully</span></span><br />{" "}<span className="hero-line hero-line-accent" aria-hidden="true"><span>built.</span></span></h1>
               <p className="hero-copy">Websites with personality. Apps that solve real problems. I’m Favour—Gojo to my friends—and I take care of the design, code and details in between.</p>
               <div className="hero-actions"><a className="primary-link" href="#projects">Explore my work <MarkIcon name="arrow" /></a><a className="resume-link" href="#pricing">Start a project <MarkIcon name="arrow" /></a></div>
-              <div className="maker-note"><img src="/favour-avatar-2026.webp" alt="Favour Imegu wearing black glasses" width="72" height="72"/><div><strong>Favour / Gojo</strong><span><i /> Open to projects & opportunities</span></div><a href="/Imegu_Favour_Resume.docx" download aria-label="Download Favour’s résumé">Résumé ↓</a></div>
+              <div className="maker-note"><img src="/favour-graduation-avatar-2026.webp" alt="Favour Imegu in his graduation suit" width="72" height="72"/><div><strong>Favour / Gojo</strong><span><i /> Open to projects & opportunities</span></div><a href="/Imegu_Favour_Resume.docx" download aria-label="Download Favour’s résumé">Résumé ↓</a></div>
             </div>
             <div className="folio-stage">
               <div className="stage-heading"><span>ON MY DESK</span><span>0{spotlightIndex + 1} / 03</span></div>
@@ -266,7 +266,7 @@ export default function Home() {
         <section className="section shell" id="about">
           <div className="section-kicker"><span>02</span><p>About</p></div>
           <div className="about-layout">
-            <div className="about-identity"><h2>I like making ideas <em>real.</em></h2><figure className="portrait"><img src="/favour-portrait-2026.webp" alt="Favour Imegu with natural curls and black glasses against a plum background" width="1254" height="1254" loading="lazy" decoding="async"/><figcaption>Favour Imegu / Gojo · Bowen University</figcaption></figure></div>
+            <div className="about-identity"><h2>I like making ideas <em>real.</em></h2><figure className="portrait"><img src="/favour-graduation-2026.webp" alt="Favour Imegu in a black graduation suit and blue academic stole against a burgundy background" width="1536" height="898" loading="lazy" decoding="async"/><figcaption>Favour Imegu / Gojo · Bowen University</figcaption></figure></div>
             <div className="body-copy">
               <p>I’m a Computer Science graduate from Bowen University and a developer who enjoys the whole build, from the first screen to the data that makes it work.</p>
               <p>Outside of code, I’m usually Lambo or Gojo. Gaming is a big part of my life. Leading a CODM team made me notice how much competitive players have to manage through scattered chats and spreadsheets. That’s one reason I started building CoDM Squad Hub.</p>

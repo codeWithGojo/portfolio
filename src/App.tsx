@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { Motion } from "./Motion";
 import { featuredProjects, projects } from "./projects";
+import "./theme-toggle.css";
 
 const whatsappHref = "https://wa.me/2349127971199";
 const quoteHref = (service: string) => `${whatsappHref}?text=${encodeURIComponent(`Hi Favour, I'm interested in ${service}. Here's what I have in mind: `)}`;
@@ -73,6 +74,7 @@ function MarkIcon({ name }: { name: "github" | "mail" | "x" | "moon" | "sun" | "
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
+  const headerThemeButton = useRef<HTMLButtonElement>(null);
   const menuPanel = useRef<HTMLElement>(null);
   const [spotlightIndex, setSpotlightIndex] = useState(0);
   const [projectQuery, setProjectQuery] = useState("");
@@ -120,7 +122,7 @@ export default function Home() {
     const close = (event: KeyboardEvent) => {
       if (event.key === "Escape") { setMenuOpen(false); menuButton.current?.focus(); }
       if (event.key !== "Tab") return;
-      const controls = [...(menuPanel.current?.querySelectorAll<HTMLElement>('a,button:not([hidden])') ?? []), menuButton.current!].filter(Boolean);
+      const controls = [...(menuPanel.current?.querySelectorAll<HTMLElement>('a,button:not([hidden])') ?? []), headerThemeButton.current!, menuButton.current!].filter(Boolean);
       const first = controls[0], last = controls[controls.length - 1];
       if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
@@ -153,11 +155,18 @@ export default function Home() {
           <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
           <a href="#experience" onClick={() => setMenuOpen(false)}>Background</a>
           <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
-          <button className="mobile-theme" onClick={() => setLightMode(!lightMode)}>{lightMode ? "Dark theme" : "Light theme"}</button>
         </nav>
-        <button ref={menuButton} className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="primary-navigation" aria-label={menuOpen ? "Close menu" : "Open menu"}>
-          <MarkIcon name={menuOpen ? "close" : "menu"} />
-        </button>
+        <div className="header-actions">
+          <button ref={headerThemeButton} type="button" className="header-theme-toggle" role="switch" aria-checked={!lightMode} aria-label="Dark mode" title={lightMode ? "Switch to dark theme" : "Switch to light theme"} onClick={() => setLightMode(current => !current)}>
+            <span className="t-icon-swap" data-state={lightMode ? "a" : "b"} aria-hidden="true">
+              <span className="t-icon" data-icon="a"><MarkIcon name="sun" /></span>
+              <span className="t-icon" data-icon="b"><MarkIcon name="moon" /></span>
+            </span>
+          </button>
+          <button ref={menuButton} className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="primary-navigation" aria-label={menuOpen ? "Close menu" : "Open menu"}>
+            <MarkIcon name={menuOpen ? "close" : "menu"} />
+          </button>
+        </div>
       </header>
 
       <main id="main">

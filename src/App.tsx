@@ -4,6 +4,21 @@ import { Motion } from "./Motion";
 import { featuredProjects, projects } from "./projects";
 import "./theme-toggle.css";
 
+function ProjectHolly() {
+  return (
+    <svg
+      aria-hidden="true"
+      focusable="false"
+      viewBox="0 0 24 24"
+      style={{ width: "1.25rem", height: "1.25rem", marginInlineEnd: ".45rem", verticalAlign: "-.08em", stroke: "none" }}
+    >
+      <circle cx="12" cy="12" r="12" fill="#f8efe0" />
+      <path fill="#286347" d="M11 13c-4 0-6-2-6-5 2 1 3 0 4-1 0 2 2 3 2 6Zm1-1c0-4 2-6 5-7-1 2 0 3 1 4-2 0-3 2-6 3Z" />
+      <path fill="#a72d3e" d="M13 14a1.8 1.8 0 1 1-3.6 0 1.8 1.8 0 0 1 3.6 0Zm4 0a1.8 1.8 0 1 1-3.6 0 1.8 1.8 0 0 1 3.6 0Zm-2 3.5a1.8 1.8 0 1 1-3.6 0 1.8 1.8 0 0 1 3.6 0Z" />
+    </svg>
+  );
+}
+
 const whatsappHref = "https://wa.me/2349127971199";
 const quoteHref = (service: string) => `${whatsappHref}?text=${encodeURIComponent(`Hi Favour, I'm interested in ${service}. Here's what I have in mind: `)}`;
 const customOffers = [
@@ -208,7 +223,7 @@ export default function Home() {
               {featuredProjects.map((project, index) => (
                 <article className="featured-project" key={project.id}>
                   {project.image && <a className="featured-image" href={`#${project.id}`} onClick={()=>{setProjectQuery("");setProjectGroup("All projects");}} aria-label={`Read the ${project.title.split(" — ")[0]} case study`}><img src={project.image} alt={`${project.title.split(" — ")[0]} interface preview`} width={project.imageWidth ?? 1440} height={project.imageHeight ?? 900} loading="lazy" decoding="async" /></a>}
-                  <div className="featured-copy"><span className="featured-label">Featured {String(index + 1).padStart(2, "0")} · {project.tags[0]}</span><h3>{project.title.split(" — ")[0]}</h3><p>{project.summary}</p><div className="featured-actions"><a className="featured-action" href={`#${project.id}`} onClick={()=>{setProjectQuery("");setProjectGroup("All projects");}}>Read the case study <MarkIcon name="arrow" /></a>{project.links.filter(link => !link.href.includes("github.com")).slice(0, 1).map(link => <a className="featured-live" href={link.href} target="_blank" rel="noreferrer" key={link.href}>Open live site <MarkIcon name="arrow" /></a>)}</div></div>
+                  <div className="featured-copy"><span className="featured-label">Featured {String(index + 1).padStart(2, "0")} · {project.tags[0]}</span><h3><ProjectHolly />{project.title.split(" — ")[0]}</h3><p>{project.summary}</p><div className="featured-actions"><a className="featured-action" href={`#${project.id}`} onClick={()=>{setProjectQuery("");setProjectGroup("All projects");}}>Read the case study <MarkIcon name="arrow" /></a>{project.links.filter(link => !link.href.includes("github.com")).slice(0, 1).map(link => <a className="featured-live" href={link.href} target="_blank" rel="noreferrer" key={link.href}>Open live site <MarkIcon name="arrow" /></a>)}</div></div>
                 </article>
               ))}
             </div>
@@ -228,7 +243,7 @@ export default function Home() {
                   <span className="project-number">{String(projects.indexOf(project) + 1).padStart(2, "0")}</span>
                   <div className="project-title-wrap">
                     <div className="project-tags">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-                    <h3>{project.title}</h3>
+                    <h3><ProjectHolly />{project.title}</h3>
                   </div>
                   <span className="project-status"><i />{project.status}</span>
                 </div>
@@ -259,7 +274,7 @@ export default function Home() {
                 </details>
                 {project.companion && <aside className="companion-project" aria-label="Companion project">
                   {project.companion.image && <button className="companion-preview" onClick={() => setPreview({ image: project.companion!.image!, title: project.companion!.title })} aria-label="Enlarge Afri Image Generator screenshot"><img src={project.companion.image} alt="Afri Image Generator interface" loading="lazy" decoding="async" width="1440" height="900" /></button>}
-                  <div><p className="companion-label">Alongside Afri Index</p><h4>{project.companion.title}</h4><p>{project.companion.description}</p><div className="project-links"><a href={project.companion.href} target="_blank" rel="noreferrer">Open generator <MarkIcon name="arrow" /></a><a href={project.companion.github} target="_blank" rel="noreferrer">GitHub <MarkIcon name="arrow" /></a></div></div>
+                  <div><p className="companion-label">Alongside Afri Index</p><h4><ProjectHolly />{project.companion.title}</h4><p>{project.companion.description}</p><div className="project-links"><a href={project.companion.href} target="_blank" rel="noreferrer">Open generator <MarkIcon name="arrow" /></a><a href={project.companion.github} target="_blank" rel="noreferrer">GitHub <MarkIcon name="arrow" /></a></div></div>
                 </aside>}
                 <div className="project-footer">
                   <div className="tech-list">{project.tech.map((item) => <span key={item}>{item}</span>)}</div>

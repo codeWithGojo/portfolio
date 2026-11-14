@@ -404,7 +404,7 @@ export default function Home() {
           <div className="section-heading"><h2 id="hobbies-heading">A little competitive.<br />Always a fan.</h2><p>Off the clock, you’ll find me in a match, deep in a playlist, or backing Arsenal with my whole chest.</p></div>
           <div className="hobbies-layout">
             <article className="arsenal-feature">
-              <div className="champions-overlay" aria-hidden="true">PREMIER<br />LEAGUE<br />CHAMPIONS</div>
+              <img className="arsenal-background" src="/arsenal-celebration.jpg" alt="" aria-hidden="true" loading="lazy" width="200" height="233" />
               <div className="arsenal-copy"><span className="hobby-label">01 / North London, always</span><h3>Arsenal.<br />All in.</h3><p>Gigantic Arsenal fan. Matchday is a commitment, and the love for this club runs deep.</p><span className="arsenal-signoff">COME ON YOU GUNNERS ↗</span></div>
             </article>
             <div className="hobbies-notes">

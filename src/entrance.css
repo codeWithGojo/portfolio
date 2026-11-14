@@ -1,0 +1,33 @@
+.orbit-intro{position:relative;height:145svh;margin-top:0;color:var(--text);background:var(--bg)}
+.orbit-sticky{position:sticky;top:0;height:100svh;display:grid;place-items:center;overflow:clip;isolation:isolate;background:radial-gradient(ellipse at 50% 48%,var(--accent-wash),transparent 62%)}
+.orbit-art{--travel:0;position:relative;display:grid;place-items:center;width:min(74svh,84vw,720px);aspect-ratio:1;translate:var(--pointer-x,0px) var(--pointer-y,0px);transition:translate .3s ease-out}
+.orbit-disc{width:100%;height:100%;grid-area:1/1;overflow:visible;transform:rotate(calc(var(--travel)*78deg)) scale(calc(1 + var(--travel)*1.8));opacity:calc(1 - var(--travel)*.93)}
+.orbit-disc circle{stroke-width:1;transform-origin:center}
+.orbit-track{stroke:var(--accent);stroke-dasharray:.2 2.8;opacity:.65;animation:orbit-turn 60s linear infinite}
+.orbit-broken{stroke:var(--accent);stroke-dasharray:6 17 27 15 8 27;opacity:.6;animation:orbit-turn 40s linear infinite reverse}
+.orbit-inner{stroke:var(--line)}
+.orbit-type{fill:var(--accent);stroke:none;font:600 21px Arial,sans-serif;transform-origin:center;animation:orbit-turn 30s linear infinite}
+.orbit-title{grid-area:1/1;display:grid;justify-items:center;font-size:clamp(37px,8vw,112px);font-weight:650;line-height:.85;letter-spacing:-.085em;opacity:calc(1 - var(--travel)*.98);transform:scale(calc(1 + var(--travel)*.18))}
+.orbit-title span{animation:orbit-name .9s cubic-bezier(.16,1,.3,1) both}
+.orbit-title span+span{animation-delay:.13s}
+.orbit-meta{position:absolute;top:clamp(92px,15svh,150px);inset-inline:var(--gutter);display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:10px;letter-spacing:.12em}
+.orbit-scroll,.orbit-skip{position:absolute;bottom:max(22px,env(safe-area-inset-bottom));min-height:44px;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text)}
+.orbit-scroll{left:50%;translate:-50% 0}.orbit-skip{right:var(--gutter);color:var(--muted)}
+.orbit-intro[data-past=true] .orbit-scroll{opacity:.65}
+.orbit-intro[data-visible=false] .orbit-disc>*{animation-play-state:paused}
+.hero-portraits{margin:0;min-width:0;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-deep);overflow:hidden}
+.hero-portrait-frame{aspect-ratio:1/1.04;position:relative;overflow:hidden}
+.hero-portrait-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%;opacity:0;transform:scale(1.055) translateX(1.2%);transition:opacity .85s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.hero-portrait-frame img.is-current{opacity:1;transform:scale(1) translateX(0)}
+.hero-portrait-caption{min-height:60px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px clamp(10px,2vw,22px);font-size:12px;color:var(--muted)}
+.hero-portrait-controls{display:flex;gap:3px;flex-shrink:0}
+.hero-portrait-controls button{min-width:44px;min-height:44px;border:1px solid transparent;border-radius:6px;background:none;font-size:11px;color:var(--text)}
+.hero-portrait-controls button:hover,.hero-portrait-controls button[aria-pressed=true]{border-color:var(--line);background:var(--accent-wash)}
+.hero-project-preview{max-width:760px;margin:clamp(32px,6vw,90px) auto}
+@keyframes orbit-turn{to{transform:rotate(360deg)}}
+@keyframes orbit-name{from{opacity:0;transform:translateY(22%) scale(.97)}to{opacity:1;transform:none}}
+@supports(animation-timeline:view()){.hero .hero-text{animation:home-enter linear both;animation-timeline:view();animation-range:entry 0% entry 85%}}
+@keyframes home-enter{from{opacity:.55;transform:translateY(28px)}to{opacity:1;transform:none}}
+@media(max-width:600px){.orbit-scroll{left:var(--gutter);translate:none}.orbit-meta{font-size:9px}.orbit-art{width:min(85vw,65svh)}.hero-portrait-frame{aspect-ratio:4/5}}
+@media(prefers-reduced-motion:reduce){.orbit-intro{height:auto}.orbit-sticky{position:relative;height:auto;min-height:min(76svh,680px);padding-block:90px}.orbit-art{translate:none;width:min(60svh,83vw,560px)}.orbit-disc,.orbit-title{transform:none;opacity:1}.orbit-meta{top:24px}.hero .hero-text{animation:none}.hero-portrait-frame img{transition:none;transform:none}}
+

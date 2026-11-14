@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { Motion } from "./Motion";
+import { Entrance, PortraitSlideshow } from "./Entrance";
 import { featuredProjects, projects } from "./projects";
 import "./theme-toggle.css";
 
@@ -186,6 +187,7 @@ export default function Home() {
       </header>
 
       <main id="main">
+        <Entrance />
         <section className="hero shell" id="home">
           <div className="hero-topline"><p className="eyebrow"><span /> Favour Imegu · Independent developer</p><a href="#contact">Based in Nigeria. Building for the web. <MarkIcon name="arrow" /></a></div>
           <div className="hero-intro">
@@ -195,6 +197,9 @@ export default function Home() {
               <div className="hero-actions"><a className="primary-link" href="#projects">Explore my work <MarkIcon name="arrow" /></a><a className="resume-link" href="#pricing">Start a project <MarkIcon name="arrow" /></a></div>
               <div className="maker-note"><img src="/favour-graduation-avatar-2026.webp" alt="Favour Imegu in his graduation suit" width="72" height="72"/><div><strong>Favour / Gojo</strong><span><i /> Open to projects & opportunities</span></div><a href="/Imegu_Favour_Resume.docx" download aria-label="Download Favour’s résumé">Résumé ↓</a></div>
             </div>
+            <PortraitSlideshow />
+          </div>
+          <div className="hero-project-preview">
             <div className="folio-stage">
               <div className="stage-heading"><span>ON MY DESK</span><span>0{spotlightIndex + 1} / 03</span></div>
               <div className="stage-window"><div className="window-chrome" aria-hidden="true"><span/><span/><span/><i>{spotlight.title.split(" — ")[0]}</i></div><a href={`#${spotlight.id}`} onClick={()=>{setProjectQuery("");setProjectGroup("All projects");}} aria-label={`Explore ${spotlight.title.split(" — ")[0]}`}><motion.img key={spotlight.id} src={spotlight.image} alt={`${spotlight.title.split(" — ")[0]} project interface`} width={1440} height={900} initial={reduced?false:{opacity:.4,y:14}} animate={{opacity:1,y:0}} transition={{duration:.35,ease:"easeOut"}} /></a></div>

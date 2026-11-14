@@ -15,19 +15,21 @@
 .orbit-scroll{left:50%;translate:-50% 0}.orbit-skip{right:var(--gutter);color:var(--muted)}
 .orbit-intro[data-past=true] .orbit-scroll{opacity:.65}
 .orbit-intro[data-visible=false] .orbit-disc>*{animation-play-state:paused}
-.hero-portraits{margin:0;min-width:0;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-deep);overflow:hidden}
-.hero-portrait-frame{aspect-ratio:1/1.04;position:relative;overflow:hidden}
-.hero-portrait-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%;opacity:0;transform:scale(1.055) translateX(1.2%);transition:opacity .85s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
-.hero-portrait-frame img.is-current{opacity:1;transform:scale(1) translateX(0)}
-.hero-portrait-caption{min-height:60px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px clamp(10px,2vw,22px);font-size:12px;color:var(--muted)}
-.hero-portrait-controls{display:flex;gap:3px;flex-shrink:0}
-.hero-portrait-controls button{min-width:44px;min-height:44px;border:1px solid transparent;border-radius:6px;background:none;font-size:11px;color:var(--text)}
-.hero-portrait-controls button:hover,.hero-portrait-controls button[aria-pressed=true]{border-color:var(--line);background:var(--accent-wash)}
-.hero-project-preview{max-width:760px;margin:clamp(32px,6vw,90px) auto}
 @keyframes orbit-turn{to{transform:rotate(360deg)}}
 @keyframes orbit-name{from{opacity:0;transform:translateY(22%) scale(.97)}to{opacity:1;transform:none}}
 @supports(animation-timeline:view()){.hero .hero-text{animation:home-enter linear both;animation-timeline:view();animation-range:entry 0% entry 85%}}
 @keyframes home-enter{from{opacity:.55;transform:translateY(28px)}to{opacity:1;transform:none}}
-@media(max-width:600px){.orbit-scroll{left:var(--gutter);translate:none}.orbit-meta{font-size:9px}.orbit-art{width:min(85vw,65svh)}.hero-portrait-frame{aspect-ratio:4/5}}
-@media(prefers-reduced-motion:reduce){.orbit-intro{height:auto}.orbit-sticky{position:relative;height:auto;min-height:min(76svh,680px);padding-block:90px}.orbit-art{translate:none;width:min(60svh,83vw,560px)}.orbit-disc,.orbit-title{transform:none;opacity:1}.orbit-meta{top:24px}.hero .hero-text{animation:none}.hero-portrait-frame img{transition:none;transform:none}}
+@media(max-width:600px){.orbit-scroll{left:var(--gutter);translate:none}.orbit-meta{font-size:9px}.orbit-art{width:min(85vw,65svh)}}
+@media(prefers-reduced-motion:reduce){.orbit-intro{height:auto}.orbit-sticky{position:relative;height:auto;min-height:min(76svh,680px);padding-block:90px}.orbit-art{translate:none;width:min(60svh,83vw,560px)}.orbit-disc,.orbit-title{transform:none;opacity:1}.orbit-meta{top:24px}.hero .hero-text{animation:none}}
+
+.hobbies-layout .arsenal-feature{align-self:start;min-height:0;aspect-ratio:5/4;padding:clamp(20px,3vw,38px)}
+.hobby-slides{position:absolute;inset:0;z-index:-2}
+.hobby-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 26%;opacity:0;transform:scale(1.035);transition:opacity 800ms ease,transform 800ms ease}
+.hobby-slides img.is-current{opacity:1;transform:scale(1)}
+.hobbies-layout .arsenal-feature::after{background:linear-gradient(180deg,transparent 25%,rgba(24,3,8,.88) 100%)}
+.hobbies-layout .arsenal-copy h3{font-size:clamp(27px,4vw,49px);margin:0 0 8px}
+.hobbies-layout .arsenal-copy p{margin:0;line-height:1.5}
+@media(max-width:700px){.hobbies-layout .arsenal-feature{aspect-ratio:1}}
+@media(prefers-reduced-motion:reduce){.hobby-slides img{transition:none;transform:none}}
+.hobby-slides img:first-child{opacity:1}
 

@@ -197,9 +197,6 @@ export default function Home() {
               <div className="hero-actions"><a className="primary-link" href="#projects">Explore my work <MarkIcon name="arrow" /></a><a className="resume-link" href="#pricing">Start a project <MarkIcon name="arrow" /></a></div>
               <div className="maker-note"><img src="/favour-graduation-avatar-2026.webp" alt="Favour Imegu in his graduation suit" width="72" height="72"/><div><strong>Favour / Gojo</strong><span><i /> Open to projects & opportunities</span></div><a href="/Imegu_Favour_Resume.docx" download aria-label="Download Favour’s résumé">Résumé ↓</a></div>
             </div>
-            <PortraitSlideshow />
-          </div>
-          <div className="hero-project-preview">
             <div className="folio-stage">
               <div className="stage-heading"><span>ON MY DESK</span><span>0{spotlightIndex + 1} / 03</span></div>
               <div className="stage-window"><div className="window-chrome" aria-hidden="true"><span/><span/><span/><i>{spotlight.title.split(" — ")[0]}</i></div><a href={`#${spotlight.id}`} onClick={()=>{setProjectQuery("");setProjectGroup("All projects");}} aria-label={`Explore ${spotlight.title.split(" — ")[0]}`}><motion.img key={spotlight.id} src={spotlight.image} alt={`${spotlight.title.split(" — ")[0]} project interface`} width={1440} height={900} initial={reduced?false:{opacity:.4,y:14}} animate={{opacity:1,y:0}} transition={{duration:.35,ease:"easeOut"}} /></a></div>
@@ -405,17 +402,17 @@ export default function Home() {
         </section>
 
         <section className="section shell hobbies-section" id="hobbies" aria-labelledby="hobbies-heading">
-          <div className="section-kicker"><span>07</span><p>Hobbies · Beyond the code</p></div>
-          <div className="section-heading"><h2 id="hobbies-heading">A little competitive.<br />Always a fan.</h2><p>Off the clock, you’ll find me in a match, deep in a playlist, or backing Arsenal with my whole chest.</p></div>
+          <div className="section-kicker"><span>07</span><p>Hobbies</p></div>
+          <div className="section-heading"><h2 id="hobbies-heading">Outside the code.</h2><p>When I'm not building something, I'm probably gaming, watching Arsenal, or listening to music.</p></div>
           <div className="hobbies-layout">
             <article className="arsenal-feature">
-              <img className="arsenal-background" src="/arsenal-celebration-hd.webp" alt="" aria-hidden="true" loading="lazy" width="1162" height="1354" />
-              <div className="arsenal-copy"><span className="hobby-label">01 / North London, always</span><h3>Arsenal.<br />All in.</h3><p>Gigantic Arsenal fan. Matchday is a commitment, and the love for this club runs deep.</p><span className="arsenal-signoff">COME ON YOU GUNNERS ↗</span></div>
+              <PortraitSlideshow />
+              <div className="arsenal-copy"><span className="hobby-label">01 / Arsenal</span><h3>I’m an Arsenal fan.</h3><p>I make time for matchday. Come on you Gunners.</p></div>
             </article>
             <div className="hobbies-notes">
-              <article><span className="hobby-label">02 / Competitive streak</span><h3>CODM, with a history.</h3><p>I’ve competed at pro level in T3 and T2, with plenty of rank-warrior days in the mix. In game, you’ll usually know me as Lambo or Gojo.</p></article>
-              <article><span className="hobby-label">03 / One more match</span><h3>A FIFA junkie.</h3><p>FIFA 21, FIFA 22, FC 25 and FC 26. Different editions, same obsession. There’s always time for another game.</p></article>
-              <article><span className="hobby-label">04 / On repeat</span><h3>A playlist with range.</h3><p>Omah Lay, EsDeeKid, Adele, Taylor Swift and Katy Perry. The soundtrack changes; the love for music doesn’t.</p></article>
+              <article><span className="hobby-label">02 / Call of Duty Mobile</span><h3>CODM isn't just a casual thing.</h3><p>I’ve competed at pro level in T3 and T2, with plenty of rank-warrior days in the mix. In game, you’ll usually know me as Lambo or Gojo.</p></article>
+              <article><span className="hobby-label">03 / FIFA &amp; EA FC</span><h3>Just one more match.</h3><p>FIFA 21, FIFA 22, FC 25 and FC 26. I’ve played all four, and I still say “one more” after a match.</p></article>
+              <article><span className="hobby-label">04 / Music</span><h3>Always something playing.</h3><p>Omah Lay, EsDeeKid, Adele, Taylor Swift and Katy Perry. Those are the artists I keep coming back to.</p></article>
             </div>
           </div>
         </section>

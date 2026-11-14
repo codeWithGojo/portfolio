@@ -72,11 +72,10 @@ const portraits = [
 ];
 
 export function PortraitSlideshow() {
-  const root = useRef<HTMLElement>(null);
+  const root = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
-  const [playing, setPlaying] = useState(true);
   const [visible, setVisible] = useState(false);
-  const [ready, setReady] = useState(false);
+  const [loaded, setLoaded] = useState(0);
   const [tabVisible, setTabVisible] = useState(!document.hidden);
   const [reduced, setReduced] = useState(() => matchMedia("(prefers-reduced-motion: reduce)").matches);
   useEffect(() => {
@@ -94,24 +93,15 @@ export function PortraitSlideshow() {
     };
   }, []);
   useEffect(() => {
-    if (!visible || !tabVisible || !ready || !playing || reduced) return;
+    if (!visible || !tabVisible || loaded !== 3 || reduced) return;
     const timer = window.setInterval(() => setActive(value => (value + 1) % portraits.length), 5000);
     return () => window.clearInterval(timer);
-  }, [visible, tabVisible, ready, playing, reduced]);
-  return <figure className="hero-portraits" ref={root} aria-label="Featured photographs">
-    <div className="hero-portrait-frame">
-      {portraits.map((photo, index) => <img key={photo.src} src={photo.src} alt={photo.alt} aria-hidden={index !== active}
-        className={index === active ? "is-current" : ""} loading={index ? "lazy" : "eager"} fetchPriority={index ? "low" : "high"}
-        onLoad={index ? () => setReady(true) : undefined} />)}
-    </div>
-    <figcaption className="hero-portrait-caption">
-      <span>{portraits[active].label}</span>
-      <div className="hero-portrait-controls">
-        {portraits.map((photo, index) => <button key={photo.src} type="button" aria-label={`Show ${photo.label}`} aria-pressed={index === active}
-          onClick={() => { setPlaying(false); setActive(index); }}>0{index + 1}</button>)}
-        {!reduced && <button type="button" onClick={() => setPlaying(value => !value)}>{playing ? "Pause" : "Play"}</button>}
-      </div>
-    </figcaption>
-  </figure>;
+  }, [visible, tabVisible, loaded, reduced]);
+  return <div className="hobby-slides" ref={root}>
+    {portraits.map((photo, index) => <img key={photo.src} src={photo.src} alt={photo.alt}
+      aria-hidden={index !== active} className={index === active ? "is-current" : ""}
+      loading="lazy" decoding="async"
+      onLoad={() => setLoaded(mask => mask | (1 << index))} />)}
+  </div>;
 }
 

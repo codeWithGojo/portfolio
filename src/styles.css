@@ -79,3 +79,14 @@
   .nav-pill .app-install svg{order:2}
   .nav-pill .app-install[hidden]{display:none}
 }
+
+/* Personal interests: an Arsenal feature beside a compact listening-and-playing journal. */
+.hobbies-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,72px)}
+.arsenal-feature{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:flex-end;min-height:540px;padding:clamp(26px,4vw,52px);background:#740f23;color:#fff4f1;border:1px solid #f5bcc54a;border-radius:var(--radius)}
+.champions-overlay{position:absolute;inset:26px 18px auto;z-index:-1;font-size:clamp(48px,6.3vw,88px);font-weight:800;line-height:1.02;letter-spacing:-.065em;color:#fff4f1;opacity:.075;pointer-events:none;overflow-wrap:anywhere}
+.arsenal-copy{max-width:340px}.hobby-label{display:block;margin-bottom:14px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.arsenal-copy .hobby-label{color:#f2c7ce}.arsenal-copy h3{font-size:clamp(48px,6vw,76px);margin-bottom:24px}.arsenal-copy p{font-size:16px;line-height:1.8}.arsenal-signoff{display:block;margin-top:30px;font-size:11px;letter-spacing:.13em;font-weight:700}
+.hobbies-notes{display:grid}.hobbies-notes article{padding:24px 0;border-top:1px solid var(--line)}.hobbies-notes article:first-child{padding-top:0;border-top:0}.hobbies-notes article:last-child{padding-bottom:0}.hobbies-notes h3{font-size:28px;margin-bottom:12px}.hobbies-notes p{max-width:480px;margin-bottom:0;color:var(--muted)}
+@media(min-width:801px) and (max-width:1100px){.nav-pill a{padding-inline:8px}.site-header{gap:14px}}
+@media(max-width:700px){.hobbies-layout{grid-template-columns:1fr}.arsenal-feature{min-height:470px}.champions-overlay{font-size:clamp(52px,11.7vw,78px)}.hobbies-notes article{padding-block:24px}.hobbies-notes article:first-child{padding-top:8px}}
+

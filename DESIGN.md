@@ -15,7 +15,7 @@ Dark-mode foundation:
 - `--accent-bright: #E25B77` — brighter hover state
 - `--muted: #D4B6BD` — readable supporting text
 
-Light mode: `#FBF5F3` canvas, `#FFF AF8` (without the space: `#FFFAF8`) panel, `#2B0B17` ink and `#871A33` accent. All accents and surfaces should obey contrast semantics, not decorative novelty. No blue, neon-green or generic purple-gradient branding.
+Light mode: `#FBF5F3` canvas, `#FFFAF8` panel, `#2B0B17` ink and `#871A33` accent. All accents and surfaces should obey contrast semantics, not decorative novelty. No blue, neon-green or generic purple-gradient branding.
 
 ## Typography
 - **Syne** for bold editorial headings; restrained tracking and line length.

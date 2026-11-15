@@ -10,6 +10,7 @@ export default function About() {
           I’m Favour, a software developer from Ibadan. I build websites,
           products and business systems, and I’m learning as I go.
         </p>
+          <a className="world-text-link" href="/services">Explore the services I offer ↗</a>
       </Heading>
       <div className="about-editorial">
         <ResponsiveImage

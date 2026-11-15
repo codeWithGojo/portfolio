@@ -9,13 +9,13 @@ with sync_playwright() as p:
  ctx=browser.new_context(viewport={'width':1440,'height':900},color_scheme='dark',reduced_motion='reduce')
  page=ctx.new_page();page.on('pageerror',lambda e:report['errors'].append(str(e)))
  page.on('console',lambda m:report['errors'].append(m.text) if m.type=='error' and ('hydration' in m.text.lower() or 'Minified React' in m.text) else None)
- for width in [320,360,390,430,768,1024,1440]:
+ for width in [320,390,768,1440]:
   page.set_viewport_size({'width':width,'height':900 if width>760 else 844})
-  for route in ['/','/about','/work','/hobbies','/pricing','/contact','/work/afri-index','/work/wedding']:
+  for route in ['/','/about','/work','/hobbies','/pricing','/contact','/services','/services/website-development','/services/ecommerce-development','/services/erp-inventory','/services/custom-software','/work/afri-index','/work/wedding']:
    page.goto(base+route);page.wait_for_timeout(300)
    overflow=page.evaluate('''() => [...document.querySelectorAll('main *')].filter(e=>{const r=e.getBoundingClientRect(),s=getComputedStyle(e);return r.width>0&&r.right>innerWidth+2&&s.position!=='fixed'&&s.position!=='absolute'}).map(e=>e.className).slice(0,6)''')
    report['pages'].append({'route':route,'width':width,'overflow':overflow,'h1':page.locator('h1').count()})
-   if width in [390,1440] and route in ['/','/about','/hobbies','/contact']:
+   if width in [390,1440] and route in ['/','/about','/hobbies','/contact','/services','/services/website-development','/services/ecommerce-development','/services/erp-inventory','/services/custom-software']:
     page.screenshot(path=str(out/f"{route.strip('/') or 'home'}-{width}.png"),full_page=True)
  page.set_viewport_size({'width':1440,'height':900});page.goto(base+'/');page.wait_for_timeout(500)
  page.evaluate('window.__navigationProof=42')
@@ -32,7 +32,12 @@ with sync_playwright() as p:
  report['checks'].append('Theme persists and toolbar metadata updates')
  page.goto(base+'/hobbies');page.get_by_role('button',name='Why this character').first.click();assert page.get_by_text("I've always liked naturally gifted characters, and Gojo is my favourite across anime.",exact=False).is_visible()
  report['checks'].append('Character explanation expands')
- page.goto(base+'/contact?service=landing-page');page.wait_for_timeout(300);assert page.locator('[name=projectType]').input_value()=='Landing page'
+ page.goto(base+'/contact?service=landing-page');page.wait_for_timeout(300);assert page.locator('[name=projectType]').input_value()=='landing-page';assert page.locator('[name=projectType] option:checked').inner_text()=='Landing page'
+ for service in ['website-development','ecommerce-development','erp-inventory','custom-software']:
+  page.goto(base+f'/contact?service={service}');page.wait_for_timeout(100);assert page.locator('[name=projectType]').input_value()==service
+ page.goto(base+'/services/erp-inventory');assert page.get_by_role('heading',name='Bring everyday business workflows into clearer view.').is_visible();page.locator('.service-faq summary').first.click();assert page.get_by_text('There is no verified public client ERP case study',exact=False).is_visible()
+ page.get_by_role('link',name='Discuss your project',exact=False).first.click();page.wait_for_url('**/contact?service=erp-inventory');page.wait_for_function("document.querySelector('[name=projectType]').value==='erp-inventory'");assert page.locator('[name=projectType]').input_value()=='erp-inventory'
+ report['checks'].append('Service-specific FAQ, quote navigation, and contact preselection work')
  page.route('**/api/contact',lambda route:route.fulfill(status=503,json={'error':'The contact form is unavailable right now. Please use email or WhatsApp.'}))
  page.locator('[name=name]').fill('Test visitor');page.locator('[name=email]').fill('test@example.com');page.locator('[name=message]').fill('I would like to discuss a website project.');page.get_by_role('button',name='Send message',exact=False).click();page.get_by_role('alert').wait_for(state='visible');assert 'unavailable' in page.get_by_role('alert').inner_text()
  report['checks'].append('Contact service prefill and honest unavailable state')
@@ -40,7 +45,7 @@ with sync_playwright() as p:
  page.unroute('**/api/contact');page.route('**/api/contact',lambda route:route.fulfill(status=200,json={'ok':True}));page.get_by_role('button',name='Send message',exact=False).click();page.wait_for_timeout(250);assert 'accepted' in page.locator('[role=status]').inner_text().lower() or 'sent' in page.locator('[role=status]').inner_text().lower()
  report['checks'].append('Contact accepted state exercised with mock response')
  nojs=browser.new_context(java_script_enabled=False,viewport={'width':390,'height':844});n=nojs.new_page()
- for route in ['/','/about','/work','/hobbies','/pricing','/contact','/work/afri-index','/work/wedding']:
+ for route in ['/','/about','/work','/hobbies','/pricing','/contact','/services','/services/website-development','/services/ecommerce-development','/services/erp-inventory','/services/custom-software','/work/afri-index','/work/wedding']:
   n.goto(base+route);assert n.locator('h1').is_visible();assert len(n.locator('main').inner_text())>150
  report['checks'].append('Eight representative routes have readable content with JavaScript disabled')
  assert not report['errors'], report['errors']

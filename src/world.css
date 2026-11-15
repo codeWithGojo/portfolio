@@ -264,6 +264,13 @@ a {
 .world-text-link:hover {
   text-decoration: underline;
 }
+.case-study > nav[aria-label="Breadcrumb"] {
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+.case-study > nav[aria-label="Breadcrumb"] [aria-current="page"] {
+  overflow-wrap: anywhere;
+}
 .world-portrait {
   margin: 0;
   position: relative;

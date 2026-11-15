@@ -13,6 +13,7 @@
     "test": "npm run test:design && node --test tests/contact.test.mjs tests/seo.test.mjs"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "motion": "^14.5.0",
     "react": "19.2.6",
     "react-dom": "19.2.6",

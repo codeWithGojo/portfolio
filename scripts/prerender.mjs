@@ -4,8 +4,8 @@ import {render,pageMetadata,metadataFor,structuredDataFor} from '../.ssr/entry-s
 const template=await readFile('dist/index.html','utf8');
 const manifest=JSON.parse(await readFile('dist/.vite/manifest.json','utf8'));
 const escape=s=>s.replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
-const modules={'/':'Home','/about':'About','/work':'Work','/hobbies':'Hobbies','/pricing':'Pricing','/contact':'Contact','/404':'NotFound'};
-function routeAssets(path){const file=modules[path]||'ProjectDetails';const entry=manifest[`src/pages/${file}.tsx`];const seen=new Set(),css=new Set(),js=new Set();function visit(item){if(!item||seen.has(item.file))return;seen.add(item.file);js.add(item.file);(item.css||[]).forEach(c=>css.add(c));(item.imports||[]).forEach(k=>visit(manifest[k]))}visit(entry);return [...css].map(f=>`<link rel="stylesheet" href="/${f}">`).join('')+[...js].map(f=>`<link rel="modulepreload" href="/${f}">`).join('')}
+const modules={'/':'Home','/about':'About','/work':'Work','/hobbies':'Hobbies','/pricing':'Pricing','/contact':'Contact','/services':'Services','/404':'NotFound'};
+function routeAssets(path){const file=path.startsWith('/services/')?'ServiceDetail':modules[path]||'ProjectDetails';const entry=manifest[`src/pages/${file}.tsx`];const seen=new Set(),css=new Set(),js=new Set();function visit(item){if(!item||seen.has(item.file))return;seen.add(item.file);js.add(item.file);(item.css||[]).forEach(c=>css.add(c));(item.imports||[]).forEach(k=>visit(manifest[k]))}visit(entry);return [...css].map(f=>`<link rel="stylesheet" href="/${f}">`).join('')+[...js].map(f=>`<link rel="modulepreload" href="/${f}">`).join('')}
 for(const page of [...pageMetadata,metadataFor('/404')]){
  const body=await render(page.path);if(!body.includes('<h1')||body.length<1000)throw Error(`Empty prerender: ${page.path}`);
  const canonical='https://imegu.world'+page.path;

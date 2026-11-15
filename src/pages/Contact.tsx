@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { contact, services } from "../content";
 import { Button, Heading } from "../components/Shared";
 import "../styles/contact.css";
+import { recordConversion } from "../components/ConversionAnalytics";
 
 const budgets = [
   "Under ₦150,000",
@@ -20,17 +21,20 @@ type Submission = {
   field?: Field;
 };
 const sendError = "I couldn’t confirm your message was sent. Please try again or use email or WhatsApp.";
+const serviceAliases: Record<string, string> = { "business-website": "website-development", ecommerce: "ecommerce-development", "web-application": "custom-software", "business-systems": "erp-inventory" };
 
 export default function Contact() {
   const { search } = useLocation();
-  const service = services.find((item) => item.id === new URLSearchParams(search).get("service"));
+  const requestedService = new URLSearchParams(search).get("service") || "";
+  const service = services.find((item) => item.id === (serviceAliases[requestedService] || requestedService));
   const [projectType, setProjectType] = useState("");
+  const [queryReady, setQueryReady] = useState(false);
   const [submission, setSubmission] = useState<Submission>({ phase: "idle" });
   const inFlight = useRef(false);
   const sending = submission.phase === "sending";
 
   // Static prerendering cannot see the visitor's query string.
-  useEffect(() => setProjectType(service?.title ?? ""), [service]);
+  useEffect(() => { setProjectType(service?.id ?? ""); setQueryReady(true); }, [service]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -41,7 +45,7 @@ export default function Contact() {
     const fields = {
       name: get("name"),
       email: get("email"),
-      projectType: get("projectType"),
+      projectType: services.find((item) => item.id === get("projectType"))?.title ?? "",
       budget: get("budget"),
       message: get("message"),
       website: String(values.get("website") ?? ""),
@@ -69,10 +73,11 @@ export default function Contact() {
       });
       const payload = await response.json().catch(() => null);
       if (response.ok && payload?.ok === true) {
+        recordConversion("contact_form_success");
         const latest = new FormData(form);
         if (Array.from(values).every(([key, value]) => latest.get(key) === value)) {
           form.reset();
-          setProjectType(service?.title ?? "");
+          setProjectType(service?.id ?? "");
         }
         setSubmission({ phase: "sent" });
       } else {
@@ -96,8 +101,8 @@ export default function Contact() {
 
   return (
     <div className="world-shell contact-page">
-      <Heading label="Contact" title="Tell me what you’re building.">
-        <p>A rough idea is enough. Tell me who it’s for and what you need it to do.</p>
+      <Heading label={queryReady && service ? `Contact / ${service.title}` : "Contact"} title={queryReady && service ? `Let’s talk about ${service.title.toLowerCase()}.` : "Tell me what you’re building."}>
+        <p>{queryReady && service ? `A rough idea is enough. ${service.for} ${service.scope}.` : "A rough idea is enough. Tell me who it’s for and what you need it to do."}</p>
       </Heading>
       <div className="contact-page__grid">
         <aside className="contact-page__direct" aria-label="Contact options">
@@ -137,7 +142,7 @@ export default function Contact() {
               <span>Project type <small>(optional)</small></span>
               <select name="projectType" value={projectType} onChange={(event) => setProjectType(event.currentTarget.value)} {...fieldState("projectType")}>
                 <option value="">Choose a type</option>
-                {services.map(({ id, title }) => <option key={id}>{title}</option>)}
+                {services.map(({ id, title }) => <option key={id} value={id}>{title}</option>)}
               </select>
             </label>
             <label>

@@ -5,8 +5,10 @@ import Footer from './components/Footer';
 import { metadataFor, siteOrigin } from './data/seo';
 import { preloadRoute } from './router';
 import { projects } from './projects';
+import { AnalyticsOptIn, recordConversion, useRouteConversion } from './components/ConversionAnalytics';
 export default function App(){
  const location=useLocation();const navigate=useNavigate();const navigation=useNavigation();const navigationType=useNavigationType();const initial=useRef(true);
+ useRouteConversion(location.pathname);
  useEffect(()=>{
   const meta=metadataFor(location.pathname);document.title=meta.title;
   document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.setAttribute('href',siteOrigin+meta.path);
@@ -18,7 +20,7 @@ export default function App(){
  },[location.pathname,location.hash,navigationType]);
  useEffect(()=>{const legacy:Record<string,string>={home:'/',skills:'/about#skills',experience:'/about',education:'/about',projects:'/work',about:'/about',background:'/about',hobbies:'/hobbies',pricing:'/pricing',services:'/pricing',contact:'/contact'};const hash=location.hash.slice(1);if(location.pathname==='/'&&legacy[hash])navigate(legacy[hash],{replace:true});else if(location.pathname==='/'&&projects.some(p=>p.id===hash))navigate(`/work/${hash}`,{replace:true})},[location.pathname,location.hash,navigate]);
  function internal(target:EventTarget|null){const a=(target as Element)?.closest?.('a');if(!a||a.hasAttribute('download')||a.target&&a.target!=='_self'||a.dataset.native!==undefined)return null;const url=new URL(a.href,window.location.href);if(url.origin!==window.location.origin||url.pathname.endsWith('.html')||/\.[a-z0-9]+$/i.test(url.pathname))return null;return url;}
- function click(e:MouseEvent){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.altKey||e.shiftKey)return;const url=internal(e.target);if(!url)return;if(url.pathname===window.location.pathname&&url.hash)return;e.preventDefault();navigate(url.pathname+url.search+url.hash)}
+ function click(e:MouseEvent){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.altKey||e.shiftKey)return;const a=(e.target as Element)?.closest?.('a');const url=internal(e.target);if(a&&url){if(url.pathname==='/contact'&&url.searchParams.has('service'))recordConversion('quote_cta_click');if(url.pathname===window.location.pathname&&url.hash)return;e.preventDefault();navigate(url.pathname+url.search+url.hash);return}if(a&&/^https?:/.test(a.href)&&/demo|invitation|visit|open|browse|live/i.test(a.textContent||''))recordConversion('project_demo_click');if(a&&/wa\.me\//i.test(a.href))recordConversion('whatsapp_click')}
  function prefetch(e:MouseEvent|FocusEvent){const connection=(navigator as Navigator&{connection?:{saveData?:boolean;effectiveType?:string}}).connection;if(connection?.saveData||connection?.effectiveType==='2g')return;const url=internal(e.target);if(url)void preloadRoute(url.pathname).catch(()=>{})}
- return <div onClick={click} onMouseOver={prefetch} onFocus={prefetch}><a className="skip-link" href="#main">Skip to content</a><Navigation/>{navigation.state!=='idle'&&<div className="route-progress" role="status">Opening page…</div>}<main id="main" tabIndex={-1}><div className="route-content" key={location.pathname}><Outlet/></div></main><Footer/><ScrollRestoration/></div>
+ return <div onClick={click} onMouseOver={prefetch} onFocus={prefetch}><AnalyticsOptIn/><a className="skip-link" href="#main">Skip to content</a><Navigation/>{navigation.state!=='idle'&&<div className="route-progress" role="status">Opening page…</div>}<main id="main" tabIndex={-1}><div className="route-content" key={location.pathname}><Outlet/></div></main><Footer/><ScrollRestoration/></div>
 }

@@ -10,7 +10,7 @@ import {
 import { AnimatePresence, motion, usePresence } from "motion/react";
 import "./world-motion.css";
 
-const INTRO_KEY = "imegu-ninja-seen-v1";
+const INTRO_KEY = "imegu-identity-seen-v2";
 
 // Motion's installed hook snapshots this preference; keep live OS changes working too.
 function useReducedMotion() {
@@ -29,40 +29,25 @@ function useReducedMotion() {
   return reduced;
 }
 
-/** An optional opening: links underneath remain usable, and it plays once per tab. */
-export function CodingNinjaIntro() {
+/** A short, optional, session-aware personal signature. No forced navigation. */
+export function CircularIdentityIntro() {
   const reduced = useReducedMotion();
   const [visible, setVisible] = useState(() => {
-    if (
-      typeof window === "undefined" ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    )
-      return false;
-    try {
-      return sessionStorage.getItem(INTRO_KEY) !== "yes";
-    } catch {
-      return true;
-    }
+    if (typeof window === "undefined" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
+    try { return sessionStorage.getItem(INTRO_KEY) !== "yes"; } catch { return true; }
   });
   useEffect(() => {
     if (!visible) return;
-    try {
-      sessionStorage.setItem(INTRO_KEY, "yes");
-    } catch {
-      /* Private browsing can disable storage. */
-    }
-    const timer = window.setTimeout(() => setVisible(false), 2100);
-    const dismiss = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setVisible(false);
-    };
-    // Choosing any route ends the opening immediately, without intercepting navigation.
+    try { sessionStorage.setItem(INTRO_KEY, "yes"); } catch { /* Storage can be unavailable. */ }
+    const timer = window.setTimeout(() => setVisible(false), 1900);
+    const dismiss = (event: KeyboardEvent) => { if (event.key === "Escape") setVisible(false); };
     const navigate = (event: MouseEvent) => {
       if ((event.target as Element).closest("a")) setVisible(false);
     };
     document.addEventListener("keydown", dismiss);
     document.addEventListener("click", navigate);
     return () => {
-      clearTimeout(timer);
+      window.clearTimeout(timer);
       document.removeEventListener("keydown", dismiss);
       document.removeEventListener("click", navigate);
     };
@@ -70,74 +55,20 @@ export function CodingNinjaIntro() {
   return (
     <AnimatePresence>
       {visible && !reduced && (
-        <motion.div
-          className="wm-ninja"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.28 }}
-        >
-          <div className="wm-ninja-scene" aria-hidden="true">
-            <span className="wm-ninja-caption">
-              A SMALL ENTRANCE. A WHOLE WORLD.
-            </span>
-            <svg viewBox="0 0 540 340" className="wm-ninja-art">
-              <path
-                className="wm-ninja-code"
-                d="m170 130-42 40 42 40m200-80 42 40-42 40m-68-99-49 158"
-              />
-              <g className="wm-ninja-figure">
-                <path
-                  d="m274 228-42 56-32-5 33-65m48 8 31 40 29-8-40-51"
-                  fill="#141b29"
-                  stroke="#b9c6dd"
-                  strokeWidth="2"
-                />
-                <path
-                  d="m239 159-27 49 30 25 59-12-4-63"
-                  fill="#131b2b"
-                  stroke="#b9c6dd"
-                  strokeWidth="2"
-                />
-                <path
-                  d="m239 176-51 25-21-13m123-14 41-45 23 2"
-                  fill="none"
-                  stroke="#b9c6dd"
-                  strokeWidth="14"
-                  strokeLinecap="round"
-                />
-                <path d="m317 143 71-79" stroke="#eef3ff" strokeWidth="4" />
-                <path d="m315 129 17 16" stroke="#96b8ff" strokeWidth="5" />
-                <ellipse
-                  cx="268"
-                  cy="129"
-                  rx="34"
-                  ry="38"
-                  fill="#111a2c"
-                  stroke="#b9c6dd"
-                  strokeWidth="2"
-                />
-                <path d="m237 122 60-1-4 19-51 0Z" fill="#dbe7fc" />
-                <path
-                  d="m247 131 12 2m17 0 11-3"
-                  stroke="#101725"
-                  strokeWidth="4"
-                />
-                <path d="m296 119 48-18-25 24 30 10-49-5" fill="#6b9af0" />
-                <path d="m235 202 63-3" stroke="#6b9af0" strokeWidth="8" />
-              </g>
-              <path className="wm-ninja-slash" d="M65 279Q246 79 467 69" />
-              <g className="wm-ninja-sparks" fill="#adc7fa">
-                <path d="m394 56 3 10 10 3-10 3-3 10-3-10-10-3 10-3Z" />
-                <circle cx="113" cy="240" r="3" />
-                <circle cx="427" cy="92" r="2" />
-              </g>
-            </svg>
-            <span className="wm-ninja-title">
-              Coding Ninja<span>Welcome to my world.</span>
-            </span>
+        <motion.div className="wm-identity" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+          <svg className="wm-identity-halo" viewBox="0 0 500 500" aria-hidden="true">
+            <circle className="wm-identity-ring wm-identity-ring-outer" cx="250" cy="250" r="226" />
+            <circle className="wm-identity-ring wm-identity-ring-inner" cx="250" cy="250" r="174" />
+            <circle className="wm-identity-orbit" cx="250" cy="250" r="202" strokeDasharray="5 21 42 19 8 21" />
+            <circle className="wm-identity-centre" cx="250" cy="250" r="140" />
+            <path className="wm-identity-path" d="M 250 43 A 207 207 0 0 1 457 250" />
+          </svg>
+          <div className="wm-identity-copy">
+            <span className="wm-identity-kicker">A PERSONAL SIGNATURE / 001</span>
+            <strong>IMEGU<span>FAVOUR</span></strong>
+            <span className="wm-identity-note">Welcome to my world.</span>
           </div>
-          <button className="wm-ninja-skip" onClick={() => setVisible(false)}>
+          <button type="button" className="wm-identity-skip" onClick={() => setVisible(false)}>
             Skip intro <span aria-hidden="true">↗</span>
           </button>
         </motion.div>
@@ -146,9 +77,6 @@ export function CodingNinjaIntro() {
   );
 }
 
-type DustCardProps = { children: ReactNode; animateEntrance: boolean };
-
-/** Dissolve the real DOM through a fine grain mask; paint only the drifting dust. */
 const DustCard = forwardRef<HTMLDivElement, DustCardProps>(function DustCard(
   { children, animateEntrance },
   forwardedRef,

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#171417" />
+    <meta name="theme-color" content="#0B0C0E" />
     <script>
       (() => {
         let preference;
@@ -15,22 +15,35 @@
         document.documentElement.style.colorScheme = theme;
       })();
     </script>
-    <style>html[data-theme="dark"]{background:#171417;color:#faf7f3}html[data-theme="light"]{background:#f6f3ed;color:#211821}</style>
+    <style>html[data-theme="dark"]{background:#0B0C0E;color:#F6F6F7}html[data-theme="light"]{background:#FBFAF9;color:#211821}</style>
     <!-- route-meta-start -->
     <title>Favour Imegu (Gojo) — Developer</title>
     <meta name="description" content="Favour Imegu builds websites, products and business systems." />
     <!-- route-meta-end -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-    <link rel="stylesheet" href="/install-app.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Retire only the old portfolio PWA worker; preserve unrelated registrations.
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.getRegistrations().then(registrations =>
+            registrations.filter(reg => reg.active && new URL(reg.active.scriptURL).pathname === "/sw.js")
+              .forEach(reg => reg.unregister())
+          ).catch(() => {});
+          if ("caches" in window) {
+            caches.keys().then(keys =>
+              Promise.all(keys.filter(key => key.startsWith("portfolio-shell-")).map(key => caches.delete(key)))
+            ).catch(() => {});
+          }
+        }, { once: true });
+      }
+    </script>
     <script type="module" src="/src/main.tsx"></script>
-    <script src="/install-app.js" defer></script>
   </body>
 </html>

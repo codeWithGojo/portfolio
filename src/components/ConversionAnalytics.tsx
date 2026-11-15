@@ -18,7 +18,7 @@ export function useRouteConversion(pathname: string) {
   useEffect(() => {
     if (!analyticsEnabled || pathname === lastPath.current) return;
     lastPath.current = pathname;
-    if (pathname.startsWith("/services/")) recordConversion("service_page_view");
+    if (pathname === "/services" || pathname.startsWith("/services/")) recordConversion("service_page_view");
     if (pathname === "/pricing") recordConversion("pricing_page_view");
   }, [pathname]);
 }

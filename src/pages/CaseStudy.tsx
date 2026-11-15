@@ -8,6 +8,7 @@ export default function CaseStudy({ project: p }: { project: Project }) {
     <article
       className={`world-shell case-study ${wedding ? "wedding-case" : ""}`}
     >
+      <nav aria-label="Breadcrumb" className="world-text-link"><a href="/">Home</a> / <a href="/work">Work</a> / <span aria-current="page">{shortName(p)}</span></nav>
       <Heading label={`${p.tags[0]} / ${p.status}`} title={shortName(p)}>
         <p>{p.summary || p.why}</p>
       </Heading>

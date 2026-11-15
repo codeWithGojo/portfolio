@@ -22,11 +22,8 @@ export default function Home() {
               <span>Imegu.</span>
             </h1>
             <p className="hero-statement">
-              I build things for the web
-              <span className="muted">
-                {" "}
-                — and sometimes argue about music statistics.
-              </span>
+              I’m a web and software developer from Ibadan, Nigeria. I build websites, web apps and business systems for people with an idea worth making useful.
+              <span className="muted">{" "}I also argue about music statistics.</span>
             </p>
             <div className="world-actions">
               <Button href="/work">Explore my work</Button>

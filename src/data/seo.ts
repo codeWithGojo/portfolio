@@ -1,14 +1,52 @@
-import { projects } from '../projects';
-export const siteOrigin = 'https://imegu.world';
-const general = '/social-preview.png';
+import { projects } from "../projects";
+
+export const siteOrigin = "https://imegu.world";
+const socialImage = "/social-preview.png";
+const descriptions: Record<string, string> = {
+  "/": "Favour Imegu is a Nigerian web and software developer building thoughtful websites, web apps and business systems. Explore real projects or discuss what you need.",
+  "/about": "Meet Favour Imegu: a software developer from Ibadan, educated at Bowen University, learning through real web, mobile and business software projects with Dev Boyz.",
+  "/work": "Explore Favour Imegu’s software projects and case studies: Afri Index, TerraScope, FireSafe, business dashboards, mobile tools and websites.",
+  "/hobbies": "Arsenal, anime, music and competitive gaming: personal stories and interests beyond the software projects of Favour Imegu.",
+  "/pricing": "Compare Favour Imegu’s web development services. Landing pages start at ₦150,000; business websites, online shops and custom systems are quoted to scope.",
+  "/contact": "Contact Favour Imegu about a website, e-commerce project, web app or custom business system. Share your idea or start with WhatsApp.",
+};
+const clip = (text: string, max = 158) => text.length <= max ? text : `${text.slice(0, max - 1).replace(/\s+\S*$/, "")}…`;
+const projectDescription = (project: (typeof projects)[number]) => clip(`${project.title}: ${project.summary || project.why} ${project.status}.`);
 export const pageMetadata = [
- {path:'/',title:'Favour Imegu — Software Developer & Product Builder',description:'Explore the work and world of Favour Imegu, a Nigerian software developer building websites, useful products and business systems with care and curiosity.',image:general},
- {path:'/about',title:'About Favour Imegu — Story, Skills & Dev Boyz',description:'From growing up in Ibadan to Computer Science at Bowen and building with Dev Boyz. Meet Favour Imegu and explore the real projects behind his skills.',image:general},
- {path:'/work',title:'Projects & Case Studies — Favour Imegu',description:'Explore websites, apps and tools built by Favour Imegu, including Afri Index, TerraScope and BlessingFoundHerBlessing, with honest stories behind each build.',image:general},
- {path:'/hobbies',title:'Outside the Code — Favour Imegu’s Personal World',description:'Explore Favour Imegu’s personal archive: Arsenal memories, anime, music, competitive gaming and the experiences that shaped the person behind the projects.',image:general},
- {path:'/pricing',title:'Website & Software Development Pricing — Favour Imegu',description:'Explore website, application and business system services from Favour Imegu. View the approved landing-page price range in naira or request a custom quote.',image:general},
- {path:'/contact',title:'Start a Project with Favour Imegu',description:'Have a website, product or business system in mind? Send Favour Imegu a project enquiry or start a conversation directly through WhatsApp or email.',image:general},
- ...projects.map(p=>({path:`/work/${p.id}`,title:`${p.title} — Favour Imegu`,description:concise(p.summary||p.why),image:p.image||general})),
+  { path: "/", title: "Favour Imegu | Web & Software Developer in Nigeria", description: descriptions["/"], image: socialImage },
+  { path: "/about", title: "About Favour Imegu | Story, Skills & Dev Boyz", description: descriptions["/about"], image: socialImage },
+  { path: "/work", title: "Software Projects & Case Studies | Favour Imegu", description: descriptions["/work"], image: socialImage },
+  { path: "/hobbies", title: "Outside the Code | Favour Imegu", description: descriptions["/hobbies"], image: socialImage },
+  { path: "/pricing", title: "Web Development Services & Pricing in Nigeria | Favour Imegu", description: descriptions["/pricing"], image: socialImage },
+  { path: "/contact", title: "Hire Favour Imegu | Web & Software Projects", description: descriptions["/contact"], image: socialImage },
+  ...projects.map((project) => ({ path: `/work/${project.id}`, title: clip(`${project.title} | Favour Imegu`, 65), description: projectDescription(project), image: project.image || socialImage, imageWidth: project.imageWidth || 1200, imageHeight: project.imageHeight || 630 })),
 ];
-function concise(text:string){if(text.length<=160)return text;return text.slice(0,156).replace(/\s+\S*$/,'')+'…'}
-export function metadataFor(path:string){return pageMetadata.find(p=>p.path===(path.replace(/\/$/,'')||'/'))||{path:'/404',title:'Page Not Found — Favour Imegu',description:'This page could not be found. Explore Favour Imegu’s work, story and contact pages.',image:general}}
+export function metadataFor(path: string) {
+  const normalized = path.replace(/\/$/, "") || "/";
+  return pageMetadata.find((page) => page.path === normalized) || {
+    path: "/404", title: "Page Not Found | Favour Imegu",
+    description: "This page could not be found. Explore Favour Imegu’s software projects, story and contact details.", image: socialImage,
+  };
+}
+
+const personId = `${siteOrigin}/#favour-imegu`;
+const websiteId = `${siteOrigin}/#website`;
+export function structuredDataFor(path: string) {
+  const page = metadataFor(path);
+  const canonical = `${siteOrigin}${page.path}`;
+  const graph: Record<string, unknown>[] = [];
+  const person = { "@id": personId, "@type": "Person", name: "Favour Imegu", alternateName: "codeWithGojo", url: siteOrigin, image: `${siteOrigin}/hero-graduation.webp`, jobTitle: "Software developer", description: descriptions["/"], homeLocation: { "@type": "Place", name: "Ibadan, Nigeria" }, alumniOf: { "@type": "CollegeOrUniversity", name: "Bowen University", address: { "@type": "PostalAddress", addressLocality: "Iwo", addressCountry: "NG" } }, sameAs: ["https://github.com/codeWithGojo"] };
+  const website = { "@id": websiteId, "@type": "WebSite", name: "IMEGU.WORLD", url: siteOrigin, inLanguage: "en", publisher: { "@id": personId } };
+  graph.push(person, website);
+  if (page.path.startsWith("/work/")) {
+    const project = projects.find((item) => `/work/${item.id}` === page.path);
+    if (project) graph.push({ "@type": "CreativeWork", name: project.title, description: page.description, url: canonical, image: project.image ? `${siteOrigin}${project.image}` : undefined, creator: { "@id": personId }, keywords: project.tech.join(", "), about: project.tags.join(", "), ...(project.links[0] ? { sameAs: project.links.map((link) => link.href) } : {}) });
+  }
+  if (page.path === "/") graph.push({ "@type": "ProfilePage", name: page.title, url: canonical, mainEntity: { "@id": personId } });
+  else if (page.path === "/about") graph.push({ "@type": "AboutPage", name: page.title, description: page.description, url: canonical, mainEntity: { "@id": personId }, isPartOf: { "@id": websiteId } });
+  else if (page.path === "/work" || page.path === "/hobbies") graph.push({ "@type": "CollectionPage", name: page.title, description: page.description, url: canonical, isPartOf: { "@id": websiteId } });
+  else graph.push({ "@type": "WebPage", name: page.title, description: page.description, url: canonical, isPartOf: { "@id": websiteId } });
+  if (page.path.startsWith("/work/")) graph.push({ "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: siteOrigin }, { "@type": "ListItem", position: 2, name: "Work", item: `${siteOrigin}/work` }, { "@type": "ListItem", position: 3, name: page.title, item: canonical }] });
+  if (page.path === "/work") graph.push({ "@type": "ItemList", name: "Software projects by Favour Imegu", itemListElement: projects.map((project, index) => ({ "@type": "ListItem", position: index + 1, name: project.title, url: `${siteOrigin}/work/${project.id}` })) });
+  return { "@context": "https://schema.org", "@graph": graph };
+}

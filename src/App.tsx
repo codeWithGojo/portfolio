@@ -8,7 +8,7 @@ import {
 import { projects, type Project } from "./projects";
 import { chapters, contact, services } from "./content";
 import {
-  CodingNinjaIntro,
+  CircularIdentityIntro,
   DustGrid,
   ArsenalAtmosphere,
   StarboyEgg,
@@ -105,7 +105,7 @@ function Home() {
   const wedding = projects.find((p) => p.id === "wedding")!;
   return (
     <>
-      <CodingNinjaIntro />
+      <CircularIdentityIntro />
       <section className="world-hero world-shell">
         <div className="hero-caption">
           <span>FAVOUR IMEGU / SOFTWARE DEVELOPER</span>
@@ -218,16 +218,6 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="world-section world-shell philosophy">
-        <p className="world-label">03 / A little perspective</p>
-        <blockquote>
-          “I was never obsessed with being the smartest person in the room. I
-          just wanted to make a living doing something I genuinely love.”
-        </blockquote>
-        <a className="world-text-link" href="/about">
-          More of my story ↗
-        </a>
-      </section>
       <CTA />
     </>
   );
@@ -280,10 +270,6 @@ function About() {
         </div>
       </div>
       <section className="world-section philosophy">
-        <blockquote>
-          “I was never obsessed with being the smartest person in the room. I
-          just wanted to make a living doing something I genuinely love.”
-        </blockquote>
         <p>
           University came with ups, downs and friendships that mattered. I
           consider myself an academically average student. I’m more interested
@@ -703,7 +689,7 @@ function Hobbies() {
             </a>
           </article>
           <article>
-            <span className="hobby-label">In another universe</span>
+            <span className="hobby-label">In Another Universe</span>
             <h3>Gojo only lost because of plot.</h3>
             <p>
               My Hero Academia is my favourite anime overall. Satoru Gojo is my
@@ -714,7 +700,7 @@ function Hobbies() {
             </a>
           </article>
           <article>
-            <span className="hobby-label">Respawning eventually</span>
+            <span className="hobby-label">Balancing Life</span>
             <h3>Life came to nerf me.</h3>
             <p>
               My competitive CODM era involved ambitious plans, a device upgrade
@@ -725,6 +711,14 @@ function Hobbies() {
             </a>
           </article>
         </div>
+      </section>
+      <section className="world-section philosophy hobbies-reflection">
+        <p className="world-label">A little perspective</p>
+        <blockquote>
+          “I was never obsessed with being the smartest person in the room. I
+          just wanted to make a living doing something I genuinely love.”
+        </blockquote>
+        <p>There is more to my story than the work. These are the things that stay with me.</p>
       </section>
       <section id="life" className="world-section">
         <p className="world-label">Chapters of a life</p>
@@ -779,14 +773,17 @@ function Hobbies() {
         </div>
       </section>
       <section id="music" className="world-section music-universe">
-        <p className="world-label">My music universe</p>
+        <p className="world-label">My Fav Artists</p>
         <div className="adele-feature">
-          <div className="record-art" aria-hidden="true">
-            <span>
-              ON
-              <br />
-              REPEAT.
-            </span>
+          <div className="adele-artwork">
+            <iframe
+              title="Adele — Hello: official Spotify artwork and track"
+              src="https://open.spotify.com/embed/track/62PaSfnXSMyLshYJrlTuL3?theme=0"
+              loading="lazy"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
+            <p className="art-credit">ADELE / HELLO / 2015</p>
           </div>
           <div>
             <span className="world-label">My overall favourite</span>
@@ -805,23 +802,34 @@ function Hobbies() {
             </a>
           </div>
         </div>
+        <div className="record-grid" aria-label="A few favourite Afrobeats releases">
+          {[
+            { artist: "Omah Lay", release: "Boy Alone", kind: "Album", id: "6A5x0fKoL7IBjeVy0UU8lq", type: "album" },
+            { artist: "Davido", release: "FIA", kind: "Single", id: "5WPEcYIwZlwVIQY9KtgbJ4", type: "track" },
+            { artist: "Burna Boy", release: "Twice As Tall", kind: "Album", id: "4moiYbxseWbPD2moVhOYje", type: "album" },
+            { artist: "ODUMODUBLVCK", release: "EZIOKWU", kind: "Album", id: "3vRT8WrwTtwE5jBQ5M3FGK", type: "album" },
+          ].map((record) => (
+            <article className="record-card" key={record.artist}>
+              <div className="record-embed">
+                <iframe
+                  title={`${record.artist} — ${record.release} official Spotify player and cover`}
+                  src={`https://open.spotify.com/embed/${record.type}/${record.id}?theme=0`}
+                  loading="lazy"
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                />
+              </div>
+              <div className="record-meta">
+                <div><strong>{record.artist}</strong><small>{record.release} / {record.kind}</small></div>
+                <a href={`https://open.spotify.com/${record.type}/${record.id}`} target="_blank" rel="noreferrer" aria-label={`Open ${record.release} by ${record.artist} on Spotify`}>↗</a>
+              </div>
+            </article>
+          ))}
+        </div>
         <div className="world-two-col music-lists">
           <div>
-            <h3>Afrobeats, naturally.</h3>
-            <div className="artist-links">
-              {["Omah Lay", "Davido", "Burna Boy", "Odumodublvck"].map(
-                (artist) => (
-                  <a
-                    key={artist}
-                    href={`https://open.spotify.com/search/${encodeURIComponent(artist)}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {artist} <span aria-hidden="true">↗</span>
-                  </a>
-                ),
-              )}
-            </div>
+            <h3>Music became a project.</h3>
+            <p>Sometimes a simple argument about an artist turns into a whole ranking system. That's how Afri Index found its way into my work.</p>
             <a href="/work/afri-index" className="world-text-link">
               Where the music arguments went ↗
             </a>
@@ -929,13 +937,22 @@ function Hobbies() {
           </p>
         </div>
       </section>
+      <section className="saka-feature world-section" aria-labelledby="saka-heading">
+        <div className="saka-mark" aria-hidden="true"><span>07</span><small>STARBOY / NORTH LONDON</small></div>
+        <div className="saka-copy">
+          <p className="world-label">Bukayo Saka / My Starboy</p>
+          <h2 id="saka-heading">Saka just makes football better.</h2>
+          <p>Watching Saka play for Arsenal is one of the joys of being a supporter. The talent, the courage to keep showing up, the way he carries himself — that's what I appreciate.</p>
+          <a className="world-text-link" href="https://www.arsenal.com/men/players/bukayo-saka" target="_blank" rel="noreferrer">Bukayo Saka / official Arsenal profile ↗</a>
+        </div>
+      </section>
       <section className="world-section football-memories">
         <p className="world-label">Football / The highs and the hurts</p>
         <h2>Some matches stay with you.</h2>
         <div className="world-two-col">
           <article>
             <span className="match-score">1—0</span>
-            <h3>The belief.</h3>
+            <h3>The joy of believing.</h3>
             <p className="world-label">Arsenal v Burnley / 18 May 2026</p>
             <p>
               Kai Havertz heading in Bukayo Saka’s corner had me ecstatic. It
@@ -954,7 +971,7 @@ function Hobbies() {
             <span className="match-score">
               1—1 <small>3—4 pens</small>
             </span>
-            <h3>The heartbreak.</h3>
+            <h3>The pain of losing.</h3>
             <p className="world-label">
               PSG v Arsenal / Budapest / 30 May 2026
             </p>
@@ -1243,6 +1260,35 @@ export default function App() {
     return () => document.removeEventListener("keydown", escape);
   }, [menu]);
   useEffect(() => {
+    // Magnetic feedback is pointer-only; touch, keyboard and reduced-motion stay stable.
+    const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (!fine.matches || reduced.matches) return;
+    const interactive = document.querySelectorAll<HTMLElement>(".world-button, .world-project-image, .world-text-link, .world-header nav a");
+    const cleanup: Array<() => void> = [];
+    interactive.forEach((item) => {
+      const move = (event: PointerEvent) => {
+        const rect = item.getBoundingClientRect();
+        const x = Math.max(-7, Math.min(7, (event.clientX - rect.left - rect.width / 2) * .08));
+        const y = Math.max(-7, Math.min(7, (event.clientY - rect.top - rect.height / 2) * .08));
+        item.style.setProperty("--magnet-x", `${x.toFixed(1)}px`);
+        item.style.setProperty("--magnet-y", `${y.toFixed(1)}px`);
+      };
+      const reset = () => {
+        item.style.removeProperty("--magnet-x");
+        item.style.removeProperty("--magnet-y");
+      };
+      item.addEventListener("pointermove", move);
+      item.addEventListener("pointerleave", reset);
+      cleanup.push(() => {
+        item.removeEventListener("pointermove", move);
+        item.removeEventListener("pointerleave", reset);
+        reset();
+      });
+    });
+    return () => cleanup.forEach((fn) => fn());
+  }, []);
+  useEffect(() => {
     const legacy: Record<string, string> = {
       home: "/",
       skills: "/about#skills",
@@ -1304,10 +1350,9 @@ export default function App() {
       </a>
       <header className="world-header">
         <a href="/" className="world-logo" aria-label="Imegu World home">
-          imegu<span>.world</span>
-          <span className="logo-star" aria-hidden="true">
-            ✳
-          </span>
+          <span className="logo-prompt" aria-hidden="true">&gt;</span>
+          <span className="logo-reveal">imegu</span><span>.world</span>
+          <span className="logo-cursor" aria-hidden="true">_</span>
         </a>
         <nav
           id="world-nav"

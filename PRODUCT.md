@@ -22,3 +22,6 @@ This redesign is a refinement, not a rewrite. Change in reviewable batches on a 
 
 ## Third-party media
 Existing personal images may be displayed, but keep originals and only call an image enhanced if real image processing has occurred. For Adele, Omah Lay, Davido, Burna Boy and ODUMODUBLVCK, prefer official Spotify embeds and platform links instead of copying cover art or audio. Do not substitute synthetic documentary football images for genuine match photography. Do not redistribute anime art or athlete photographs without permission or a license. List any outstanding licensed assets during handoff.
+
+## November 15 visual correction
+The brand now emphasizes **red, charcoal and near-white** rather than burgundy. In the Hobbies opening, display exactly two Arsenal photographs (Saka and Lewis-Skelly) without the earlier red “COME ON YOU GUNNERS” backdrop. Attribute the Wikimedia Commons photographer and CC BY-SA 4.0 licence with visible source links. The separate Saka appreciation story and Starboy interaction stay.

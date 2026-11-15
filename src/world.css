@@ -4,34 +4,34 @@ body {
   color: var(--text);
 }
 :root {
-  --bg: #141315;
-  --bg-deep: #0c0c0d;
-  --panel: #211d21;
-  --text: #f8f2ee;
-  --muted: #bdb3b5;
-  --faint: #bdb3b5;
-  --line: #ffffff24;
-  --accent: #a8c6ff;
-  --accent-bright: #c5d9ff;
-  --on-accent: #131c2d;
-  --accent-wash: #a8c6ff12;
+  --bg: #0d090b;
+  --bg-deep: #090608;
+  --panel: #260d17;
+  --text: #f5efef;
+  --muted: #d4b6bd;
+  --faint: #b18b95;
+  --line: #d2a4af36;
+  --accent: #c4314d;
+  --accent-bright: #e25b77;
+  --on-accent: #fff9fa;
+  --accent-wash: #c4314d18;
   --gutter: clamp(20px, 5vw, 76px);
 }
 :root[data-theme="light"] {
-  --bg: #f8f4ef;
-  --bg-deep: #ede7e0;
-  --panel: #fffdfa;
-  --text: #241c21;
-  --muted: #655b62;
-  --faint: #655b62;
-  --line: #241c212b;
-  --accent: #284f88;
-  --accent-bright: #1e3f70;
-  --on-accent: #fff;
-  --accent-wash: #284f8810;
+  --bg: #fbf5f3;
+  --bg-deep: #f0e1e3;
+  --panel: #fffaf8;
+  --text: #2b0b17;
+  --muted: #6e434f;
+  --faint: #865b66;
+  --line: #5c11262c;
+  --accent: #871a33;
+  --accent-bright: #a8203f;
+  --on-accent: #ffffff;
+  --accent-wash: #871a3310;
 }
 body {
-  font-family: Inter, Arial, sans-serif;
+  font-family: "DM Sans", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.75;
 }
@@ -39,9 +39,9 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: "Space Grotesk", Arial, sans-serif;
-  font-weight: 500;
-  letter-spacing: -0.045em;
+  font-family: Syne, "Space Grotesk", Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.04em;
 }
 h2 {
   font-size: clamp(32px, 4.4vw, 60px);
@@ -342,9 +342,9 @@ a {
 }
 .world-featured {
   display: grid;
-  grid-template-columns: 1.18fr 1fr;
-  gap: 48px;
-  margin-bottom: 36px;
+  grid-template-columns: 1.13fr 1fr;
+  gap: clamp(20px, 3vw, 42px);
+  margin-bottom: 42px;
 }
 .world-featured > div:nth-child(2) {
   padding-top: 100px;
@@ -363,10 +363,10 @@ a {
 .world-project-image img {
   display: block;
   width: 100%;
-  aspect-ratio: 1.4;
+  aspect-ratio: 1.45;
   object-fit: cover;
   object-position: top;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .world-project-image:hover img {
   transform: scale(1.035);
@@ -799,31 +799,6 @@ a {
   letter-spacing: -0.08em;
   margin-bottom: 24px;
 }
-.record-art {
-  aspect-ratio: 1;
-  background: repeating-radial-gradient(
-    circle at center,
-    #1c1920 0 2px,
-    #302b31 3px 4px
-  );
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  box-shadow: inset 0 0 0 25px #ffffff04;
-  max-width: 460px;
-}
-.record-art span {
-  background: #b8b0a2;
-  color: #282124;
-  width: 42%;
-  height: 42%;
-  border-radius: 50%;
-  display: grid;
-  place-content: center;
-  text-align: center;
-  font: 500 clamp(20px, 3.5vw, 45px)/1 "Space Grotesk";
-  letter-spacing: -0.05em;
-}
 .music-lists {
   margin-top: 65px;
 }
@@ -1165,7 +1140,7 @@ a {
     gap: 35px;
   }
   .world-featured > div:nth-child(2) {
-    padding-top: 20px;
+    padding-top: 0;
   }
   .world-project-grid {
     gap: 42px 20px;
@@ -1232,10 +1207,6 @@ a {
   }
   .adele-feature {
     gap: 35px;
-  }
-  .record-art {
-    width: 85%;
-    margin-inline: auto;
   }
   .music-lists {
     margin-top: 40px;
@@ -1365,17 +1336,6 @@ a {
   --accent: #a71632;
   --on-accent: #ffffff;
 }
-.wm-ninja {
-  top: 84px;
-}
-.wm-ninja-art {
-  height: auto;
-}
-@media (max-width: 760px) {
-  .wm-ninja {
-    top: 74px;
-  }
-}
 .world-hero-grid > * {
   min-width: 0;
 }
@@ -1386,10 +1346,6 @@ a {
   .world-portrait {
     aspect-ratio: auto;
   }
-  .world-header nav .app-install {
-    grid-column: 1/-1;
-    justify-content: center;
-  }
 }
 .anime-card .character-type {
   width: calc(100% + 28px);
@@ -1397,20 +1353,10 @@ a {
   font-size: clamp(20px, 2vw, 30px);
   letter-spacing: -0.05em;
 }
-.anime-card:nth-child(2) .character-type {
-  background: #1e2b28;
-  color: #a9d7b9;
-}
-.anime-card:nth-child(3) .character-type {
-  background: #242336;
-  color: #c8c2e8;
-}
-.anime-card:nth-child(4) .character-type {
-  background: #33261e;
-}
-.anime-card:nth-child(5) .character-type {
-  background: #361b20;
-}
+.anime-card:nth-child(2) .character-type { background: #3a1726; color: #f0c0cd; }
+.anime-card:nth-child(3) .character-type { background: #381420; color: #e6a1b3; }
+.anime-card:nth-child(4) .character-type { background: #431f23; color: #f2c1a2; }
+.anime-card:nth-child(5) .character-type { background: #301014; color: #edaf9e; }
 .artist-links {
   display: flex;
   flex-wrap: wrap;
@@ -1431,3 +1377,75 @@ a {
 .artist-links a:hover {
   background: var(--panel);
 }
+
+
+/* Imegu World: intentionally editorial black / burgundy system. */
+body { background: var(--bg); color: var(--text); }
+.world-header { background: color-mix(in srgb, var(--bg) 94%, var(--panel)); backdrop-filter: blur(12px); }
+.world-label, .hero-caption, .project-meta, .record-meta small, .art-credit { font-family: "JetBrains Mono", monospace; letter-spacing: .085em; }
+.world-hero h1 { font-family: Syne, "Space Grotesk", sans-serif; font-size: clamp(70px, 9.2vw, 130px); font-weight: 700; }
+.world-section-head h2 { max-width: 740px; }
+.world-hero-grid { gap: clamp(26px, 4vw, 72px); }
+.world-portrait { border-radius: 2px; border: 1px solid var(--line); background: #260d17; }
+.world-portrait::after { background: linear-gradient(transparent 28%, #0d090bcb); }
+.world-project-image { border-radius: 2px; isolation: isolate; }
+.world-project-image::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(145deg, transparent 60%, #0d090b48); opacity: .7; transition: opacity .3s; }
+.world-project-image:hover::after { opacity: .25; }
+.world-featured .world-project-image img { aspect-ratio: 1.17; }
+.world-project-grid .world-project-image img { aspect-ratio: 1.6; }
+.world-featured > div:nth-child(2) { padding-top: clamp(0px, 6vw, 82px); }
+.heart-project .world-project-image { border-color: #8b3550; }
+.world-logo { display: inline-flex; align-items: center; gap: 0; }
+.world-header .world-logo .logo-reveal { display: inline-block; color: var(--text); clip-path: inset(0 100% 0 0); animation: imegu-type 900ms steps(5, end) 150ms forwards; }
+.world-logo .logo-prompt { color: var(--accent); font: 500 15px "JetBrains Mono", monospace; margin-right: 8px; }
+.world-logo .logo-cursor { color: var(--accent); font: 500 24px "JetBrains Mono", monospace; opacity: 0; animation: imegu-cursor 250ms steps(2, end) 6 120ms; }
+.world-logo:hover .logo-cursor { opacity: 1; animation: none; }
+@keyframes imegu-type { to { clip-path: inset(0 0 0 0); } }
+@keyframes imegu-cursor { 50% { opacity: 1; } }
+.world-button, .world-project-image, .world-text-link, .world-header nav a { translate: var(--magnet-x, 0px) var(--magnet-y, 0px); transition: translate 280ms cubic-bezier(.2,.75,.3,1), transform 250ms ease, background 250ms ease, color 250ms ease; }
+.world-button { border-radius: 2px; }
+.world-button:active, .world-project-image:active { scale: .98; }
+.world-text-link:hover > span[aria-hidden] { transform: translate(2px,-2px); }
+.world-text-link > span[aria-hidden] { transition: transform 250ms ease; }
+.hobbies-reflection { border-block: 1px solid var(--line); margin-top: 10px; padding-block: clamp(50px, 7vw, 110px); }
+.hobbies-reflection blockquote { color: var(--text); max-width: 980px; }
+.adele-artwork { position: relative; min-width: 0; padding: clamp(14px, 2vw, 26px); border: 1px solid #7c2e44; background: radial-gradient(circle at 75% 15%, #5c1126 0, #130b0f 65%); transform: rotate(-1.2deg); transition: transform 450ms cubic-bezier(.2,.75,.3,1); }
+.adele-artwork:hover { transform: rotate(0); }
+.adele-artwork iframe { display: block; width: 100%; height: 352px; border: 0; border-radius: 10px; }
+.art-credit { display: block; margin: 17px 0 0; font-size: 10px; color: #e6b6c4; }
+.adele-feature h2 { font-family: Syne, sans-serif; }
+.record-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 2vw, 28px); margin-top: 65px; }
+.record-card { min-width: 0; }
+.record-embed { position: relative; overflow: hidden; border-radius: 4px; background: var(--panel); border: 1px solid var(--line); transition: border-color 250ms ease, transform 350ms ease; }
+.record-card:hover .record-embed { border-color: var(--accent); transform: translateY(-5px); }
+.record-embed iframe { display: block; width: 100%; height: 352px; border: 0; }
+.record-meta { display: flex; justify-content: space-between; align-items: start; gap: 10px; padding: 16px 2px; }
+.record-meta strong { display: block; font-family: Syne, sans-serif; font-size: 19px; line-height: 1.3; }
+.record-meta small { display: block; margin-top: 5px; font-size: 10px; color: var(--muted); }
+.record-meta a { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); }
+.record-meta a:hover { background: var(--accent); color: var(--on-accent); }
+.anime-card { background: var(--panel); border-radius: 2px; transition: transform 300ms ease, border-color 300ms ease; }
+.anime-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+.anime-card[open] { border-color: var(--accent); }
+.anime-card .character-type { height: 186px; font-family: Syne, sans-serif; font-weight: 700; font-size: clamp(21px,2.3vw,38px); overflow: hidden; }
+.anime-card .world-text-link { color: var(--accent-bright); }
+.saka-feature { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(26px, 5vw, 88px); align-items: center; border-block: 1px solid var(--line); }
+.saka-mark { display: flex; align-items: center; justify-content: center; flex-direction: column; min-height: 460px; overflow: hidden; background: repeating-linear-gradient(110deg, #290a16 0 2px, #340d1c 2px 12px); border: 1px solid #6a1e33; color: #f9d4da; }
+.saka-mark span { font: 800 clamp(150px, 24vw, 340px)/.85 Syne, sans-serif; letter-spacing: -.15em; transform: translateX(-.07em); text-shadow: 10px 10px #871a33; }
+.saka-mark small { font: 500 11px "JetBrains Mono", monospace; letter-spacing: .15em; margin-top: 30px; }
+.saka-copy h2 { max-width: 620px; }
+.saka-copy p:not(.world-label) { max-width: 550px; font-size: 18px; line-height: 1.8; }
+.football-memories article:first-child { border-color: #c4314d; }
+.football-memories article:last-child { border-color: #69404a; }
+.football-memories article { background: color-mix(in srgb, var(--panel) 30%, transparent); padding: 30px; }
+.football-memories .match-score { font-family: Syne, sans-serif; }
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: imegu-page-out 180ms ease-in both; }
+::view-transition-new(root) { animation: imegu-page-in 360ms cubic-bezier(.2,.75,.3,1) both; }
+@keyframes imegu-page-out { to { opacity: .45; filter: blur(3px); } }
+@keyframes imegu-page-in { from { opacity: .3; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (max-width: 1050px) { .record-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) { .world-featured > div:nth-child(2) { padding-top: 0; } .saka-feature { grid-template-columns: 1fr; } .saka-mark { min-height: 280px; } .saka-mark span { font-size: clamp(110px, 30vw, 190px); } .world-hero h1 { font-size: clamp(64px, 13vw, 108px); } }
+@media (max-width: 480px) { .world-hero h1 { font-size: clamp(56px, 16vw, 84px); } .record-grid { grid-template-columns: 1fr; } .record-embed iframe { height: 352px; } .adele-artwork { padding: 12px; transform: none; } .saka-mark { min-height: 235px; } .saka-copy p:not(.world-label) { font-size: 15px; } }
+@media (hover: none), (pointer: coarse) { .world-button, .world-project-image, .world-text-link, .world-header nav a { translate: none; } .anime-card:hover, .record-card:hover .record-embed, .adele-artwork:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .world-header .world-logo .logo-reveal { animation: none; clip-path: none; } .world-logo .logo-cursor { animation: none; opacity: 0; } .world-button, .world-project-image, .world-text-link, .world-header nav a { translate: none !important; } ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; } }

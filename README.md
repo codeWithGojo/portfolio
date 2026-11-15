@@ -1,40 +1,33 @@
-# Favour Imegu — Portfolio
+# Favour Imegu’s portfolio
 
-A responsive portfolio focused on DevOps, cloud infrastructure, IoT, and the real thinking behind each project.
+Personal portfolio for [imegu.world](https://imegu.world). It covers selected projects and case studies, services, contact, and personal stories.
 
-**Live:** https://portfolio-favour12.vercel.app/
+## Development
 
-## What changed
+Use Node.js 22.12+ or a newer LTS and install locked dependencies with `npm ci`.
 
-- Replaced the previous black/red portfolio with the full editorial redesign.
-- Preserved every existing featured project.
-- Added a personal **Why I built it** section to every project.
-- Each case study also explains what was built, what I learned, the challenge, outcome, technology, and live/source links.
-- Added responsive navigation and light/dark display modes.
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Vite development server with live updates |
+| `npm run typecheck` | TypeScript checks |
+| `npm run test:design` | Design regression checks |
+| `node --test tests/contact.test.mjs` | Contact endpoint tests with mocked email delivery |
+| `npm run build` | Build the browser and server bundles, then prerender pages into `dist/` |
+| `npm run preview` | Serve the production build locally |
 
-## Selected projects
+## Structure
 
-- CoDM Squad Hub
-- FireSafe: Smart Fire & Gas Detection
-- ExpenseAI
-- Cantica
-- PredictArena
-- Afri Index and the separate Afri Index Flier Studio
-- TerraScope
-- NairaScope
-- FPL Squad Command Centre
+- `src/pages/` contains route components, with shared UI in `src/components/` and portfolio content in `src/data/` and `src/projects.ts`.
+- `src/router.tsx` defines shared browser and prerender routes. The browser hydrates the prerendered HTML and loads page code by route.
+- `src/entry-server.tsx` and `scripts/prerender.mjs` write route HTML, metadata and sitemap entries at build time.
+- `api/contact.mjs` handles contact enquiries on Vercel.
 
-The case studies distinguish live products, development work and concept samples. Links and current project notes are maintained in `src/projects.ts`.
+## Vercel preview
 
-## Run locally
+Run the same build command on Vercel and serve `dist/`. The Vercel Function at `/api/contact` needs `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, and `CONTACT_TO_EMAIL` set in the Preview environment for real delivery. See [contact setup](docs/contact-setup.md) for sender verification, development API testing and deployment checks. The static Vite preview does not serve the Vercel Function.
 
-```bash
-npm install
-npm run dev
-```
+See [asset credits and responsive variants](docs/assets.md) and the [cleanup audit](docs/cleanup-audit.md).
 
-## Production build
+## Browser verification
 
-```bash
-npm run build
-```
+After `npm run build`, run `npm run preview -- --port 4175`. With Python Playwright and Chrome installed, run `python tests/overhaul-browser.py` and `python tests/motion-browser.py`. Set `BASE_URL` to test a deployment. Contact browser responses are mocked and do not send email. See [verification and limitations](docs/verification.md).

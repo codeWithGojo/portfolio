@@ -2,7 +2,6 @@ import type { GalleryImage } from "../components/ImageGallery";
 
 export const sakaGallery: GalleryImage[] = [
   { src: "/media/saka-arsenal-shirt.webp", width: 204, height: 192, alt: "Bukayo Saka wearing an Arsenal shirt, in the photograph supplied by Favour", title: "My Starboy.", caption: "Bukayo Saka / from my personal collection", compact: true },
-  { src: "/media/arsenal-starboy-762.webp", srcSet: "/media/arsenal-starboy-480.webp 480w, /media/arsenal-starboy-762.webp 762w", width: 762, height: 730, alt: "Supplied red and black 07 Starboy North London artwork", title: "North London, forever.", caption: "07 / Supporting artwork from my collection" },
 ];
 
 export type Character = { id: string; name: string; series: string; note: string; explanation: string; image: { src: string; alt: string; width: number; height: number } };

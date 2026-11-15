@@ -37,7 +37,7 @@ export default function Hobbies() {
           <div className="football-intro-heading"><span className="world-label">01 / Arsenal</span><StarboyEgg imageSrc="/media/saka-arsenal-shirt.webp"/></div>
           <h2>North London,<br/>from Nigeria.</h2>
           <p>I’m an Arsenal fan. I make time for matchday. Sometimes the match follows me into the rest of my day.</p>
-          <ImageGallery images={sakaGallery} label="Bukayo Saka and North London artwork"/>
+          <ImageGallery images={sakaGallery} label="Bukayo Saka photograph"/>
           <div className="football-intro-note"><h3>Saka just makes football better.</h3><p>Watching Saka play for Arsenal is one of the joys of being a supporter. The talent, the courage to keep showing up, the way he carries himself — that's what I appreciate.</p><a className="world-text-link" href="https://www.arsenal.com/men/players/bukayo-saka" target="_blank" rel="noreferrer">Bukayo Saka / official Arsenal profile ↗</a></div>
         </article>
         <div className="hobbies-notes">

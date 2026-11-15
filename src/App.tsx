@@ -773,7 +773,8 @@ function Hobbies() {
         </div>
       </section>
       <section id="music" className="world-section music-universe">
-        <p className="world-label">My Fav Artists</p>
+        <p className="world-label">Music / The soundtrack</p>
+        <h2 className="hobbies-section-title">My Fav Artists</h2>
         <div className="adele-feature">
           <div className="adele-artwork">
             <iframe
@@ -866,11 +867,8 @@ function Hobbies() {
       </section>
       <section id="anime" className="world-section">
         <p className="world-label">Anime / More Than Just Power</p>
-        <h2>
-          Talent gets my attention.
-          <br />
-          Growth makes me stay.
-        </h2>
+        <h2 className="hobbies-section-title">In Another Universe</h2>
+        <p className="world-lead">Talent gets my attention. Growth makes me stay.</p>
         <div className="anime-grid">
           {[
             [

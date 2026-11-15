@@ -11,6 +11,7 @@ Use Node.js 22.12+ or a newer LTS and install locked dependencies with `npm ci`.
 | `npm run dev` | Vite development server with live updates |
 | `npm run typecheck` | TypeScript checks |
 | `npm run test:design` | Design regression checks |
+| `npm test` | Design, contact and built-output SEO checks |
 | `node --test tests/contact.test.mjs` | Contact endpoint tests with mocked email delivery |
 | `npm run build` | Build the browser and server bundles, then prerender pages into `dist/` |
 | `npm run preview` | Serve the production build locally |

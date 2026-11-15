@@ -17,3 +17,6 @@ Restore burgundy palette, implement a compact personal circular signature, chang
 - Personal image upscaling/denoising is not claimed; present optimized sources were retained. Original high-resolution photographs are still needed for a genuine enhancement pass.
 - Impeccable CLI/skill could not be executed in this conversation; manual Gojo Web Design/Impeccable-style critique was applied.
 - If a browser screenshot or build execution is unavailable, it must be stated in the pull request rather than assumed successful.
+
+## Additional annotated browser correction — 15 November 2026
+The marked Arsenal Hobbies card was a solid red panel with huge decorative “COME ON YOU GUNNERS” lettering. The user's correction replaces it with one genuine Bukayo Saka photo and one genuine Myles Lewis-Skelly photo, sourced from Wikimedia Commons under CC BY-SA 4.0 (Chensiyuan), and removes the opaque red background and the previous trophy atmosphere from this card. The site-wide brand direction becomes clean, neutral black and white with true red accents rather than burgundy. Rights-sensitive exact-match photographs from the May 2026 Arsenal matches and anime character art remain separately unclaimed.

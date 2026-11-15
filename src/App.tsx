@@ -1,490 +1,1385 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
-import { Motion } from "./Motion";
-import { Entrance, PortraitSlideshow } from "./Entrance";
-import { featuredProjects, projects } from "./projects";
-import "./theme-toggle.css";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type FormEvent,
+  type ReactNode,
+} from "react";
+import { projects, type Project } from "./projects";
+import { chapters, contact, services } from "./content";
+import {
+  CodingNinjaIntro,
+  DustGrid,
+  ArsenalAtmosphere,
+  StarboyEgg,
+  PageReveal,
+  StoryCursor,
+} from "./WorldMotion";
 
-function ProjectHolly() {
+const routes = [
+  ["/", "Home"],
+  ["/about", "About"],
+  ["/work", "Work"],
+  ["/hobbies", "Hobbies"],
+  ["/pricing", "Pricing"],
+  ["/contact", "Contact"],
+];
+const shortName = (p: Project) =>
+  p.id === "wedding"
+    ? "BlessingFoundHerBlessing"
+    : p.id === "afri-index"
+      ? "Afri Index"
+      : p.title.split(" — ")[0];
+const Button = ({
+  href,
+  children,
+  secondary = false,
+}: {
+  href: string;
+  children: ReactNode;
+  secondary?: boolean;
+}) => (
+  <a
+    className={secondary ? "world-button secondary" : "world-button"}
+    href={href}
+  >
+    {children}
+    <span aria-hidden="true">↗</span>
+  </a>
+);
+function Heading({
+  label,
+  title,
+  children,
+}: {
+  label: string;
+  title: string;
+  children?: ReactNode;
+}) {
   return (
-    <svg
-      aria-hidden="true"
-      focusable="false"
-      viewBox="0 0 24 24"
-      style={{ width: "1.25rem", height: "1.25rem", marginInlineEnd: ".45rem", verticalAlign: "-.08em", stroke: "none" }}
-    >
-      <circle cx="12" cy="12" r="12" fill="#f8efe0" />
-      <path fill="#286347" d="M11 13c-4 0-6-2-6-5 2 1 3 0 4-1 0 2 2 3 2 6Zm1-1c0-4 2-6 5-7-1 2 0 3 1 4-2 0-3 2-6 3Z" />
-      <path fill="#a72d3e" d="M13 14a1.8 1.8 0 1 1-3.6 0 1.8 1.8 0 0 1 3.6 0Zm4 0a1.8 1.8 0 1 1-3.6 0 1.8 1.8 0 0 1 3.6 0Zm-2 3.5a1.8 1.8 0 1 1-3.6 0 1.8 1.8 0 0 1 3.6 0Z" />
-    </svg>
+    <header className="world-page-heading">
+      <p className="world-label">{label}</p>
+      <h1>{title}</h1>
+      {children && <div className="world-lead">{children}</div>}
+    </header>
   );
 }
-
-const whatsappHref = "https://wa.me/2349127971199";
-const quoteHref = (service: string) => `${whatsappHref}?text=${encodeURIComponent(`Hi Favour, I'm interested in ${service}. Here's what I have in mind: `)}`;
-const customOffers = [
-  { title: "Business & event websites", description: "Company sites, school websites, portfolios and wedding invitations, with pages and features shaped around your content.", scope: "Page count · content · integrations" },
-  { title: "Web apps & business systems", description: "Dashboards, staff portals and ERP workflows. Quoted around what your users need to do and how the system should work.", scope: "Workflows · user roles · data" },
-  { title: "Website improvements", description: "A redesign, a better mobile experience or a new feature for your existing site. We start with what needs fixing.", scope: "Current site · changes · complexity" },
-];
-const services = [
-  { title: "Business & event websites", description: "Company sites, school websites, portfolios and invitations. Clear content, a considered visual identity and an easy way for visitors to reach you.", example: "See the wedding website", project: "wedding" },
-  { title: "Web apps & business systems", description: "Dashboards, staff portals and tools that connect your team's daily work. We agree the workflows, access and reports before the build.", example: "See ExpenseAI", project: "expenseai" },
-  { title: "Existing website improvements", description: "A clearer layout, better mobile navigation or a feature your current site needs. Share the link and the part that's getting in the way.", example: "See TerraScope", project: "terrascope" },
-];
-
-const skills = [
-  {
-    index: "01",
-    title: "Web & mobile",
-    note: "I build responsive interfaces and app flows people can actually use.",
-    tools: ["React", "React Native", "Expo", "HTML/CSS"],
-  },
-  {
-    index: "02",
-    title: "APIs & data",
-    note: "I connect the interface to the logic, data, and services behind it.",
-    tools: ["Node.js", "Express", "Python", "Flask", "PostgreSQL"],
-  },
-  {
-    index: "03",
-    title: "Cloud & delivery",
-    note: "I’m building hands-on experience with infrastructure and repeatable deployments.",
-    tools: ["AWS", "Terraform", "GitHub Actions", "Vercel"],
-  },
-  {
-    index: "04",
-    title: "Connected devices",
-    note: "My final-year project took live sensor readings from an ESP32 to a phone alert.",
-    tools: ["ESP32", "MQ-2", "DHT11", "Push notifications"],
-  },
-];
-
-const projectGroups = ["All projects", "Websites", "Data & discovery", "Apps & tools"] as const;
-type ProjectGroup = typeof projectGroups[number];
-const groupFor = (id: string): ProjectGroup => ["wedding", "dev-boyz", "cantica"].includes(id) ? "Websites" : ["afri-index", "terrascope", "nairascope", "fpl", "predictarena"].includes(id) ? "Data & discovery" : "Apps & tools";
-const gallery = projects.filter(project => project.image);
-
-const stack = [
-  { label: "Frontend", tools: ["JavaScript", "TypeScript", "React", "React Native", "Expo"] },
-  { label: "Backend & data", tools: ["Node.js", "Express", "Python", "Flask", "PostgreSQL", "Firebase", "MongoDB"] },
-  { label: "Cloud & workflow", tools: ["AWS", "Terraform", "GitHub Actions", "Git", "Vercel", "Postman", "Figma"] },
-];
-
-
-function MarkIcon({ name }: { name: "github" | "mail" | "x" | "moon" | "sun" | "menu" | "close" | "arrow" }) {
-  const paths = {
-    github: <path d="M12 .7a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0C15.9 5.9 17 6.2 17 6.2c.7 1.6.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A12 12 0 0 0 12 .7Z" />,
-    mail: <><path d="M3.5 5.5h17v13h-17z"/><path d="m4 6 8 6 8-6"/></>,
-    x: <path d="m5 4 14 16M19 4 5 20" />,
-    moon: <path d="M20 15.2A8.5 8.5 0 0 1 8.8 4a8.5 8.5 0 1 0 11.2 11.2Z" />,
-    sun: <><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></>,
-    menu: <><path d="M4 8h16M4 16h16"/></>,
-    close: <><path d="m5 5 14 14M19 5 5 19"/></>,
-    arrow: <><path d="M5 19 19 5M9 5h10v10"/></>,
-  };
-
-  return <svg viewBox="0 0 24 24" aria-hidden="true">{paths[name]}</svg>;
+function Card({ project: p }: { project: Project }) {
+  return (
+    <article className="world-project" id={p.id}>
+      <a href={`/work/${p.id}`} className="world-project-image">
+        {p.image ? (
+          <img
+            src={p.image}
+            alt={p.imageCaption || p.title}
+            loading="lazy"
+            width={p.imageWidth}
+            height={p.imageHeight}
+          />
+        ) : (
+          <div className="project-type-art" aria-hidden="true">
+            {shortName(p)}
+            <span>{p.tags[0]}</span>
+          </div>
+        )}
+        <span className="project-open" aria-hidden="true">
+          ↗
+        </span>
+      </a>
+      <div className="project-meta">
+        <span>{p.tags[0]}</span>
+        <span>{p.status}</span>
+      </div>
+      <h3>
+        <a href={`/work/${p.id}`}>{shortName(p)}</a>
+      </h3>
+      <p>{p.summary || p.why}</p>
+      <a className="world-text-link" href={`/work/${p.id}`}>
+        Behind the build <span aria-hidden="true">↗</span>
+      </a>
+    </article>
+  );
 }
-
-export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const menuButton = useRef<HTMLButtonElement>(null);
-  const headerThemeButton = useRef<HTMLButtonElement>(null);
-  const menuPanel = useRef<HTMLElement>(null);
-  const [spotlightIndex, setSpotlightIndex] = useState(0);
-  const [projectQuery, setProjectQuery] = useState("");
-  const [projectGroup, setProjectGroup] = useState<ProjectGroup>("All projects");
-  const reduced = useReducedMotion();
-  const spotlight = featuredProjects[spotlightIndex];
-  const visibleProjects = projects.filter(project => (projectGroup === "All projects" || groupFor(project.id) === projectGroup) && `${project.title} ${project.tags.join(" ")} ${project.tech.join(" ")}`.toLowerCase().includes(projectQuery.trim().toLowerCase()));
-  useEffect(() => {
-    const revealLinkedProject = () => { if (projects.some(project => location.hash === `#${project.id}`)) { setProjectQuery(""); setProjectGroup("All projects"); } };
-    window.addEventListener("hashchange", revealLinkedProject);
-    return () => window.removeEventListener("hashchange", revealLinkedProject);
-  }, []);
-  const [lightMode, setLightMode] = useState(() => {
-    try { return localStorage.getItem("portfolio-theme") === "light"; } catch { return false; }
-  });
-  const [preview, setPreview] = useState<{ image: string; title: string } | null>(null);
-  const previewDialog = useRef<HTMLDialogElement>(null);
-  const movePreview = (direction: number) => {
-    if (!preview) return;
-    const current = gallery.findIndex(project => project.image === preview.image);
-    const next = gallery[(current + direction + gallery.length) % gallery.length];
-    setPreview({image: next.image!, title: next.title});
-  };
-  useEffect(() => {
-    if (preview) previewDialog.current?.showModal();
-    else previewDialog.current?.close();
-  }, [preview]);
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = lightMode ? "light" : "dark";
-    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", lightMode ? "#fff7f5" : "#3b0710");
-    try { localStorage.setItem("portfolio-theme", lightMode ? "light" : "dark"); } catch { /* Storage may be disabled. */ }
-  }, [lightMode]);
-
-  useEffect(() => {
-    if (!menuOpen) return;
-    const mobile = matchMedia("(max-width: 800px)");
-    if (!mobile.matches) return;
-    const before = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const main = document.querySelector<HTMLElement>("main");
-    const wasInert = main?.inert ?? false;
-    if (main) main.inert = true;
-    menuPanel.current?.querySelector<HTMLElement>("a")?.focus();
-    const close = (event: KeyboardEvent) => {
-      if (event.key === "Escape") { setMenuOpen(false); menuButton.current?.focus(); }
-      if (event.key !== "Tab") return;
-      const controls = [...(menuPanel.current?.querySelectorAll<HTMLElement>('a,button:not([hidden])') ?? []), headerThemeButton.current!, menuButton.current!].filter(Boolean);
-      const first = controls[0], last = controls[controls.length - 1];
-      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
-    };
-    const resize = () => { if (!mobile.matches) setMenuOpen(false); };
-    document.addEventListener("keydown", close);
-    mobile.addEventListener("change", resize);
-    return () => {
-      document.body.style.overflow = before;
-      if (main) main.inert = wasInert;
-      document.removeEventListener("keydown", close);
-      mobile.removeEventListener("change", resize);
-    };
-  }, [menuOpen]);
-
+function Home() {
+  const afri = projects.find((p) => p.id === "afri-index")!;
+  const wedding = projects.find((p) => p.id === "wedding")!;
   return (
     <>
-      <Motion />
-      <a className="skip-link" href="#main">Skip to main content</a>
-      <div className="page-noise" aria-hidden="true" />
-
-      <header className={menuOpen ? "site-header menu-is-open" : "site-header"}>
-        <a className="wordmark" href="#home" aria-label="Favour, back to top">favour<span>.</span></a>
-        {menuOpen && <button className="menu-backdrop" aria-label="Close navigation" tabIndex={-1} onClick={() => { setMenuOpen(false); menuButton.current?.focus(); }} />}
-        <nav ref={menuPanel} id="primary-navigation" className={menuOpen ? "nav-pill is-open" : "nav-pill"} aria-label="Primary navigation">
-          <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
-          <a href="#skills" onClick={() => setMenuOpen(false)}>Skills</a>
-          <a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a>
-          <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
-          <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
-          <a href="#experience" onClick={() => setMenuOpen(false)}>Background</a>
-          <a href="#hobbies" onClick={() => setMenuOpen(false)}>Hobbies</a>
-          <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
-        </nav>
-        <div className="header-actions">
-          <button ref={headerThemeButton} type="button" className="header-theme-toggle" role="switch" aria-checked={!lightMode} aria-label="Dark mode" title={lightMode ? "Switch to dark theme" : "Switch to light theme"} onClick={() => setLightMode(current => !current)}>
-            <span className="t-icon-swap" data-state={lightMode ? "a" : "b"} aria-hidden="true">
-              <span className="t-icon" data-icon="a"><MarkIcon name="sun" /></span>
-              <span className="t-icon" data-icon="b"><MarkIcon name="moon" /></span>
-            </span>
-          </button>
-          <button ref={menuButton} className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="primary-navigation" aria-label={menuOpen ? "Close menu" : "Open menu"}>
-            <MarkIcon name={menuOpen ? "close" : "menu"} />
-          </button>
+      <CodingNinjaIntro />
+      <section className="world-hero world-shell">
+        <div className="hero-caption">
+          <span>FAVOUR IMEGU / SOFTWARE DEVELOPER</span>
+          <span>IBADAN ROOTS. A WORLD TO BUILD.</span>
         </div>
-      </header>
-
-      <main id="main">
-        <Entrance />
-        <section className="hero shell" id="home">
-          <div className="hero-topline"><p className="eyebrow"><span /> Favour Imegu · Independent developer</p><a href="#contact">Based in Nigeria. Building for the web. <MarkIcon name="arrow" /></a></div>
-          <div className="hero-intro">
-            <div className="hero-text">
-              <h1 aria-label="Good ideas. Thoughtfully built."><span className="hero-line" aria-hidden="true"><span>Good ideas.</span></span><br /><span className="hero-line" aria-hidden="true"><span>Thoughtfully</span></span><br />{" "}<span className="hero-line hero-line-accent" aria-hidden="true"><span>built.</span></span></h1>
-              <p className="hero-copy">Websites with personality. Apps that solve real problems. I’m Favour—Gojo to my friends—and I take care of the design, code and details in between.</p>
-              <div className="hero-actions"><a className="primary-link" href="#projects">Explore my work <MarkIcon name="arrow" /></a><a className="resume-link" href="#pricing">Start a project <MarkIcon name="arrow" /></a></div>
-              <div className="maker-note"><img src="/favour-graduation-avatar-2026.webp" alt="Favour Imegu in his graduation suit" width="72" height="72"/><div><strong>Favour / Gojo</strong><span><i /> Open to projects & opportunities</span></div><a href="/Imegu_Favour_Resume.docx" download aria-label="Download Favour’s résumé">Résumé ↓</a></div>
+        <div className="world-hero-grid">
+          <div>
+            <p className="world-label">Welcome to my corner of the internet</p>
+            <h1>
+              Favour
+              <br />
+              <span>Imegu.</span>
+            </h1>
+            <p className="hero-statement">
+              I build things for the web
+              <span className="muted">
+                {" "}
+                — and sometimes argue about music statistics.
+              </span>
+            </p>
+            <div className="world-actions">
+              <Button href="/work">Explore my work</Button>
+              <Button href="/contact" secondary>
+                Hire me
+              </Button>
             </div>
-            <div className="folio-stage">
-              <div className="stage-heading"><span>ON MY DESK</span><span>0{spotlightIndex + 1} / 03</span></div>
-              <div className="stage-window"><div className="window-chrome" aria-hidden="true"><span/><span/><span/><i>{spotlight.title.split(" — ")[0]}</i></div><a href={`#${spotlight.id}`} onClick={()=>{setProjectQuery("");setProjectGroup("All projects");}} aria-label={`Explore ${spotlight.title.split(" — ")[0]}`}><motion.img key={spotlight.id} src={spotlight.image} alt={`${spotlight.title.split(" — ")[0]} project interface`} width={1440} height={900} initial={reduced?false:{opacity:.4,y:14}} animate={{opacity:1,y:0}} transition={{duration:.35,ease:"easeOut"}} /></a></div>
-              <div className="stage-caption" aria-live="polite"><div><strong>{spotlight.title.split(" — ")[0]}</strong><p>{spotlight.summary}</p></div><a href={`#${spotlight.id}`} onClick={()=>{setProjectQuery("");setProjectGroup("All projects");}} aria-label={`Read about ${spotlight.title.split(" — ")[0]}`}><MarkIcon name="arrow"/></a></div>
-              <div className="stage-tabs" role="group" aria-label="Preview a featured project">{featuredProjects.map((project,index)=><button key={project.id} type="button" onClick={()=>setSpotlightIndex(index)} aria-pressed={index===spotlightIndex}><span>0{index+1}</span>{project.title.split(" — ")[0]}</button>)}</div>
-            </div>
+            <a href="/about" className="world-text-link">
+              Get to know me ↗
+            </a>
           </div>
-          <div className="hero-bottom"><span>DESIGN / DEVELOPMENT / DELIVERY</span><a href="#projects">Scroll into the work <span aria-hidden="true">↓</span></a></div>
-        </section>
-
-        <section className="proof-strip" aria-label="Quick facts">
-          <div><strong>Work</strong><span>{projects.length} selected projects</span></div>
-          <div><strong>Off-screen</strong><span>CODM &amp; EA FC</span></div>
-          <div><strong>Bowen University</strong><span>Computer Science · 2026</span></div>
-        </section>
-
-        <div className="motion-ribbon" aria-hidden="true"><div className="ribbon-track">{[0, 1].map(copy => <div className="ribbon-group" key={copy}><span>Design with intention</span><i>✳</i><span>Code with character</span><i>✳</i><span>Built by Favour</span><i>✳</i></div>)}</div></div>
-
-        <section className="section projects-section" id="projects">
-          <div className="shell">
-            <div className="section-kicker"><span>01</span><p>Selected projects</p></div>
-            <div className="section-heading project-heading">
-              <h2>Built with a point of view.</h2>
-              <p>Start with three projects that show how I approach data, product design and interactive interfaces. The full collection follows below.</p>
+          <figure className="world-portrait">
+            <img
+              src="/hero-graduation.webp"
+              alt="Favour Imegu in his graduation outfit"
+              fetchPriority="high"
+            />
+            <figcaption>
+              <span>THE PERSON BEHIND THE PROJECTS</span>
+              <span>01 / An ongoing story</span>
+            </figcaption>
+            <div className="portrait-stamp" aria-hidden="true">
+              code.
+              <br />
+              learn.
+              <br />
+              repeat.
             </div>
-            <div className="featured-work" aria-label="Featured projects">
-              {featuredProjects.map((project, index) => (
-                <article className="featured-project" key={project.id}>
-                  {project.image && <a className="featured-image" href={`#${project.id}`} onClick={()=>{setProjectQuery("");setProjectGroup("All projects");}} aria-label={`Read the ${project.title.split(" — ")[0]} case study`}><img src={project.image} alt={`${project.title.split(" — ")[0]} interface preview`} width={project.imageWidth ?? 1440} height={project.imageHeight ?? 900} loading="lazy" decoding="async" /></a>}
-                  <div className="featured-copy"><span className="featured-label">Featured {String(index + 1).padStart(2, "0")} · {project.tags[0]}</span><h3><ProjectHolly />{project.title.split(" — ")[0]}</h3><p>{project.summary}</p><div className="featured-actions"><a className="featured-action" href={`#${project.id}`} onClick={()=>{setProjectQuery("");setProjectGroup("All projects");}}>Read the case study <MarkIcon name="arrow" /></a>{project.links.filter(link => !link.href.includes("github.com")).slice(0, 1).map(link => <a className="featured-live" href={link.href} target="_blank" rel="noreferrer" key={link.href}>Open live site <MarkIcon name="arrow" /></a>)}</div></div>
-                </article>
-              ))}
-            </div>
-            <div className="archive-toolbar"><div><p className="eyebrow">THE FULL COLLECTION</p><h3>A few more things I’ve made.</h3></div><label className="archive-search" htmlFor="project-search"><span>Find a project</span><input id="project-search" type="search" value={projectQuery} onChange={event=>setProjectQuery(event.target.value)} placeholder="Try React, music or web…" /></label><p className="archive-label" role="status">{visibleProjects.length} of {projects.length} projects</p></div>
+          </figure>
+        </div>
+        <div className="world-hero-bottom">
+          <span>Websites · Products · Business systems</span>
+          <a href="#selected">A few things I've made ↓</a>
+        </div>
+      </section>
+      <section id="selected" className="world-section world-shell">
+        <div className="world-section-head">
+          <div>
+            <p className="world-label">01 / Selected work</p>
+            <h2>
+              Two reasons
+              <br />I love building.
+            </h2>
           </div>
-
-          <div className="collection-filters shell" role="group" aria-label="Filter projects by type">{projectGroups.map(group => <button type="button" key={group} aria-pressed={group === projectGroup} onClick={() => setProjectGroup(group)}>{group}<span>{group === "All projects" ? projects.length : projects.filter(project => groupFor(project.id) === group).length}</span></button>)}<button className="collection-reset" type="button" disabled={!projectQuery && projectGroup === "All projects"} onClick={() => {setProjectQuery(""); setProjectGroup("All projects");}}>Reset filters</button></div>
-          <nav className="project-index shell" aria-label="Jump to a project">
-            {projects.map((project, index) => <a key={project.id} href={`#${project.id}`} onClick={()=>{setProjectQuery("");setProjectGroup("All projects");}}><span>{String(index + 1).padStart(2, "0")}</span>{project.title.split(" — ")[0]}</a>)}
-          </nav>
-          {!visibleProjects.length && <div className="archive-empty shell"><h3>No projects found.</h3><p>Try a different tool or project name.</p><button onClick={()=>{setProjectQuery("");setProjectGroup("All projects");}}>Show all projects</button></div>}
-          <div className="projects-list shell">
-            {visibleProjects.map((project) => (
-
-              <article className="project" key={project.id} id={project.id}>
-                <div className="project-top">
-                  <span className="project-number">{String(projects.indexOf(project) + 1).padStart(2, "0")}</span>
-                  <div className="project-title-wrap">
-                    <div className="project-tags">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-                    <h3><ProjectHolly />{project.title}</h3>
-                  </div>
-                  <span className="project-status"><i />{project.status}</span>
+          <p>
+            Sometimes it’s curiosity. Sometimes it’s hearing how happy someone
+            sounds when they see what you made.
+          </p>
+        </div>
+        <div className="world-featured">
+          <div>
+            <p className="world-label">The passion project</p>
+            <Card project={afri} />
+          </div>
+          <div className="heart-project">
+            <p className="world-label">The heart project / commissioned work</p>
+            <Card project={wedding} />
+          </div>
+        </div>
+        <Button href="/work" secondary>
+          Explore the project library
+        </Button>
+      </section>
+      <section className="world-band">
+        <div className="world-shell">
+          <p className="world-label">02 / What I do</p>
+          <div className="service-lines">
+            {[
+              [
+                "Websites that feel like you.",
+                "Business, portfolio and event websites.",
+              ],
+              [
+                "Products with a purpose.",
+                "Web applications, dashboards and tools.",
+              ],
+              [
+                "Systems that do the work.",
+                "Internal workflows and integrations.",
+              ],
+            ].map(([title, copy], i) => (
+              <a href="/pricing" key={title}>
+                <span>0{i + 1}</span>
+                <div>
+                  <h3>{title}</h3>
+                  <p>{copy}</p>
                 </div>
-
-                {project.image ? <figure className="project-preview">
-                  <button type="button" onClick={() => setPreview({ image: project.image!, title: project.title })} aria-label={`Enlarge screenshot of ${project.title}`}>
-                    <img src={project.image} alt={`${project.title} interface screenshot`} width={project.imageWidth ?? 1440} height={project.imageHeight ?? 900} loading="lazy" decoding="async" />
-                    <span className="preview-open">Enlarge screenshot ↗</span>
-                  </button>
-                  <figcaption>{project.imageCaption ?? "Project interface screenshot · open the live preview for its current version"}</figcaption>
-                </figure> : project.previewNote ? <div className="preview-note"><span>{project.id === "firesafe" ? "ESP32 → Flask → Supabase → Expo" : "Project preview"}</span><p>{project.previewNote}</p></div> : null}
-                <div className="why-note">
-                  <span>Why I built it</span>
-                  <p>{project.why}</p>
-                </div>
-
-                {project.role && <p className="project-role"><span>My contribution</span>{project.role}</p>}
-
-                <details className="project-details">
-                  <summary>Project notes <span>Read the project story</span></summary>
-                <div className="project-notes">
-                  <div><span>Built</span><p>{project.built}</p></div>
-                  <div><span>Learned</span><p>{project.learned}</p></div>
-                  <div><span>Challenge</span><p>{project.challenge}</p></div>
-                </div>
-
-                <div className="project-outcome"><span>Outcome</span><p>{project.outcome}</p></div>
-                </details>
-                {project.companion && <aside className="companion-project" aria-label="Companion project">
-                  {project.companion.image && <button className="companion-preview" onClick={() => setPreview({ image: project.companion!.image!, title: project.companion!.title })} aria-label="Enlarge Afri Image Generator screenshot"><img src={project.companion.image} alt="Afri Image Generator interface" loading="lazy" decoding="async" width="1440" height="900" /></button>}
-                  <div><p className="companion-label">Alongside Afri Index</p><h4><ProjectHolly />{project.companion.title}</h4><p>{project.companion.description}</p><div className="project-links"><a href={project.companion.href} target="_blank" rel="noreferrer">Open generator <MarkIcon name="arrow" /></a><a href={project.companion.github} target="_blank" rel="noreferrer">GitHub <MarkIcon name="arrow" /></a></div></div>
-                </aside>}
-                <div className="project-footer">
-                  <div className="tech-list">{project.tech.map((item) => <span key={item}>{item}</span>)}</div>
-                  <div className="project-links">
-                    {project.links.map((link) => <a key={link.label} href={link.href} target="_blank" rel="noreferrer">{link.label}<MarkIcon name="arrow" /></a>)}
-                  </div>
-                </div>
-              </article>
+                <span>↗</span>
+              </a>
             ))}
           </div>
-        </section>
-
-        <section className="section shell" id="about">
-          <div className="section-kicker"><span>02</span><p>About</p></div>
-          <div className="about-layout">
-            <div className="about-identity"><h2>I like making ideas <em>real.</em></h2><figure className="portrait"><img src="/favour-graduation-2026.webp" alt="Favour Imegu in a black graduation suit and blue academic stole against a burgundy background" width="1536" height="898" loading="lazy" decoding="async"/><figcaption>Favour Imegu / Gojo · Bowen University</figcaption></figure></div>
-            <div className="body-copy">
-              <p>I’m a Computer Science graduate from Bowen University and a developer who enjoys the whole build, from the first screen to the data that makes it work.</p>
-              <p>Outside of code, I’m usually Lambo or Gojo. Gaming is a big part of my life. Leading a CODM team made me notice how much competitive players have to manage through scattered chats and spreadsheets. That’s one reason I started building CoDM Squad Hub.</p>
-              <p>For my final-year project, my partner and I built a fire and gas detection system using an ESP32, sensors, a backend, and a mobile app. Seeing a real reading turn into a phone alert taught me a lot about making separate pieces work together.</p>
-              <blockquote>“I enjoy the moment an idea becomes something you can actually use.”</blockquote>
-            </div>
-          </div>
-        </section>
-
-        <section className="section shell" id="skills">
-          <div className="section-kicker"><span>03</span><p>Skills</p></div>
-          <div className="section-heading">
-            <h2>What I work on.</h2>
-            <p>I learn fastest when I have a real problem to solve and a working version to improve.</p>
-          </div>
-          <div className="skills-list">
-            {skills.map((skill) => (
-              <article className="skill-row" key={skill.title}>
-                <span className="skill-index">{skill.index}</span>
-                <h3>{skill.title}</h3>
-                <p>{skill.note}</p>
-                <div className="tool-list">{skill.tools.map((tool) => <span key={tool}>{tool}</span>)}</div>
-              </article>
-            ))}
-          </div>
-          <div className="stack-section" aria-labelledby="stack-title">
-            <div className="stack-heading"><h3 id="stack-title">My tech stack</h3><p>The tools I’ve used across my projects and freelance work.</p></div>
-            <div className="stack-grid">{stack.map((group) => <div className="stack-group" key={group.label}><h4>{group.label}</h4><div>{group.tools.map((tool) => <span key={tool}>{tool}</span>)}</div></div>)}</div>
-          </div>
-        </section>
-
-        <section className="section shell" id="services">
-          <div className="section-kicker"><span>04</span><p>Services</p></div>
-          <div className="services-layout">
-            <div className="services-intro"><h2>What do you need built?</h2><p>Bring a rough idea, a brief or an existing website. I'll help you work through the scope, then agree the deliverables, timeline and cost with you.</p><a className="primary-link" href={whatsappHref} target="_blank" rel="noreferrer">Discuss a project <MarkIcon name="arrow" /></a><p className="team-note">For team projects, I work with <a href="https://dev-boyz.vercel.app" target="_blank" rel="noreferrer">Dev Boyz ↗</a>.</p></div>
-            <div className="services-list">{services.map((service) => <article key={service.title}><h3>{service.title}</h3><p>{service.description}</p><a className="service-example" href={`#${service.project}`}>{service.example} <span aria-hidden="true">↗</span></a></article>)}</div>
-          </div>
-        </section>
-
-        <section className="build-process shell" aria-label="How we work together"><div><span>01 / MAKE IT CLEAR</span><h3>Talk through the idea.</h3><p>We agree the audience, pages, features, budget and timeline.</p></div><div><span>02 / MAKE IT REAL</span><h3>Design. Build. Refine.</h3><p>Review the direction, try a working version and shape the details.</p></div><div><span>03 / PUT IT TO WORK</span><h3>Check it. Launch it.</h3><p>We test the agreed flows and get your project ready to share.</p></div></section>
-        <section className="section shell pricing-section" id="pricing" aria-labelledby="pricing-title">
-          <div className="section-kicker"><span>05</span><p>Pricing</p></div>
-          <div className="section-heading">
-            <h2 id="pricing-title">A clear place to start.</h2>
-            <p>A guide for your budget. The final quote depends on the design, content and features we agree before work begins.</p>
-          </div>
-          <div className="pricing-layout">
-            <article className="pricing-landing" aria-labelledby="landing-title">
-              <div>
-                <p className="pricing-label">One page. One clear goal.</p>
-                <h3 id="landing-title">Landing page</h3>
-                <p className="pricing-description">For a launch, a service or a campaign that needs a focused page and an easy way to get in touch.</p>
-              </div>
-              <div className="pricing-amount"><span>₦150,000–₦300,000</span><p>Project range · priced in NGN</p></div>
-              <ul className="pricing-inclusions">
-                <li>Design tailored to your brand</li>
-                <li>Responsive layout for phone and desktop</li>
-                <li>Clear enquiry or contact action</li>
-                <li>Agreed scope and launch plan</li>
-              </ul>
-              <p className="pricing-scope">The range varies with section count, animation, content and integrations.</p>
-              <a className="primary-link" href={quoteHref("landing page")} target="_blank" rel="noreferrer">Discuss my landing page <MarkIcon name="arrow" /></a>
+        </div>
+      </section>
+      <section className="world-section world-shell philosophy">
+        <p className="world-label">03 / A little perspective</p>
+        <blockquote>
+          “I was never obsessed with being the smartest person in the room. I
+          just wanted to make a living doing something I genuinely love.”
+        </blockquote>
+        <a className="world-text-link" href="/about">
+          More of my story ↗
+        </a>
+      </section>
+      <CTA />
+    </>
+  );
+}
+function CTA() {
+  return (
+    <section className="world-cta world-shell">
+      <p className="world-label">Have something in mind?</p>
+      <h2>
+        Let’s make
+        <br />
+        something useful.
+      </h2>
+      <Button href="/contact">Tell me about your project</Button>
+    </section>
+  );
+}
+function About() {
+  return (
+    <div className="world-shell">
+      <Heading label="01 / About me" title="Still curious. Still building.">
+        <p>
+          I’m Favour, a software developer from Ibadan. I build websites,
+          products and business systems, and I’m learning as I go.
+        </p>
+      </Heading>
+      <div className="about-editorial">
+        <img
+          src="/favour-graduation-2026.webp"
+          alt="Favour celebrating his graduation"
+          width="1536"
+          height="898"
+        />
+        <div>
+          <p className="world-label">The path here</p>
+          <h2>A different kind of family practice.</h2>
+          <p>
+            Both my parents are practicing lawyers. Quite a few other family
+            members are too. But computers were what caught my attention.
+          </p>
+          <p>
+            By 10, I could use the major Microsoft Office applications. At 12,
+            my dad enrolled me in a fun, interactive coding class during a
+            holiday in Abuja. It gave that curiosity somewhere to go.
+          </p>
+          <p>
+            I graduated from Valencia College in 2022, then studied Computer
+            Science at Bowen University, a Baptist university in Iwo.
+          </p>
+        </div>
+      </div>
+      <section className="world-section philosophy">
+        <blockquote>
+          “I was never obsessed with being the smartest person in the room. I
+          just wanted to make a living doing something I genuinely love.”
+        </blockquote>
+        <p>
+          University came with ups, downs and friendships that mattered. I
+          consider myself an academically average student. I’m more interested
+          in applying what I know than pretending grades tell the whole story.
+        </p>
+      </section>
+      <section className="world-section world-two-col">
+        <div>
+          <p className="world-label">Learning to work together</p>
+          <h2>Nobody is a bank of knowledge.</h2>
+        </div>
+        <div>
+          <p>
+            We all need each other. University taught me to recognise people’s
+            strengths, delegate responsibilities, work under pressure and make
+            things work despite limitations.
+          </p>
+          <p>
+            Some of the people I met became my teammates in Dev Boyz. Working
+            together helped me appreciate shared responsibility and learning
+            from someone else’s expertise. Delegation isn’t a weakness.
+          </p>
+          <Button href="/work/dev-boyz" secondary>
+            Meet the work of Dev Boyz
+          </Button>
+          <p className="acknowledgment">
+            And to Professor Oyebade, my final-year supervisor: thank you for
+            being part of my university journey.
+          </p>
+        </div>
+      </section>
+      <section id="skills" className="world-section">
+        <p className="world-label">
+          Tools & capabilities / grounded in my projects
+        </p>
+        <h2>From interface to infrastructure.</h2>
+        <div className="capability-grid">
+          {[
+            ["Frontend", "React, React Native, Expo, TypeScript, HTML & CSS"],
+            ["Backend", "Node.js, Express, Python, Flask, FastAPI"],
+            [
+              "Data & integrations",
+              "PostgreSQL, Firebase, APIs and connected workflows",
+            ],
+            ["Design", "Responsive interfaces, Figma and product flows"],
+            ["Deployment", "AWS, Terraform, GitHub Actions and Vercel"],
+            [
+              "Working together",
+              "Delegation, problem-solving and business workflows",
+            ],
+          ].map(([a, b]) => (
+            <article key={a}>
+              <h3>{a}</h3>
+              <p>{b}</p>
             </article>
-            <div className="pricing-custom">
-              <p className="pricing-label">Other projects · custom quotes</p>
-              {customOffers.map((offer) => (
-                <article className="pricing-row" key={offer.title}>
-                  <h3>{offer.title}</h3>
-                  <p>{offer.description}</p>
-                  <span className="pricing-factors">{offer.scope}</span>
-                  <a className="pricing-enquiry" href={quoteHref(offer.title.toLowerCase())} target="_blank" rel="noreferrer">Request a quote<span className="sr-only"> for {offer.title.toLowerCase()}</span> <MarkIcon name="arrow" /></a>
-                </article>
-              ))}
-            </div>
-          </div>
-          <div className="pricing-note"><span>Before we start</span><p>We agree the deliverables, timeline and total cost together. Domain, hosting and any paid services are discussed separately so you know the ongoing costs too.</p></div>
-        </section>
-
-        <section className="section shell" id="experience">
-          <div className="section-kicker"><span>06</span><p>Background</p></div>
-          <div className="background-grid">
-            <div className="background-heading">
-              <h2>A little more about my work.</h2>
-              <p>For the full project history and experience, you can download my résumé.</p>
-              <a className="resume-link background-resume" href="/Imegu_Favour_Resume.docx" download>Download résumé <span aria-hidden="true">↓</span></a>
-            </div>
-            <div className="timeline">
-              <article className="timeline-item">
-                <span className="timeline-year">2026</span>
-                <div><p className="timeline-type">Client work · ongoing</p><h3>Internal operations system</h3><p>I’m working on an ERP that brings personnel, purchasing, inventory and finance into one workspace, with staff permissions and approval workflows.</p></div>
-              </article>
-              <article className="timeline-item">
-                <span className="timeline-year">2026</span>
-                <div><p className="timeline-type">Experience</p><h3>Freelance web developer</h3><p>I design and build sites for businesses, schools, and academies, and handle the conversations from first pitch to the finished work.</p></div>
-              </article>
-              <article className="timeline-item">
-                <span className="timeline-year">2025 — 2026</span>
-                <div><p className="timeline-type">Project experience</p><h3>Smart Fire Detection System</h3><p>With a project partner, I connected an ESP32 and sensors to a backend and a React Native app so readings could trigger alerts on a phone.</p></div>
-              </article>
-              <article className="timeline-item" id="education">
-                <span className="timeline-year">2021 — 2026</span>
-                <div><p className="timeline-type">Education</p><h3>B.Sc. Computer Science</h3><p>Bowen University, Iwo, Nigeria.</p></div>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section className="section shell hobbies-section" id="hobbies" aria-labelledby="hobbies-heading">
-          <div className="section-kicker"><span>07</span><p>Hobbies</p></div>
-          <div className="section-heading"><h2 id="hobbies-heading">Outside the code.</h2><p>When I'm not building something, I'm probably gaming, watching Arsenal, or listening to music.</p></div>
-          <div className="hobbies-layout">
-            <article className="arsenal-feature">
-              <PortraitSlideshow />
-              <div className="arsenal-copy"><span className="hobby-label">01 / Arsenal</span><h3>I’m an Arsenal fan.</h3><p>I make time for matchday. Come on you Gunners.</p></div>
-            </article>
-            <div className="hobbies-notes">
-              <article><span className="hobby-label">02 / Call of Duty Mobile</span><h3>CODM isn't just a casual thing.</h3><p>I’ve competed at pro level in T3 and T2, with plenty of rank-warrior days in the mix. In game, you’ll usually know me as Lambo or Gojo.</p></article>
-              <article><span className="hobby-label">03 / FIFA &amp; EA FC</span><h3>Just one more match.</h3><p>FIFA 21, FIFA 22, FC 25 and FC 26. I’ve played all four, and I still say “one more” after a match.</p></article>
-              <article><span className="hobby-label">04 / Music</span><h3>Always something playing.</h3><p>Omah Lay, EsDeeKid, Adele, Taylor Swift and Katy Perry. Those are the artists I keep coming back to.</p></article>
-            </div>
-          </div>
-        </section>
-
-        <section className="contact-section" id="contact">
-          <div className="shell contact-layout">
-            <div>
-              <p className="eyebrow"><span /> Get in touch</p>
-              <h2>Have something<br />in mind? <span>Let’s talk.</span></h2>
-            </div>
-            <div className="contact-copy">
-              <p>Tell me what you’re working on. I’m happy to talk about a website, an app, a role, or one of the projects here.</p>
-              <div className="contact-actions"><a className="primary-link" href={whatsappHref} target="_blank" rel="noreferrer">Chat on WhatsApp <MarkIcon name="arrow" /></a><a className="resume-link" href="mailto:Imegufavour30@gmail.com">Send an email <MarkIcon name="mail" /></a></div>
-            </div>
-          </div>
-          <div className="shell contact-cards">
-            <a href="mailto:Imegufavour30@gmail.com"><span>Email</span><strong>Imegufavour30@gmail.com</strong></a>
-            <a href="https://github.com/codeWithGojo" target="_blank" rel="noreferrer"><span>GitHub</span><strong>github.com/codeWithGojo</strong></a>
-            <a href={whatsappHref} target="_blank" rel="noreferrer"><span>WhatsApp</span><strong>09127971199</strong></a>
-          </div>
-        </section>
-      </main>
-
-      <svg
-        aria-hidden="true"
-        focusable="false"
-        viewBox="0 0 80 100"
-        style={{
-          position: "fixed",
-          insetInlineEnd: "max(4px, env(safe-area-inset-right))",
-          insetBlockEnd: "max(0px, env(safe-area-inset-bottom))",
-          width: "clamp(42px, 7vw, 68px)",
-          height: "auto",
-          zIndex: 2,
-          pointerEvents: "none",
-          stroke: "none",
-          filter: "drop-shadow(0 2px 4px #210d1370)",
-        }}
+          ))}
+        </div>
+        <a
+          href="/Imegu_Favour_Resume.docx"
+          download
+          className="world-text-link"
+        >
+          Download my résumé ↓
+        </a>
+      </section>
+      <section className="world-section">
+        <h2>
+          The Story Is Still Being Written.
+          <StoryCursor />
+        </h2>
+        <Button href="/hobbies" secondary>
+          Explore my personal world
+        </Button>
+      </section>
+    </div>
+  );
+}
+function Work() {
+  const [filter, setFilter] = useState("All Projects");
+  const [query, setQuery] = useState("");
+  const personal = projects.filter((p) => p.id !== "wedding");
+  const filtered = personal.filter(
+    (p) =>
+      (filter === "All Projects" ||
+        (filter === "SaaS"
+          ? p.id === "predictarena"
+          : p.id !== "predictarena")) &&
+      `${p.title} ${p.tech.join(" ")}`
+        .toLowerCase()
+        .includes(query.toLowerCase()),
+  );
+  return (
+    <div className="world-shell">
+      <Heading
+        label="02 / The project library"
+        title="Built out of curiosity. Made to be useful."
       >
-        <path fill="#88543d" d="M35 81h10v17H35z" />
-        <path fill="#214d3b" d="M40 27 8 87q32 10 64 0L40 27Z" />
-        <path fill="#30674e" d="M40 18 14 68q26 9 52 0L40 18Z" />
-        <path fill="#428167" d="M40 13 22 48q18 7 36 0L40 13Z" />
-        <path fill="none" stroke="#f6d695" strokeWidth="2" strokeLinecap="round" d="M30 43q8 5 18 2M24 63q15 8 32 3M17 83q21 9 46 2" />
-        <g fill="#f4a7ae">
-          <circle cx="34" cy="54" r="2.8" /><circle cx="53" cy="59" r="2.8" />
-          <circle cx="26" cy="75" r="2.8" /><circle cx="48" cy="79" r="2.8" />
-        </g>
-        <path fill="#f8d486" d="m40 1 3 7 8 1-6 5 2 8-7-4-7 4 2-8-6-5 8-1Z" />
-      </svg>
-
-      <aside className="social-rail" aria-label="Social links and display settings">
-        <div className="rail-links">
-          <a href="https://github.com/codeWithGojo" target="_blank" rel="noreferrer"><MarkIcon name="github" /><span>GitHub</span></a>
-          <a href="https://x.com/not_favour" target="_blank" rel="noreferrer"><MarkIcon name="x" /><span>X / Twitter</span></a>
-          <a href="mailto:Imegufavour30@gmail.com"><MarkIcon name="mail" /><span>Email</span></a>
+        <p>
+          Personal products, experiments and commissioned work. Real interfaces,
+          real lessons, and a few things still taking shape.
+        </p>
+      </Heading>
+      <section className="world-section compact">
+        <div className="world-section-head">
+          <h2>Personal projects</h2>
+          <div className="work-controls">
+            <label className="search-label">
+              Find a project
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search name or technology"
+              />
+            </label>
+            <div className="filter-control" aria-label="Project category">
+              {["All Projects", "SaaS", "Regular Projects"].map((f) => (
+                <button
+                  key={f}
+                  aria-pressed={f === filter}
+                  onClick={() => setFilter(f)}
+                >
+                  {f}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
-        <button className="theme-toggle" onClick={() => setLightMode(!lightMode)} aria-label={lightMode ? "Use dark theme" : "Use light theme"}>
-          <MarkIcon name={lightMode ? "moon" : "sun"} />
-          <span>{lightMode ? "Dark" : "Light"}</span>
+        {filter === "SaaS" && (
+          <p className="world-note">
+            PredictArena’s subscription features are in development. This
+            category describes its product direction, not a completed paid
+            service.
+          </p>
+        )}
+        <p className="world-label" role="status">
+          {filtered.length} project{filtered.length === 1 ? "" : "s"}
+        </p>
+        <DustGrid
+          items={filtered}
+          renderItem={(p) => <Card project={p} />}
+          className="world-project-grid"
+          ariaLabel="Personal projects"
+        />
+        {!filtered.length && (
+          <p>No projects match that search. Try another name or technology.</p>
+        )}
+      </section>
+      <section className="world-section">
+        <p className="world-label">Client & commissioned work</p>
+        <h2>
+          Built for someone else.
+          <br />
+          Still deeply personal.
+        </h2>
+        <div className="commissioned">
+          <Card project={projects.find((p) => p.id === "wedding")!} />
+          <p>
+            My aunt’s wedding website reminded me that a project’s best outcome
+            isn’t always a number. Sometimes it’s the way someone sounds when
+            they see it.
+          </p>
+        </div>
+      </section>
+      <section className="world-section">
+        <p className="world-label">Currently building</p>
+        <h2>The work continues.</h2>
+        <div className="capability-grid">
+          {projects
+            .filter((p) =>
+              ["afri-index", "squadhub", "predictarena"].includes(p.id),
+            )
+            .map((p) => (
+              <article key={p.id}>
+                <h3>
+                  <a href={`/work/${p.id}`}>{shortName(p)} ↗</a>
+                </h3>
+                <p>{p.status}</p>
+                <p>{p.challenge}</p>
+              </article>
+            ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+function CaseStudy({ project: p }: { project: Project }) {
+  const afri = p.id === "afri-index";
+  const wedding = p.id === "wedding";
+  return (
+    <article
+      className={`world-shell case-study ${wedding ? "wedding-case" : ""}`}
+    >
+      <Heading label={`${p.tags[0]} / ${p.status}`} title={shortName(p)}>
+        <p>{p.summary || p.why}</p>
+      </Heading>
+      <a href="/work" className="world-text-link">
+        ← Back to all work
+      </a>
+      {p.image && (
+        <figure className="case-hero">
+          <a
+            href={p.image}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Open full screenshot of ${shortName(p)}`}
+          >
+            <img
+              src={p.image}
+              alt={p.imageCaption || p.title}
+              width={p.imageWidth}
+              height={p.imageHeight}
+            />
+          </a>
+          <figcaption>{p.imageCaption} · Open image to inspect</figcaption>
+        </figure>
+      )}
+      {afri && (
+        <section className="world-section story-feature">
+          <p className="world-label">The passion project</p>
+          <h2>It Started With an Argument.</h2>
+          <p>
+            My university roommates didn’t agree that Omah Lay deserved a place
+            in the Afrobeats top 10. I started gathering streaming statistics,
+            rankings and achievements to back up my argument. Somewhere along
+            the way, I fell in love with building the project itself.
+          </p>
+          <blockquote>
+            “Of everything I've built, Afri Index is probably the project
+            closest to my heart. What started as an argument became something I
+            genuinely fell in love with building.”
+          </blockquote>
+          <details>
+            <summary>Why does this exist?</summary>
+            <p>
+              Because apparently “just agree to disagree” wasn’t enough for me.
+              But loving Omah Lay doesn’t mean quietly moving him up the
+              rankings. The methodology has to be transparent and defensible.
+            </p>
+          </details>
+        </section>
+      )}
+      {wedding && (
+        <section className="world-section story-feature">
+          <p className="world-label">The heart project</p>
+          <h2>The Moment That Made It Worth It.</h2>
+          <p>
+            I built this for my aunt, genuinely one of my favourite people. I
+            put care into the little details, the visuals and the way the
+            website felt.
+          </p>
+          <blockquote>
+            My favourite moment wasn’t technical. It was hearing how happy she
+            sounded when she first saw it.
+          </blockquote>
+          <p>
+            That means more to me than any technical metric. I don’t think
+            anything will take that moment away from me.
+          </p>
+        </section>
+      )}
+      <section className="world-section case-body">
+        <div>
+          <p className="world-label">Behind the build</p>
+          <h2>What went into it.</h2>
+          <div className="tech-tags">
+            {p.tech.map((t) => (
+              <span key={t}>{t}</span>
+            ))}
+          </div>
+          {p.role && <p>{p.role}</p>}
+          <div className="world-actions">
+            {p.links.map((l) => (
+              <Button key={l.href} href={l.href} secondary>
+                {l.label}
+              </Button>
+            ))}
+          </div>
+        </div>
+        <div>
+          {[
+            ["Why it exists", p.why],
+            ["Design & development", p.built],
+            ["The difficult part", p.challenge],
+            ["What I learned", p.learned],
+            ["Where it stands", p.outcome],
+          ].map(([a, b]) => (
+            <section key={a}>
+              <h3>{a}</h3>
+              <p>{b}</p>
+            </section>
+          ))}
+          {p.companion && (
+            <section>
+              <h3>{p.companion.title}</h3>
+              <p>{p.companion.description}</p>
+              <div className="world-actions">
+                <Button href={p.companion.href} secondary>
+                  Open companion tool
+                </Button>
+                <Button href={p.companion.github} secondary>
+                  Source code
+                </Button>
+              </div>
+            </section>
+          )}
+          {p.previewNote && <p className="world-note">{p.previewNote}</p>}
+        </div>
+      </section>
+      {afri && (
+        <section className="world-section">
+          <h2>A project that keeps evolving.</h2>
+          <div className="build-journey">
+            {[
+              [
+                "01",
+                "The roommate argument",
+                "An opinion about Omah Lay became a question worth researching.",
+              ],
+              [
+                "02",
+                "The original idea",
+                "Gather evidence rather than just make a louder argument.",
+              ],
+              [
+                "03",
+                "Early data gathering",
+                "Streaming figures, rankings and achievements needed sources.",
+              ],
+              [
+                "04",
+                "First interface",
+                "Learning through tutorials, templates and layout experiments.",
+              ],
+              [
+                "05",
+                "Design improvements",
+                "Studying UI/UX and polishing the frontend one iteration at a time.",
+              ],
+              [
+                "06",
+                "Technical integrations",
+                "Working through APIs, Supabase, Resend, authentication and database infrastructure along the wider development journey.",
+              ],
+              [
+                "07",
+                "The current platform",
+                "A living index with an inspectable methodology; the current public build’s technologies are listed above.",
+              ],
+              [
+                "08",
+                "What comes next",
+                "More reliable data and further improvements as time and budget allow. This is still evolving, not a completed commercial platform.",
+              ],
+            ].map(([n, t, c]) => (
+              <details key={n}>
+                <summary>
+                  <span>{n}</span>
+                  {t}
+                </summary>
+                <p>{c}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+      <CTA />
+    </article>
+  );
+}
+function Hobbies() {
+  return (
+    <div className="world-shell">
+      <Heading
+        label="03 / Outside the code"
+        title="There’s a person behind the commits."
+      >
+        <p>
+          Music arguments, competitive gaming, anime, Arsenal, and a story
+          that’s still unfolding.
+        </p>
+      </Heading>
+      <section className="hobbies-layout world-section compact">
+        <article className="arsenal-feature">
+          <ArsenalAtmosphere />
+          <div className="champions-overlay" aria-hidden="true">
+            COME ON
+            <br />
+            YOU GUNNERS
+          </div>
+          <div className="arsenal-copy">
+            <span className="hobby-label">01 / Arsenal</span>
+            <h2>
+              I’m an
+              <br />
+              Arsenal fan.
+            </h2>
+            <p>
+              I make time for matchday. Sometimes the match follows me into the
+              rest of my day.
+            </p>
+            <span className="arsenal-signoff">NORTH LONDON, FROM NIGERIA.</span>
+            <StarboyEgg />
+          </div>
+        </article>
+        <div className="hobbies-notes">
+          <article>
+            <span className="hobby-label">On repeat</span>
+            <h3>Adele. Always Adele.</h3>
+            <p>
+              I connect with the emotion in her music. Then there’s Afrobeats,
+              rap, and the occasional argument that becomes a whole software
+              project.
+            </p>
+            <a href="#music" className="world-text-link">
+              My music universe ↓
+            </a>
+          </article>
+          <article>
+            <span className="hobby-label">In another universe</span>
+            <h3>Gojo only lost because of plot.</h3>
+            <p>
+              My Hero Academia is my favourite anime overall. Satoru Gojo is my
+              favourite character. Yes, both things can be true.
+            </p>
+            <a href="#anime" className="world-text-link">
+              More than just power ↓
+            </a>
+          </article>
+          <article>
+            <span className="hobby-label">Respawning eventually</span>
+            <h3>Life came to nerf me.</h3>
+            <p>
+              My competitive CODM era involved ambitious plans, a device upgrade
+              and some very uncooperative internet.
+            </p>
+            <a href="#life" className="world-text-link">
+              The full story ↓
+            </a>
+          </article>
+        </div>
+      </section>
+      <section id="life" className="world-section">
+        <p className="world-label">Chapters of a life</p>
+        <h2>
+          How I got here.
+          <br />
+          More or less.
+        </h2>
+        <div className="life-timeline">
+          {chapters.map((c, i) => (
+            <PageReveal key={c.title}>
+              <details className="life-chapter">
+                <summary>
+                  <span className="chapter-index">0{i + 1}</span>
+                  <span>
+                    <small>{c.time}</small>
+                    <strong>{c.title}</strong>
+                    <span className="chapter-preview">{c.preview}</span>
+                  </span>
+                  <span className="chapter-plus" aria-hidden="true">
+                    +
+                  </span>
+                </summary>
+                <div className="chapter-story">
+                  {c.image && (
+                    <img
+                      src={c.image}
+                      alt="Favour at graduation"
+                      loading="lazy"
+                    />
+                  )}
+                  <p>{c.story}</p>
+                  {c.link && (
+                    <a className="world-text-link" href={c.link}>
+                      Explore the project ↗
+                    </a>
+                  )}
+                </div>
+              </details>
+            </PageReveal>
+          ))}
+          <div className="timeline-ending">
+            <p className="world-label">Next chapter / in progress</p>
+            <h3>
+              The Story Is Still Being Written.
+              <StoryCursor />
+            </h3>
+            <a href="/work" className="world-text-link">
+              See what I’m building ↗
+            </a>
+          </div>
+        </div>
+      </section>
+      <section id="music" className="world-section music-universe">
+        <p className="world-label">My music universe</p>
+        <div className="adele-feature">
+          <div className="record-art" aria-hidden="true">
+            <span>
+              ON
+              <br />
+              REPEAT.
+            </span>
+          </div>
+          <div>
+            <span className="world-label">My overall favourite</span>
+            <h2>Adele.</h2>
+            <p>
+              Some music just meets you where you are. I relate deeply to the
+              emotions she expresses. Adele gets a special place in my world.
+            </p>
+            <a
+              className="world-text-link"
+              href="https://open.spotify.com/search/Adele"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Find Adele on Spotify ↗
+            </a>
+          </div>
+        </div>
+        <div className="world-two-col music-lists">
+          <div>
+            <h3>Afrobeats, naturally.</h3>
+            <div className="artist-links">
+              {["Omah Lay", "Davido", "Burna Boy", "Odumodublvck"].map(
+                (artist) => (
+                  <a
+                    key={artist}
+                    href={`https://open.spotify.com/search/${encodeURIComponent(artist)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {artist} <span aria-hidden="true">↗</span>
+                  </a>
+                ),
+              )}
+            </div>
+            <a href="/work/afri-index" className="world-text-link">
+              Where the music arguments went ↗
+            </a>
+          </div>
+          <div>
+            <h3>And then the queue wanders.</h3>
+            <div className="artist-links">
+              {[
+                "EsDeeKid",
+                "Drake",
+                "Taylor Swift",
+                "Katy Perry",
+                "Sia",
+                "Doja Cat",
+                "Nicki Minaj",
+                "Cardi B",
+              ].map((artist) => (
+                <a
+                  key={artist}
+                  href={`https://open.spotify.com/search/${encodeURIComponent(artist)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {artist} <span aria-hidden="true">↗</span>
+                </a>
+              ))}
+            </div>
+            <p>
+              Part of what I like about EsDeeKid is the Scouse accent. That
+              probably explains part of the Liverpool fascination, too.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section id="anime" className="world-section">
+        <p className="world-label">Anime / More Than Just Power</p>
+        <h2>
+          Talent gets my attention.
+          <br />
+          Growth makes me stay.
+        </h2>
+        <div className="anime-grid">
+          {[
+            [
+              "GOJO",
+              "Satoru Gojo",
+              "Jujutsu Kaisen",
+              "Limitless talent. My favourite character.",
+            ],
+            [
+              "YUNO",
+              "Yuno",
+              "Black Clover",
+              "There’s definitely a pattern here.",
+            ],
+            [
+              "YUTA",
+              "Yuta Okkotsu",
+              "Jujutsu Kaisen",
+              "Another exceptionally gifted favourite.",
+            ],
+            [
+              "BAKUGO",
+              "Katsuki Bakugo",
+              "My Hero Academia",
+              "The growth is part of the appeal.",
+            ],
+            [
+              "ENDEAVOR",
+              "Endeavor",
+              "My Hero Academia",
+              "Accountability matters, too.",
+            ],
+          ].map(([art, name, series, note]) => (
+            <details className="anime-card" key={name}>
+              <summary>
+                <span className="character-type" aria-hidden="true">
+                  {art}
+                </span>
+                <strong>{name}</strong>
+                <small>{series}</small>
+                <span className="world-text-link">Why this character +</span>
+              </summary>
+              <p>{note}</p>
+            </details>
+          ))}
+        </div>
+        <div className="anime-reflection">
+          <h3>It’s never too late to change.</h3>
+          <p>
+            I've always liked naturally gifted characters. Gojo, Yuno, Yuta —
+            there's definitely a pattern there.
+          </p>
+          <p>
+            But Bakugo and Endeavor are different. What makes me love them isn't
+            just their strength. It's their character development.
+          </p>
+          <p>
+            Watching them confront their flaws and try to become better reminds
+            me that it's never too late to change.
+          </p>
+          <p>
+            That doesn't mean your past disappears. It means you can still
+            choose who you become.
+          </p>
+        </div>
+      </section>
+      <section className="world-section football-memories">
+        <p className="world-label">Football / The highs and the hurts</p>
+        <h2>Some matches stay with you.</h2>
+        <div className="world-two-col">
+          <article>
+            <span className="match-score">1—0</span>
+            <h3>The belief.</h3>
+            <p className="world-label">Arsenal v Burnley / 18 May 2026</p>
+            <p>
+              Kai Havertz heading in Bukayo Saka’s corner had me ecstatic. It
+              reinforced that feeling: we could finally win the Premier League.
+            </p>
+            <a
+              className="world-text-link"
+              href="https://www.burnleyfootballclub.com/media-article/match-report-arsenal-1-0-burnley"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Match report ↗
+            </a>
+          </article>
+          <article>
+            <span className="match-score">
+              1—1 <small>3—4 pens</small>
+            </span>
+            <h3>The heartbreak.</h3>
+            <p className="world-label">
+              PSG v Arsenal / Budapest / 30 May 2026
+            </p>
+            <p>
+              I was in an entrepreneurship exam presentation when Arsenal scored
+              early. I left the hall and ran to the cafeteria—what felt like a
+              kilometre—because I needed somewhere to scream and celebrate. For
+              that first half, I really believed.
+            </p>
+            <details>
+              <summary>The part that hurt</summary>
+              <p>
+                Then came the penalties. When Gabriel missed, I was angry. I
+                felt Madueke or Zubimendi should have taken it before a
+                centre-back. That’s my opinion as a supporter.
+              </p>
+              <p>
+                After the anger came real sadness. It wasn’t just rival fans
+                mocking us. I genuinely thought we would win, and that
+                disappointment stayed with me.
+              </p>
+            </details>
+            <a
+              className="world-text-link"
+              href="https://www.arsenal.com/news/report-psg-1-1-arsenal-aet-4-3-pens-aIZgs9c2lv6R"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Official match report ↗
+            </a>
+          </article>
+        </div>
+        <div className="london-note">
+          <h3>One day, North London.</h3>
+          <p>
+            I’d love to explore London, visit the Emirates and walk through
+            historic Highbury. I also love the idea of living in Liverpool,
+            partly for the accent and culture. An Arsenal fan with Liverpool on
+            the wish list. I’m aware of the irony.
+          </p>
+        </div>
+      </section>
+    </div>
+  );
+}
+function Pricing() {
+  return (
+    <div className="world-shell">
+      <Heading label="04 / Services & pricing" title="A clear place to start.">
+        <p>
+          Tell me what you need. We’ll agree the scope, the deliverables and a
+          price that reflects the work.
+        </p>
+      </Heading>
+      <p className="world-note">
+        Prices are quoted in Nigerian naira. The existing landing-page range is
+        a guide; final quotations depend on features, content, integrations,
+        hosting and maintenance.
+      </p>
+      <section className="package-grid world-section compact">
+        {services.map((s) => (
+          <article className="service-package" key={s.id}>
+            <p className="world-label">{s.scope}</p>
+            <h2>{s.title}</h2>
+            <p>{s.for}</p>
+            <strong className="package-price">
+              {s.price || "Request a quote"}
+            </strong>
+            <ul>
+              {s.includes.map((i) => (
+                <li key={i}>{i}</li>
+              ))}
+            </ul>
+            <p className="package-upgrade">Optional: {s.upgrades}</p>
+            <Button href={`/contact?service=${s.id}`} secondary>
+              Discuss {s.title.toLowerCase()}
+            </Button>
+          </article>
+        ))}
+      </section>
+    </div>
+  );
+}
+function Contact() {
+  const prefill = new URLSearchParams(location.search).get("service") || "";
+  const [prepared, setPrepared] = useState<{
+    href: string;
+    method: string;
+  } | null>(null);
+  const [error, setError] = useState("");
+  function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError("");
+    const form = e.currentTarget;
+    const d = new FormData(form);
+    if (d.get("website")) {
+      setError("Please try again without the hidden website field.");
+      return;
+    }
+    const description = String(d.get("description") || "").trim();
+    if (description.length < 20) {
+      setError("Please describe your project in at least 20 characters.");
+      return;
+    }
+    const method = String(d.get("method"));
+    const text = `Hi Favour, I’d like to discuss a project.\n\nName: ${d.get("name")}\nEmail: ${d.get("email")}\nOrganisation: ${d.get("organisation") || "Not specified"}\nService: ${services.find((s) => s.id === d.get("service"))?.title || "Let’s discuss"}\nBudget: ${d.get("budget")}\nTimeframe: ${d.get("timeframe")}\nPreferred contact: ${method}\n\n${description}`;
+    setPrepared({
+      method,
+      href:
+        method === "WhatsApp"
+          ? `${contact.whatsapp}?text=${encodeURIComponent(text)}`
+          : `mailto:${contact.email}?subject=${encodeURIComponent("Project enquiry")}&body=${encodeURIComponent(text)}`,
+    });
+  }
+  return (
+    <div className="world-shell">
+      <Heading label="05 / Contact" title="What are you thinking of building?">
+        <p>
+          A rough idea is enough to start a conversation. Tell me who it’s for
+          and what you need it to do.
+        </p>
+      </Heading>
+      <div className="contact-layout world-section compact">
+        <aside>
+          <h2>Let’s talk.</h2>
+          <p>
+            I build websites, products and business systems. Share your idea,
+            timeline and the part you need help with.
+          </p>
+          <a
+            className="world-text-link"
+            href={`${contact.whatsapp}?text=${encodeURIComponent("Hi Favour, I would like to discuss a project.")}`}
+          >
+            WhatsApp ↗
+          </a>
+          <a
+            className="world-text-link email-link"
+            href={`mailto:${contact.email}`}
+          >
+            {contact.email} ↗
+          </a>
+          <p className="world-note">
+            This form prepares your enquiry. You’ll review and send it in
+            WhatsApp or your email app; nothing is submitted automatically.
+          </p>
+        </aside>
+        <form
+          onSubmit={submit}
+          onChange={() => setPrepared(null)}
+          className="enquiry-form"
+        >
+          <div className="form-row">
+            <label>
+              Your name
+              <input name="name" autoComplete="name" required maxLength={100} />
+            </label>
+            <label>
+              Email address
+              <input
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                maxLength={150}
+              />
+            </label>
+          </div>
+          <label>
+            Business / organisation <span>(optional)</span>
+            <input
+              name="organisation"
+              autoComplete="organization"
+              maxLength={150}
+            />
+          </label>
+          <label>
+            Service required
+            <select
+              name="service"
+              defaultValue={
+                services.some((s) => s.id === prefill) ? prefill : ""
+              }
+              required
+            >
+              <option value="">Choose a service</option>
+              {services.map((s) => (
+                <option value={s.id} key={s.id}>
+                  {s.title}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Your project
+            <textarea
+              name="description"
+              rows={6}
+              minLength={20}
+              maxLength={3000}
+              required
+              placeholder="Who is it for? What should it do?"
+            />
+          </label>
+          <div className="form-row">
+            <label>
+              Estimated budget
+              <select name="budget" required defaultValue="">
+                <option value="" disabled>
+                  Choose a range (NGN)
+                </option>
+                {[
+                  "Under ₦150,000",
+                  "₦150,000–₦300,000",
+                  "₦300,000–₦750,000",
+                  "₦750,000+",
+                  "Let’s discuss",
+                ].map((x) => (
+                  <option key={x}>{x}</option>
+                ))}
+              </select>
+            </label>
+            <label>
+              Target timeframe
+              <input
+                name="timeframe"
+                required
+                maxLength={150}
+                placeholder="e.g. Within 6 weeks / flexible"
+              />
+            </label>
+          </div>
+          <label>
+            Preferred contact method
+            <select name="method">
+              <option>WhatsApp</option>
+              <option>Email</option>
+            </select>
+          </label>
+          <div className="honeypot" aria-hidden="true">
+            <label>
+              Leave this empty
+              <input name="website" tabIndex={-1} autoComplete="off" />
+            </label>
+          </div>
+          <button className="world-button" type="submit">
+            Prepare my enquiry <span aria-hidden="true">↗</span>
+          </button>
+          {error && <p role="alert">{error}</p>}
+          {prepared && (
+            <div className="enquiry-ready" role="status">
+              <h3>Your enquiry is ready.</h3>
+              <p>
+                Nothing has been sent yet. Open {prepared.method}, review the
+                message, then send it.
+              </p>
+              <a
+                className="world-button"
+                href={prepared.href}
+                target={prepared.method === "WhatsApp" ? "_blank" : undefined}
+                rel="noreferrer"
+              >
+                Continue in {prepared.method} ↗
+              </a>
+            </div>
+          )}
+        </form>
+      </div>
+    </div>
+  );
+}
+export default function App() {
+  const path = location.pathname.replace(/\/$/, "") || "/";
+  const [menu, setMenu] = useState(false);
+  const [theme, setTheme] = useState(
+    document.documentElement.dataset.theme || "dark",
+  );
+  const menuButton = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const escape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && menu) {
+        setMenu(false);
+        menuButton.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", escape);
+    return () => document.removeEventListener("keydown", escape);
+  }, [menu]);
+  useEffect(() => {
+    const legacy: Record<string, string> = {
+      home: "/",
+      skills: "/about#skills",
+      experience: "/about",
+      education: "/about",
+      projects: "/work",
+      about: "/about",
+      background: "/about",
+      hobbies: "/hobbies",
+      pricing: "/pricing",
+      services: "/pricing",
+      contact: "/contact",
+    };
+    const hash = location.hash.slice(1);
+    if (path === "/" && legacy[hash]) location.replace(legacy[hash]);
+    else if (path === "/" && projects.some((p) => p.id === hash))
+      location.replace(`/work/${hash}`);
+  }, [path]);
+  function toggle() {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.dataset.theme = next;
+    document.documentElement.style.colorScheme = next;
+    try {
+      localStorage.setItem("imegu-theme", next);
+    } catch {}
+  }
+  const project = path.startsWith("/work/")
+    ? projects.find((p) => path === `/work/${p.id}`)
+    : undefined;
+  const page =
+    path === "/" ? (
+      <Home />
+    ) : path === "/about" ? (
+      <About />
+    ) : path === "/work" ? (
+      <Work />
+    ) : path === "/hobbies" ? (
+      <Hobbies />
+    ) : path === "/pricing" ? (
+      <Pricing />
+    ) : path === "/contact" ? (
+      <Contact />
+    ) : project ? (
+      <CaseStudy project={project} />
+    ) : (
+      <div className="world-shell">
+        <Heading
+          label="404 / A wrong turn"
+          title="This page isn’t in my world."
+        />
+        <Button href="/">Back home</Button>
+      </div>
+    );
+  return (
+    <>
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
+      <header className="world-header">
+        <a href="/" className="world-logo" aria-label="Imegu World home">
+          imegu<span>.world</span>
+          <span className="logo-star" aria-hidden="true">
+            ✳
+          </span>
+        </a>
+        <nav
+          id="world-nav"
+          className={menu ? "open" : ""}
+          aria-label="Main navigation"
+        >
+          {routes.map(([href, label]) => (
+            <a
+              key={href}
+              href={href}
+              aria-current={
+                path === href || (href === "/work" && project)
+                  ? "page"
+                  : undefined
+              }
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+        <button
+          className="world-theme"
+          onClick={toggle}
+          aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+        >
+          <span key={theme} aria-hidden="true">
+            {theme === "dark" ? "☀" : "☾"}
+          </span>
         </button>
-      </aside>
-
-      <dialog className="screenshot-dialog" ref={previewDialog} onKeyDown={event => {if (event.key === "ArrowLeft") {event.preventDefault(); movePreview(-1);} if (event.key === "ArrowRight") {event.preventDefault(); movePreview(1);}}} onCancel={() => setPreview(null)} onClose={() => setPreview(null)} onClick={(event) => { if (event.target === event.currentTarget) setPreview(null); }} aria-labelledby="preview-title">
-        {preview && <><div className="dialog-header"><h2 id="preview-title">{preview.title}</h2><button autoFocus onClick={() => setPreview(null)} aria-label="Close screenshot"><MarkIcon name="close" /></button></div><img src={preview.image} alt={`${preview.title} enlarged screenshot`} /><div className="gallery-controls"><button type="button" onClick={() => movePreview(-1)} aria-label="Previous project screenshot">← Previous</button><p role="status">{gallery.findIndex(project => project.image === preview.image) + 1} / {gallery.length}</p><button type="button" onClick={() => movePreview(1)} aria-label="Next project screenshot">Next →</button></div></>}
-      </dialog>
-      <footer className="folio-footer shell">
-        <div className="folio-footer-top"><a className="footer-signature" href="#home" aria-label="Favour, back to top">favour<span>.</span></a><p>Independent developer.<br/>A personal approach to every build.</p></div>
-        <div className="folio-footer-links"><nav aria-label="Footer portfolio links"><span>Take a look</span><a href="#projects">Selected work</a><a href="#services">Services</a><a href="#pricing">Project pricing</a></nav><nav aria-label="Footer contact links"><span>Start a conversation</span><a href={whatsappHref} target="_blank" rel="noreferrer">WhatsApp ↗</a><a href="mailto:Imegufavour30@gmail.com">Email ↗</a><a href="https://github.com/codeWithGojo" target="_blank" rel="noreferrer">GitHub ↗</a></nav><div><span>Have a brief ready?</span><p>A few lines about the idea, your timeline and what you need is a good start.</p><a className="resume-link" href={quoteHref("a new project")} target="_blank" rel="noreferrer">Tell me about it <MarkIcon name="arrow"/></a></div></div>
-        <div className="folio-footer-bottom"><p>© 2026 Favour Imegu EwoMazino.</p><span>Designed &amp; built by Favour.</span><a href="#home">Back to top ↑</a></div>
+        <button
+          ref={menuButton}
+          className="world-menu-button"
+          aria-expanded={menu}
+          aria-controls="world-nav"
+          onClick={() => setMenu(!menu)}
+        >
+          {menu ? "Close" : "Menu"}
+        </button>
+      </header>
+      <main id="main" tabIndex={-1}>
+        <PageReveal>{page}</PageReveal>
+      </main>
+      <footer className="world-footer world-shell">
+        <div>
+          <a className="world-logo" href="/">
+            imegu<span>.world</span>
+          </a>
+          <p>
+            What I build. How I think.
+            <br />A little of everything else.
+          </p>
+        </div>
+        <nav aria-label="Footer navigation">
+          {routes.slice(1).map(([href, label]) => (
+            <a key={href} href={href}>
+              {label}
+            </a>
+          ))}
+        </nav>
+        <div>
+          <a href="https://github.com/codeWithGojo">GitHub ↗</a>
+          <a href={`mailto:${contact.email}`}>Email ↗</a>
+          <a href={contact.whatsapp}>WhatsApp ↗</a>
+          <a href="/Imegu_Favour_Resume.docx" download>
+            Résumé ↓
+          </a>
+        </div>
+        <p className="footer-end">
+          © {new Date().getFullYear()} Favour Imegu. The story is still being
+          written.
+        </p>
       </footer>
     </>
   );
 }
-

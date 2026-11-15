@@ -1,9 +1,7 @@
 import ResponsiveImage from "../components/ResponsiveImage";
-import { useEffect, useRef, useState, type FormEvent } from "react";
-import { projects, type Project } from "../projects";
-import { chapters, contact, services } from "../content";
+import { projects } from "../projects";
 import DeferredIntro from "../components/DeferredIntro";
-import { Button, Heading, Card, CTA, shortName } from "../components/Shared";
+import { Button, Card, CTA } from "../components/Shared";
 export default function Home() {
   const afri = projects.find((p) => p.id === "afri-index")!;
   const wedding = projects.find((p) => p.id === "wedding")!;

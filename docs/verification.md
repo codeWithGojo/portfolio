@@ -31,3 +31,9 @@ These are single mobile Lighthouse lab runs, not field or 75th-percentile measur
 ![Capabilities](review/skills-mobile-light.png)
 ![Football journal](review/football-desktop-light.png)
 ![Personal gallery](review/gallery-light.png)
+
+## Deployed preview checks
+
+The Vercel preview for commit `27eb6f5` passed the same 56 page/viewport checks without hydration errors or overflow. HTTP verification confirmed meaningful `/about` HTML, security headers, immutable hashed assets, the historical Afri Index page, PDF availability, a real 404 and a no-store 503 contact response without credentials.
+
+Deployed mobile Lighthouse: **95 performance / 100 accessibility / 100 SEO**, LCP **2.1s**, CLS **0**, TBT **210ms**. This is one lab run, not real-user INP or field Core Web Vitals. Follow-up source cleanup only removes unused imports and enables compiler checks against their return.

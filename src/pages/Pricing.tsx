@@ -1,8 +1,5 @@
-import { useEffect, useRef, useState, type FormEvent } from "react";
-import { projects, type Project } from "../projects";
-import { chapters, contact, services } from "../content";
-import { CircularIdentityIntro, DustGrid, StarboyEgg, PageReveal, StoryCursor } from "../WorldMotion";
-import { Button, Heading, Card, CTA, shortName } from "../components/Shared";
+import { services } from "../content";
+import { Button, Heading } from "../components/Shared";
 export default function Pricing() {
   return (
     <div className="world-shell">

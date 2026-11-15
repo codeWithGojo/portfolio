@@ -13,5 +13,8 @@ with sync_playwright() as p:
  page.set_viewport_size({'width':390,'height':844});page.locator('#football').scroll_into_view_if_needed();page.wait_for_timeout(500);page.screenshot(path=str(out/'football-mobile-light.png'))
  page.emulate_media(reduced_motion='reduce');page.locator('.personal-gallery').scroll_into_view_if_needed();assert page.get_by_role('button',name='Play slideshow').is_disabled();checks.append('Reduced motion disables automatic slideshow')
  page.goto(base+'/about');page.locator('#skills').scroll_into_view_if_needed();page.screenshot(path=str(out/'skills-mobile-light.png'))
+ page.emulate_media(reduced_motion='no-preference');page.goto(base+'/work');page.get_by_role('button',name='SaaS',exact=True).click();page.wait_for_timeout(1100);assert page.locator('.wm-dust-grid .wm-dust-card').count()==1
+ page.get_by_role('button',name='All Projects',exact=True).click();page.get_by_role('button',name='SaaS',exact=True).click();page.get_by_role('button',name='All Projects',exact=True).click();page.wait_for_timeout(1200);assert page.locator('.wm-dust-canvas').count()==0
+ page.get_by_role('searchbox').fill('no-such-project');page.wait_for_timeout(1100);expect(page.get_by_text('No projects match that search. Try another name or technology.')).to_be_visible();checks.append('Dust filtering, rapid reversals and empty search settle without stale canvases')
  assert not errors,errors;b.close()
  (out/'motion-verification.json').write_text(json.dumps(checks,indent=2));print(json.dumps(checks))

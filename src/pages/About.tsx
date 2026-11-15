@@ -1,10 +1,7 @@
 import ResponsiveImage from "../components/ResponsiveImage";
 import { Capabilities } from "../components/Capabilities";
-import { useEffect, useRef, useState, type FormEvent } from "react";
-import { projects, type Project } from "../projects";
-import { chapters, contact, services } from "../content";
-import { CircularIdentityIntro, DustGrid, StarboyEgg, PageReveal, StoryCursor } from "../WorldMotion";
-import { Button, Heading, Card, CTA, shortName } from "../components/Shared";
+import { StoryCursor } from "../WorldMotion";
+import { Button, Heading } from "../components/Shared";
 export default function About() {
   return (
     <div className="world-shell">

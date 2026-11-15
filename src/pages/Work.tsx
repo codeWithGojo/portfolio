@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState, type FormEvent } from "react";
-import { projects, type Project } from "../projects";
-import { chapters, contact, services } from "../content";
-import { CircularIdentityIntro, DustGrid, StarboyEgg, PageReveal, StoryCursor } from "../WorldMotion";
-import { Button, Heading, Card, CTA, shortName } from "../components/Shared";
+import { useState } from "react";
+import { projects } from "../projects";
+import { DustGrid } from "../WorldMotion";
+import { Heading, Card, shortName } from "../components/Shared";
 export default function Work() {
   const [filter, setFilter] = useState("All Projects");
   const [query, setQuery] = useState("");

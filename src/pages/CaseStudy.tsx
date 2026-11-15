@@ -1,9 +1,6 @@
 import ResponsiveImage from "../components/ResponsiveImage";
-import { useEffect, useRef, useState, type FormEvent } from "react";
-import { projects, type Project } from "../projects";
-import { chapters, contact, services } from "../content";
-import { CircularIdentityIntro, DustGrid, StarboyEgg, PageReveal, StoryCursor } from "../WorldMotion";
-import { Button, Heading, Card, CTA, shortName } from "../components/Shared";
+import type { Project } from "../projects";
+import { Button, Heading, CTA, shortName } from "../components/Shared";
 export default function CaseStudy({ project: p }: { project: Project }) {
   const afri = p.id === "afri-index";
   const wedding = p.id === "wedding";

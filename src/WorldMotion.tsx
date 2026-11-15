@@ -77,6 +77,9 @@ export function CircularIdentityIntro() {
   );
 }
 
+type DustCardProps = { children: ReactNode; animateEntrance: boolean };
+
+/** Dissolve the real DOM through a fine grain mask; paint only the drifting dust. */
 const DustCard = forwardRef<HTMLDivElement, DustCardProps>(function DustCard(
   { children, animateEntrance },
   forwardedRef,

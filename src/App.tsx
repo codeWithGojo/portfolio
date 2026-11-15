@@ -10,7 +10,6 @@ import { chapters, contact, services } from "./content";
 import {
   CircularIdentityIntro,
   DustGrid,
-  ArsenalAtmosphere,
   StarboyEgg,
   PageReveal,
   StoryCursor,
@@ -654,26 +653,44 @@ function Hobbies() {
       </Heading>
       <section className="hobbies-layout world-section compact">
         <article className="arsenal-feature">
-          <ArsenalAtmosphere />
-          <div className="champions-overlay" aria-hidden="true">
-            COME ON
-            <br />
-            YOU GUNNERS
+          <div className="arsenal-photo-pair" aria-label="Two Arsenal favourites">
+            <figure className="arsenal-player">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/1_bukayo_saka_arsenal_2025_%28cropped%29.jpg/960px-1_bukayo_saka_arsenal_2025_%28cropped%29.jpg"
+                alt="Bukayo Saka on the pitch in Arsenal kit, photographed in July 2025"
+                loading="lazy"
+                decoding="async"
+                width={960}
+                height={1134}
+              />
+              <figcaption><span>01</span><strong>Bukayo Saka</strong></figcaption>
+            </figure>
+            <figure className="arsenal-player">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/1_Myles_Lewis-Skelly_arsenal_2025_%28cropped%29.jpg/960px-1_Myles_Lewis-Skelly_arsenal_2025_%28cropped%29.jpg"
+                alt="Myles Lewis-Skelly on the pitch in Arsenal kit, photographed in July 2025"
+                loading="lazy"
+                decoding="async"
+                width={960}
+                height={1275}
+              />
+              <figcaption><span>02</span><strong>Myles Lewis-Skelly</strong></figcaption>
+            </figure>
           </div>
           <div className="arsenal-copy">
-            <span className="hobby-label">01 / Arsenal</span>
-            <h2>
-              I’m an
-              <br />
-              Arsenal fan.
-            </h2>
-            <p>
-              I make time for matchday. Sometimes the match follows me into the
-              rest of my day.
-            </p>
-            <span className="arsenal-signoff">NORTH LONDON, FROM NIGERIA.</span>
-            <StarboyEgg />
+            <div className="arsenal-copy-heading">
+              <span className="hobby-label">01 / Arsenal</span>
+              <h2>I’m an Arsenal fan.</h2>
+            </div>
+            <p>I make time for matchday. Sometimes the match follows me into the rest of my day.</p>
+            <div className="arsenal-signoff-row">
+              <span className="arsenal-signoff">NORTH LONDON, FROM NIGERIA.</span>
+              <StarboyEgg />
+            </div>
           </div>
+          <p className="arsenal-photo-credit">
+            Photos by Chensiyuan · <a href="https://commons.wikimedia.org/wiki/File:1_bukayo_saka_arsenal_2025_(cropped).jpg" target="_blank" rel="noreferrer">Saka source</a> · <a href="https://commons.wikimedia.org/wiki/File:1_Myles_Lewis-Skelly_arsenal_2025_(cropped).jpg" target="_blank" rel="noreferrer">Lewis-Skelly source</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a>. Source crops displayed within responsive frames.
+          </p>
         </article>
         <div className="hobbies-notes">
           <article>

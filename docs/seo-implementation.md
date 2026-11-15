@@ -10,6 +10,10 @@ JSON-LD connects the verified GitHub account to one Person and WebSite entity an
 
 Vercel deployment hosts ending in `.vercel.app` receive `X-Robots-Tag: noindex, nofollow`; production canonicals and sitemap use HTTPS `imegu.world`. No `lastmod` values are invented.
 
+### Production DNS follow-up
+
+The project has both `imegu.world` and `www.imegu.world` configured and verified in Vercel, with `www` set to redirect to the apex using HTTP 308. Live DNS still delegates to Namecheap (`dns1.registrar-servers.com` and `dns2.registrar-servers.com`), however, and `www.imegu.world` currently resolves to a Namecheap parking host. Consequently, the `www` URL does not reach Vercel and its redirect is not live. Vercel's current domain configuration recommends an apex A record of `76.76.21.21` and a `www` CNAME of `cname.vercel-dns.com`; the apex presently resolves to `216.198.79.1` and serves the site. Update the corresponding records in the external DNS provider, preserving unrelated mail and verification records, then verify both hosts and HTTPS. No DNS change was made as part of this repository PR.
+
 ## Research and targeting
 
 On 15 November 2026, search-result samples for web developer Nigeria and Nigerian business software showed a mix of individual developer profiles, web development agencies, and custom ERP/inventory providers. The intent is practical vendor evaluation, often wanting example work, price/scoping and location. For example, the sampled results included an individual Nigerian developer profile ([Build with Ben](https://www.buildwithben.ng/)) and a focused local ERP/inventory vendor ([Devstack](https://www.devstack.ng/)). Search samples do not provide search-volume or ranking-difficulty data. The homepage targets name plus broad role; pricing targets services and quote intent; FireSafe, Afri Index and TerraScope target their specific demonstrated project topics. No separate city doorway pages were created. Nigeria and Ibadan are used where accurate; Delta/Asaba are not claimed as office locations. Follow actual queries in Search Console before expanding niche service pages.

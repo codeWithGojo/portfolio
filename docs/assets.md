@@ -34,7 +34,6 @@ The full-size original project screenshots remain available to open from case st
 
 The site includes the Latin upright weight-axis WOFF2 files from [Fontsource Inter Variable 5.3.0](https://www.npmjs.com/package/@fontsource-variable/inter/v/5.3.0) and [Fontsource Space Grotesk Variable 5.3.0](https://www.npmjs.com/package/@fontsource-variable/space-grotesk/v/5.3.0). Both are under the SIL Open Font License 1.1. The license texts accompany the distributed font files in `public/fonts`.
 
-## Anime imagery still needed
+## Anime portraits
 
-The supplied materials include a screenshot of the incomplete anime cards. Publication rights for recognizable character imagery were not supplied. The missing image assets are Satoru Gojo and Yuta Okkotsu from *Jujutsu Kaisen*, Yuno from *Black Clover*, and Katsuki Bakugo and Endeavor from *My Hero Academia*.
-
+Favour supplied the five JPEGs used on the character cards: Satoru Gojo (225 × 225), Yuno (331 × 604), Yuta Okkotsu (447 × 447), Katsuki Bakugo (163 × 192), and Endeavor (150 × 300). The originals are served from `public/media`, and the cards display the artwork without cropping. Artist credits and independent license information were not supplied.

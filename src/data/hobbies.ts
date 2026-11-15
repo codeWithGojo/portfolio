@@ -5,15 +5,13 @@ export const sakaGallery: GalleryImage[] = [
   { src: "/media/arsenal-starboy-762.webp", srcSet: "/media/arsenal-starboy-480.webp 480w, /media/arsenal-starboy-762.webp 762w", width: 762, height: 730, alt: "Supplied red and black 07 Starboy North London artwork", title: "North London, forever.", caption: "07 / Supporting artwork from my collection" },
 ];
 
-export type Character = { id: string; name: string; series: string; note: string; explanation: string; image?: { src: string; alt: string; width: number; height: number } };
-// Authorized portraits still needed: Satoru Gojo, Yuno, Yuta Okkotsu, Katsuki Bakugo, Endeavor.
-// No scraped/unlicensed character artwork or simulated image placeholders are presented.
+export type Character = { id: string; name: string; series: string; note: string; explanation: string; image: { src: string; alt: string; width: number; height: number } };
 export const characters: Character[] = [
-  { id: "gojo", name: "Satoru Gojo", series: "Jujutsu Kaisen", note: "My favourite character. Limitless talent.", explanation: "I've always liked naturally gifted characters, and Gojo is my favourite across anime. Also: Gojo only lost to Sukuna because of plot." },
-  { id: "yuno", name: "Yuno", series: "Black Clover", note: "There’s definitely a pattern here.", explanation: "Gojo, Yuno, Yuta — I've always liked naturally gifted, exceptionally talented characters. Yuno fits that pattern." },
-  { id: "yuta", name: "Yuta Okkotsu", series: "Jujutsu Kaisen", note: "Another exceptionally gifted favourite.", explanation: "Yuta is another of the naturally gifted characters I particularly like. There’s definitely a pattern in the characters that get my attention." },
-  { id: "bakugo", name: "Katsuki Bakugo", series: "My Hero Academia", note: "The growth is part of the appeal.", explanation: "What makes me love Bakugo isn't just his strength. It's his character development: confronting his flaws and trying to become better." },
-  { id: "endeavor", name: "Endeavor", series: "My Hero Academia", note: "Accountability matters, too.", explanation: "Endeavor’s development is what appeals to me. Watching him confront his mistakes reminds me that it's never too late to change. That doesn't mean your past disappears." },
+  { id: "gojo", name: "Satoru Gojo", image: { src: "/media/satoru-gojo.jpeg", alt: "Illustration of Satoru Gojo", width: 225, height: 225 }, series: "Jujutsu Kaisen", note: "My favourite character. Limitless talent.", explanation: "I've always liked naturally gifted characters, and Gojo is my favourite across anime. Also: Gojo only lost to Sukuna because of plot." },
+  { id: "yuno", name: "Yuno", image: { src: "/media/yuno.jpeg", alt: "Illustration of Yuno", width: 331, height: 604 }, series: "Black Clover", note: "There’s definitely a pattern here.", explanation: "Gojo, Yuno, Yuta — I've always liked naturally gifted, exceptionally talented characters. Yuno fits that pattern." },
+  { id: "yuta", name: "Yuta Okkotsu", image: { src: "/media/yuta-okkotsu.jpeg", alt: "Illustration of Yuta Okkotsu", width: 447, height: 447 }, series: "Jujutsu Kaisen", note: "Another exceptionally gifted favourite.", explanation: "Yuta is another of the naturally gifted characters I particularly like. There’s definitely a pattern in the characters that get my attention." },
+  { id: "bakugo", name: "Katsuki Bakugo", image: { src: "/media/katsuki-bakugo.jpeg", alt: "Illustration of Katsuki Bakugo", width: 163, height: 192 }, series: "My Hero Academia", note: "The growth is part of the appeal.", explanation: "What makes me love Bakugo isn't just his strength. It's his character development: confronting his flaws and trying to become better." },
+  { id: "endeavor", name: "Endeavor", image: { src: "/media/endeavor.jpeg", alt: "Illustration of Endeavor", width: 150, height: 300 }, series: "My Hero Academia", note: "Accountability matters, too.", explanation: "Endeavor’s development is what appeals to me. Watching him confront his mistakes reminds me that it's never too late to change. That doesn't mean your past disappears." },
 ];
 
 // Facts checked against Burnley FC's report and UEFA's final report on 15 November 2026.

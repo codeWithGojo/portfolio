@@ -1,49 +1,16 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0B0C0E" />
-    <script>
-      (() => {
-        let preference;
-        try { preference = localStorage.getItem("imegu-theme"); } catch {}
-        const theme = preference === "light" || preference === "dark"
-          ? preference
-          : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-        document.documentElement.dataset.theme = theme;
-        document.documentElement.style.colorScheme = theme;
-      })();
-    </script>
-    <style>html[data-theme="dark"]{background:#0B0C0E;color:#F6F6F7}html[data-theme="light"]{background:#FBFAF9;color:#211821}</style>
-    <!-- route-meta-start -->
-    <title>Favour Imegu (Gojo) — Developer</title>
-    <meta name="description" content="Favour Imegu builds websites, products and business systems." />
-    <!-- route-meta-end -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script>
-      // Retire only the old portfolio PWA worker; preserve unrelated registrations.
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker.getRegistrations().then(registrations =>
-            registrations.filter(reg => reg.active && new URL(reg.active.scriptURL).pathname === "/sw.js")
-              .forEach(reg => reg.unregister())
-          ).catch(() => {});
-          if ("caches" in window) {
-            caches.keys().then(keys =>
-              Promise.all(keys.filter(key => key.startsWith("portfolio-shell-")).map(key => caches.delete(key)))
-            ).catch(() => {});
-          }
-        }, { once: true });
-      }
-    </script>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#faf9f6" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#121214" media="(prefers-color-scheme: dark)" />
+<script>try{var t=localStorage.getItem('imegu-theme');if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){m.content=t==='dark'?'#121214':'#faf9f6';m.removeAttribute('media')})}catch(e){document.documentElement.dataset.theme=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}</script>
+<style>html,body{margin:0;background:#faf9f6;color:#242124}html[data-theme=dark],html[data-theme=dark] body{background:#121214;color:#faf7f4}@media(prefers-color-scheme:dark){html:not([data-theme]),html:not([data-theme]) body{background:#121214;color:#faf7f4}}</style>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preload" href="/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
+<noscript><style>.world-header{flex-wrap:wrap}.world-header #world-nav{position:static;display:flex;flex-wrap:wrap;padding:8px 0;width:100%;order:3;box-shadow:none}.world-menu-button,.world-theme,.character-entry>button,.personal-gallery-controls{display:none!important}.character-explanation[hidden]{display:block}</style></noscript>
+<!--route-head-->
+</head>
+<body><div id="root"></div><script type="module" src="/src/main.tsx"></script></body>
 </html>

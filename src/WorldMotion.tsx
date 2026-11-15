@@ -10,15 +10,9 @@ import {
 import { AnimatePresence, motion, usePresence } from "motion/react";
 import "./world-motion.css";
 
-const INTRO_KEY = "imegu-identity-seen-v2";
-
 // Motion's installed hook snapshots this preference; keep live OS changes working too.
 function useReducedMotion() {
-  const [reduced, setReduced] = useState(
-    () =>
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-  );
+  const [reduced, setReduced] = useState(false);
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => setReduced(media.matches);
@@ -29,53 +23,7 @@ function useReducedMotion() {
   return reduced;
 }
 
-/** A short, optional, session-aware personal signature. No forced navigation. */
-export function CircularIdentityIntro() {
-  const reduced = useReducedMotion();
-  const [visible, setVisible] = useState(() => {
-    if (typeof window === "undefined" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
-    try { return sessionStorage.getItem(INTRO_KEY) !== "yes"; } catch { return true; }
-  });
-  useEffect(() => {
-    if (!visible) return;
-    try { sessionStorage.setItem(INTRO_KEY, "yes"); } catch { /* Storage can be unavailable. */ }
-    const timer = window.setTimeout(() => setVisible(false), 1900);
-    const dismiss = (event: KeyboardEvent) => { if (event.key === "Escape") setVisible(false); };
-    const navigate = (event: MouseEvent) => {
-      if ((event.target as Element).closest("a")) setVisible(false);
-    };
-    document.addEventListener("keydown", dismiss);
-    document.addEventListener("click", navigate);
-    return () => {
-      window.clearTimeout(timer);
-      document.removeEventListener("keydown", dismiss);
-      document.removeEventListener("click", navigate);
-    };
-  }, [visible]);
-  return (
-    <AnimatePresence>
-      {visible && !reduced && (
-        <motion.div className="wm-identity" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-          <svg className="wm-identity-halo" viewBox="0 0 500 500" aria-hidden="true">
-            <circle className="wm-identity-ring wm-identity-ring-outer" cx="250" cy="250" r="226" />
-            <circle className="wm-identity-ring wm-identity-ring-inner" cx="250" cy="250" r="174" />
-            <circle className="wm-identity-orbit" cx="250" cy="250" r="202" strokeDasharray="5 21 42 19 8 21" />
-            <circle className="wm-identity-centre" cx="250" cy="250" r="140" />
-            <path className="wm-identity-path" d="M 250 43 A 207 207 0 0 1 457 250" />
-          </svg>
-          <div className="wm-identity-copy">
-            <span className="wm-identity-kicker">A PERSONAL SIGNATURE / 001</span>
-            <strong>IMEGU<span>FAVOUR</span></strong>
-            <span className="wm-identity-note">Welcome to my world.</span>
-          </div>
-          <button type="button" className="wm-identity-skip" onClick={() => setVisible(false)}>
-            Skip intro <span aria-hidden="true">↗</span>
-          </button>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
+export { CircularIdentityIntro } from "./components/CircularIdentityIntro";
 
 type DustCardProps = { children: ReactNode; animateEntrance: boolean };
 
@@ -593,17 +541,7 @@ export function PageReveal({
   children: ReactNode;
   className?: string;
 }) {
-  const reduced = useReducedMotion();
-  return (
-    <motion.div
-      className={className}
-      initial={reduced ? false : { opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.36, ease: [0.2, 0.65, 0.3, 1] }}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={className}>{children}</div>;
 }
 
 export function StoryCursor() {

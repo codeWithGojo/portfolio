@@ -3,3 +3,7 @@ dist
 .vercel
 .DS_Store
 work-shots/
+
+.ssr/
+.env*
+!.env.example

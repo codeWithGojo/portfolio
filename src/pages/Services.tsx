@@ -14,7 +14,7 @@ export default function Services() {
       {servicePages.map((service, index) => {
         const examples = service.projects.map(id => projects.find(project => project.id === id)).filter(Boolean);
         return <ServiceReveal as="article" className={`service-hub-card service-hub-card--${index + 1}`} key={service.id}>
-          <div className="service-hub-card__top"><span className="service-index">0{index + 1}</span><span className="service-mark" aria-hidden="true">{["W/", "↗", "⇄", "{}"] [index]}</span></div>
+          <div className="service-hub-card__top"><span className="service-mark" aria-hidden="true">{["W/", "↗", "⇄", "{}"] [index]}</span></div>
           <p className="world-label">{service.eyebrow}</p>
           <h2>{service.title}</h2>
           <p>{service.intro}</p>

@@ -4,6 +4,7 @@ import { Button, Heading, CTA, shortName } from "../components/Shared";
 export default function CaseStudy({ project: p }: { project: Project }) {
   const afri = p.id === "afri-index";
   const wedding = p.id === "wedding";
+  const relatedService = p.id === "cantica" ? "ecommerce-development" : ["wedding", "dev-boyz"].includes(p.id) ? "website-development" : ["expenseai", "nairascope"].includes(p.id) ? "erp-inventory" : ["afri-index", "terrascope", "predictarena"].includes(p.id) ? "custom-software" : undefined;
   return (
     <article
       className={`world-shell case-study ${wedding ? "wedding-case" : ""}`}
@@ -15,6 +16,7 @@ export default function CaseStudy({ project: p }: { project: Project }) {
       <a href="/work" className="world-text-link">
         ← Back to all work
       </a>
+      {relatedService && <a href={`/services/${relatedService}`} className="world-text-link">Related service: {relatedService.replaceAll("-", " ")} ↗</a>}
       {p.image && (
         <figure className="case-hero">
           <a

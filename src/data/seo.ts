@@ -1,4 +1,5 @@
 import { projects } from "../projects";
+import { servicePages, servicesHubMetadata } from "./service-pages";
 
 export const siteOrigin = "https://imegu.world";
 const socialImage = "/social-preview.png";
@@ -9,6 +10,8 @@ const descriptions: Record<string, string> = {
   "/hobbies": "Arsenal, anime, music and competitive gaming: personal stories and interests beyond the software projects of Favour Imegu.",
   "/pricing": "Compare Favour Imegu’s web development services. Landing pages start at ₦150,000; business websites, online shops and custom systems are quoted to scope.",
   "/contact": "Contact Favour Imegu about a website, e-commerce project, web app or custom business system. Share your idea or start with WhatsApp.",
+  ...Object.fromEntries(servicePages.map((service) => [service.path, service.summary])),
+  "/services": servicesHubMetadata.description,
 };
 const clip = (text: string, max = 158) => text.length <= max ? text : `${text.slice(0, max - 1).replace(/\s+\S*$/, "")}…`;
 const projectDescription = (project: (typeof projects)[number]) => clip(`${project.title}: ${project.summary || project.why} ${project.status}.`);
@@ -19,6 +22,16 @@ export const pageMetadata = [
   { path: "/hobbies", title: "Outside the Code | Favour Imegu", description: descriptions["/hobbies"], image: socialImage },
   { path: "/pricing", title: "Web Development Services & Pricing in Nigeria | Favour Imegu", description: descriptions["/pricing"], image: socialImage },
   { path: "/contact", title: "Hire Favour Imegu | Web & Software Projects", description: descriptions["/contact"], image: socialImage },
+  servicesHubMetadata,
+  ...servicePages.map((service) => ({
+    path: service.path,
+    title: service.id === "website-development" ? "Website Developer in Nigeria | Favour Imegu"
+      : service.id === "ecommerce-development" ? "E-commerce Website Development Nigeria | Favour Imegu"
+      : service.id === "erp-inventory" ? "Custom ERP & Inventory Software Nigeria | Favour Imegu"
+      : "Custom Software & Web App Developer | Favour Imegu",
+    description: service.summary,
+    image: socialImage,
+  })),
   ...projects.map((project) => ({ path: `/work/${project.id}`, title: clip(`${project.title} | Favour Imegu`, 65), description: projectDescription(project), image: project.image || socialImage, imageWidth: project.imageWidth || 1200, imageHeight: project.imageHeight || 630 })),
 ];
 export function metadataFor(path: string) {
@@ -42,11 +55,14 @@ export function structuredDataFor(path: string) {
     const project = projects.find((item) => `/work/${item.id}` === page.path);
     if (project) graph.push({ "@type": "CreativeWork", name: project.title, description: page.description, url: canonical, image: project.image ? `${siteOrigin}${project.image}` : undefined, creator: { "@id": personId }, keywords: project.tech.join(", "), about: project.tags.join(", "), ...(project.links[0] ? { sameAs: project.links.map((link) => link.href) } : {}) });
   }
+  const servicePage = servicePages.find((service) => service.path === page.path);
+  if (servicePage) graph.push({ "@type": "Service", name: servicePage.eyebrow.split(" / ")[1], serviceType: servicePage.eyebrow.split(" / ")[1], description: servicePage.summary, provider: { "@id": personId }, areaServed: [{ "@type": "Country", name: "Nigeria" }, { "@type": "Place", name: "Worldwide, remotely" }], url: canonical, isPartOf: { "@id": websiteId } });
   if (page.path === "/") graph.push({ "@type": "ProfilePage", name: page.title, url: canonical, mainEntity: { "@id": personId } });
   else if (page.path === "/about") graph.push({ "@type": "AboutPage", name: page.title, description: page.description, url: canonical, mainEntity: { "@id": personId }, isPartOf: { "@id": websiteId } });
-  else if (page.path === "/work" || page.path === "/hobbies") graph.push({ "@type": "CollectionPage", name: page.title, description: page.description, url: canonical, isPartOf: { "@id": websiteId } });
+  else if (page.path === "/work" || page.path === "/hobbies" || page.path === "/services") graph.push({ "@type": "CollectionPage", name: page.title, description: page.description, url: canonical, isPartOf: { "@id": websiteId } });
   else graph.push({ "@type": "WebPage", name: page.title, description: page.description, url: canonical, isPartOf: { "@id": websiteId } });
   if (page.path.startsWith("/work/")) graph.push({ "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: siteOrigin }, { "@type": "ListItem", position: 2, name: "Work", item: `${siteOrigin}/work` }, { "@type": "ListItem", position: 3, name: page.title, item: canonical }] });
+  if (page.path.startsWith("/services/")) graph.push({ "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: siteOrigin }, { "@type": "ListItem", position: 2, name: "Services", item: `${siteOrigin}/services` }, { "@type": "ListItem", position: 3, name: page.title, item: canonical }] });
   if (page.path === "/work") graph.push({ "@type": "ItemList", name: "Software projects by Favour Imegu", itemListElement: projects.map((project, index) => ({ "@type": "ListItem", position: index + 1, name: project.title, url: `${siteOrigin}/work/${project.id}` })) });
   return { "@context": "https://schema.org", "@graph": graph };
 }

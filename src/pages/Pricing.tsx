@@ -29,6 +29,7 @@ export default function Pricing() {
               ))}
             </ul>
             <p className="package-upgrade">Optional: {s.upgrades}</p>
+            {({"website-development":"website-development","ecommerce-development":"ecommerce-development","custom-software":"custom-software","erp-inventory":"erp-inventory"} as Record<string,string>)[s.id] && <a className="world-text-link" href={`/services/${s.id}`}>Explore this service ↗</a>}
             <Button href={`/contact?service=${s.id}`} secondary>
               Discuss {s.title.toLowerCase()}
             </Button>

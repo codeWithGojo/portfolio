@@ -105,7 +105,7 @@ export default function Home() {
                 "Internal workflows and integrations.",
               ],
             ].map(([title, copy], i) => (
-              <a href="/pricing" key={title}>
+              <a href={["/services/website-development", "/services/custom-software", "/services/erp-inventory"][i]} key={title}>
                 <span>0{i + 1}</span>
                 <div>
                   <h3>{title}</h3>
@@ -115,6 +115,7 @@ export default function Home() {
               </a>
             ))}
           </div>
+          <a href="/services" className="world-text-link">Explore all services ↗</a>
         </div>
       </section>
       <CTA />

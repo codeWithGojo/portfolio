@@ -19,7 +19,7 @@ export const services = [
   },
   ...[
     [
-      "business-website",
+      "website-development",
       "Business website",
       "A clear home for your company, services and enquiries.",
       "Company pages, service information and contact flow",
@@ -31,19 +31,19 @@ export const services = [
       "Selected work, your story and contact pages",
     ],
     [
-      "ecommerce",
+      "ecommerce-development",
       "E-commerce website",
       "For businesses planning a useful online shop.",
       "Product catalogue, checkout and order requirements",
     ],
     [
-      "web-application",
+      "custom-software",
       "Web application / SaaS",
       "For a product with workflows beyond a brochure.",
       "User flows, account requirements and integrations",
     ],
     [
-      "business-systems",
+      "erp-inventory",
       "ERP & internal systems",
       "For teams connecting their everyday work.",
       "Roles, dashboards, reporting and business workflows",

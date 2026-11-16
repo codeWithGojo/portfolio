@@ -1,23 +1,36 @@
 # IMEGU.WORLD — Design system & review brief
 
-This document records **Gojo Web Design** priorities and an **Impeccable-inspired** manual review sequence. It does **not** claim that the Impeccable CLI or skill ran: it was unavailable in the connected-chat environment.
+This document records **Gojo Web Design** priorities and an **Impeccable-inspired** manual review sequence.
 
 ## Identity
 The visitor should feel like they are entering Favour's world: an editorial personal experience, rich and assured but never self-important. Use photography and real screenshots as the principal storytelling medium. Allow deliberate changes in composition rather than repeating one grid of identical cards.
 
-## Palette
-The refreshed direction is **true red over neutral charcoal/white**, not wine/burgundy.
+## Colors
+Use the values from `src/styles/foundation.css` as the source of truth.
+
+Light mode:
+- `--bg: #faf9f6` — warm near-white canvas
+- `--bg-deep: #eeeae5` — deeper neutral surface
+- `--panel: #ffffff` — card and panel surface
+- `--text: #242124` — primary ink
+- `--muted: #625b60` — supporting text
+- `--line: #b9b2b7` — borders and dividers
+- `--accent: #b91c1c` — primary action red
+- `--accent-bright: #a41616` — hover red
+- `--on-accent: #ffffff` — text on red actions
 
 Dark mode:
-- `--bg: #0B0C0E` — near-black neutral canvas
-- `--bg-deep: #07080A` — dark depth
-- `--panel: #191A1E` — charcoal, never burgundy
-- `--text: #F6F6F7` — near-white
-- `--accent: #E32732` — primary red interaction
-- `--accent-bright: #FF505A` — bright red hover
-- `--muted: #C3C5CA` — neutral supporting text
+- `--bg: #121214` — charcoal canvas
+- `--bg-deep: #09090b` — dark depth
+- `--panel: #201f22` — charcoal panel
+- `--text: #faf7f4` — warm near-white text
+- `--muted: #c2b9be` — supporting text
+- `--line: #686169` — borders and dividers
+- `--accent: #ff8585` — primary action accent
+- `--accent-bright: #ff9d9d` — hover accent
+- `--on-accent: #260707` — text on accent actions
 
-Light mode: `#FBFAF9` canvas, `#FFFFFF` panels, `#1C1D20` ink, `#BF1824` action red. Preserve accessible contrast. Do not introduce burgundy washes or red backgrounds behind the Arsenal two-photo feature.
+Both themes also define `--brand: #dc2626`. Preserve readable contrast. Do not introduce burgundy washes or red backgrounds behind the Arsenal two-photo feature.
 
 ## Typography
 - **Syne** for bold editorial headings; restrained tracking and line length.

@@ -28,3 +28,7 @@
   .world-hero .world-portrait > img { object-fit: contain; object-position: center; }
 }
 .theme-paint { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 10000; pointer-events: none; }
+.case-facts { border-block: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1.4fr 2fr; gap: 1.5rem; padding-block: 1.35rem; margin: 0 0 1.4rem; }
+.case-facts dt { color: var(--muted); font-size: .85rem; margin-bottom: .35rem; }
+.case-facts dd { margin: 0; line-height: 1.5; }
+@media (max-width: 760px) { .case-facts { grid-template-columns: 1fr; gap: 1rem; } }

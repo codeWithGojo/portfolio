@@ -3,9 +3,19 @@ export type Project = {
   built: string; learned: string; challenge: string; outcome: string; tech: string[];
   links: { label: string; href: string }[];
   image?: string; imageCaption?: string; imageWidth?: number; imageHeight?: number;
-  previewNote?: string; role?: string; summary?: string;
+  previewNote?: string; role: string; summary?: string;
   companion?: { title: string; description: string; href: string; github: string; image?: string };
 };
+
+export function projectKind(project: Project) {
+  switch (project.id) {
+    case "wedding": return "Commissioned family project";
+    case "dev-boyz": return "Team project";
+    case "firesafe": return "Academic team project";
+    case "cantica": return "Personal storefront experiment";
+    default: return "Personal project";
+  }
+}
 
 export const projects: Project[] = [
   {
@@ -46,6 +56,7 @@ export const projects: Project[] = [
   },
   {
     id: "squadhub",
+    role: "Mobile player workflows and cloud architecture for the esports platform",
     previewNote: "Mobile player platform and web organizer in development. The previous browser preview requires a Vercel login.",
     title: "CoDM Squad Hub — Cloud-Native Esports Platform",
     tags: ["React Native", "Cloud Engineering", "Esports + AI"],
@@ -63,6 +74,7 @@ export const projects: Project[] = [
   },
   {
     id: "firesafe",
+    role: "Final-year team member on the sensor-to-mobile alert system. Individual responsibilities are not itemised in the case study.",
     title: "FireSafe — Smart Fire & Gas Detection",
     tags: ["Final Year Project", "IoT + Cloud Full-Stack"],
     status: "Successfully defended",
@@ -77,6 +89,7 @@ export const projects: Project[] = [
   },
   {
     id: "expenseai",
+    role: "Finance dashboard, budgeting flows and transaction reporting",
     summary: "A Naira-first business workspace for recording income, reviewing expenses and planning monthly budgets.",
     image: "/previews/expense-2026-11-09.jpg",
     imageCaption: "Business overview · Empty workspace · Captured 9 November 2026",
@@ -97,6 +110,7 @@ export const projects: Project[] = [
   },
   {
     id: "cantica",
+    role: "Storefront design and frontend product discovery",
     image: "/previews/cantica-2026-11-09.jpg",
     imageCaption: "Fashion storefront · Captured 9 November 2026",
     imageWidth: 1348, imageHeight: 926,
@@ -116,6 +130,7 @@ export const projects: Project[] = [
   },
   {
     id: "predictarena",
+    role: "Football prediction interface and model explanations",
     image: "/previews/predictarena-2026-11-09.jpg",
     imageCaption: "Match centre · Empty fixture view · Captured 9 November 2026",
     imageWidth: 1348, imageHeight: 926,
@@ -153,6 +168,7 @@ export const projects: Project[] = [
   },
   {
     id: "afri-studio",
+    role: "Graphics editor for sharing Afri Index rankings and stories",
     image: "/previews/generator-2026-11-09.jpg",
     imageCaption: "Social graphics editor · Captured 9 November 2026",
     imageWidth: 1363, imageHeight: 936,
@@ -193,6 +209,7 @@ export const projects: Project[] = [
   },
   {
     id: "nairascope",
+    role: "Market research interface and explainable screening signals",
     image: "/previews/naira-2026-11-09.jpg",
     imageCaption: "Market intelligence dashboard · Captured 9 November 2026",
     imageWidth: 1348, imageHeight: 926,
@@ -209,6 +226,7 @@ export const projects: Project[] = [
   },
   {
     id: "fpl",
+    role: "Squad planning and transfer decision tools",
     image: "/previews/fpl-2026-11-09.jpg",
     imageCaption: "Squad planning workspace · Public start screen · Captured 9 November 2026",
     imageWidth: 1363, imageHeight: 936,

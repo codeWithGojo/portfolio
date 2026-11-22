@@ -1,5 +1,5 @@
 import ResponsiveImage from "../components/ResponsiveImage";
-import type { Project } from "../projects";
+import { projectKind, type Project } from "../projects";
 import { Button, Heading, CTA, shortName } from "../components/Shared";
 export default function CaseStudy({ project: p }: { project: Project }) {
   const afri = p.id === "afri-index";
@@ -13,10 +13,18 @@ export default function CaseStudy({ project: p }: { project: Project }) {
       <Heading label={`${p.tags[0]} / ${p.status}`} title={shortName(p)}>
         <p>{p.summary || p.why}</p>
       </Heading>
+      <dl className="case-facts">
+        <div><dt>Project type</dt><dd>{projectKind(p)}</dd></div>
+        <div><dt>Favour’s contribution</dt><dd>{p.role}</dd></div>
+        <div><dt>What’s built</dt><dd>{p.outcome}</dd></div>
+      </dl>
+      <div className="world-actions">
+      <Button href={`/ask?project=${p.id}`}>Ask about this project</Button>
       <a href="/work" className="world-text-link">
         ← Back to all work
       </a>
       {relatedService && <a href={`/services/${relatedService}`} className="world-text-link">Related service: {relatedService.replaceAll("-", " ")} ↗</a>}
+      </div>
       {p.image && (
         <figure className="case-hero">
           <a
@@ -88,7 +96,6 @@ export default function CaseStudy({ project: p }: { project: Project }) {
               <span key={t}>{t}</span>
             ))}
           </div>
-          {p.role && <p>{p.role}</p>}
           <div className="world-actions">
             {p.links.map((l) => (
               <Button key={l.href} href={l.href} secondary>
@@ -103,7 +110,6 @@ export default function CaseStudy({ project: p }: { project: Project }) {
             ["Design & development", p.built],
             ["The difficult part", p.challenge],
             ["What I learned", p.learned],
-            ["Where it stands", p.outcome],
           ].map(([a, b]) => (
             <section key={a}>
               <h3>{a}</h3>

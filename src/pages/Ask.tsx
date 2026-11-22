@@ -22,7 +22,7 @@ const topics: Topic[] = [
   { question: 'How much does a website cost?', match: /pric|cost|charge|rates?|naira|quote/i,
     text: `His landing-page guide is ${services[0].price}. Prices are in Nigerian naira. The final quote depends on features, content, integrations, hosting and maintenance.`, href: '/pricing', label: 'See pricing' },
   { question: 'What’s the paint pour effect?', match: /paint|theme animation|theme transition/i,
-    text: 'Favour is planning a GSAP animation for the theme toggle. Thick paint will spread from the button, cover the screen while the theme switches, then dissolve to reveal the new colours. The current toggle already switches between light and dark.', href: '/', label: 'Visit the homepage' },
+    text: 'The theme toggle pours paint from the button using GSAP. Once the paint covers the screen, the theme switches and the paint dissolves. Visitors who prefer reduced motion get an instant switch.', href: '/', label: 'Visit the homepage' },
   { question: 'How does the theme toggle work?', match: /dark mode|light mode|theme toggle/i,
     text: 'Use the sun or moon button in the header. The site follows your system theme on first visit and remembers your choice in this browser when local storage is available.', href: '/', label: 'Visit the homepage' },
 ];

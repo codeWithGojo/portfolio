@@ -16,6 +16,7 @@ const descriptions: Record<string, string> = {
 const clip = (text: string, max = 158) => text.length <= max ? text : `${text.slice(0, max - 1).replace(/\s+\S*$/, "")}…`;
 const projectDescription = (project: (typeof projects)[number]) => clip(`${project.title}: ${project.summary || project.why} ${project.status}.`);
 export const pageMetadata = [
+  { path: "/ask", title: "Ask about Favour | Favour Imegu", description: "Explore Favour Imegu’s projects, skills and services in a conversation grounded in his published portfolio.", image: socialImage },
   { path: "/", title: "Favour Imegu | Web & Software Developer in Nigeria", description: descriptions["/"], image: socialImage },
   { path: "/about", title: "About Favour Imegu | Story, Skills & Dev Boyz", description: descriptions["/about"], image: socialImage },
   { path: "/work", title: "Software Projects & Case Studies | Favour Imegu", description: descriptions["/work"], image: socialImage },

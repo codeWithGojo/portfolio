@@ -26,7 +26,8 @@ export default function Home() {
               <span className="muted">{" "}I also argue about music statistics.</span>
             </p>
             <div className="world-actions">
-              <Button href="/work">Explore my work</Button>
+              <Button href="/work">View my work</Button>
+              <Button href="/ask" secondary>Ask about Favour</Button>
               <Button href="/contact" secondary>
                 Hire me
               </Button>
@@ -34,6 +35,7 @@ export default function Home() {
             <a href="/about" className="world-text-link">
               Get to know me ↗
             </a>
+            <a href="/Imegu_Favour_Resume.pdf" download className="hero-resume world-text-link">Download résumé (PDF) ↓</a>
           </div>
           <figure className="world-portrait">
             <ResponsiveImage
@@ -45,13 +47,13 @@ export default function Home() {
               <span>THE PERSON BEHIND THE PROJECTS</span>
               <span>01 / An ongoing story</span>
             </figcaption>
-            <div className="portrait-stamp" aria-hidden="true">
+            <a href="/about" className="portrait-stamp" aria-label="Code. Learn. Repeat. Read Favour’s story">
               code.
               <br />
               learn.
               <br />
-              repeat.
-            </div>
+              repeat. ↗
+            </a>
           </figure>
         </div>
         <div className="world-hero-bottom">

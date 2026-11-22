@@ -46,6 +46,8 @@ export function Card({ project: p }: { project: Project }) {
     <article className="world-project" id={p.id}>
       <a href={`/work/${p.id}`} className="world-project-image">
         {p.image ? (
+          <>
+          <span className="project-preview-label" aria-hidden="true">{shortName(p)}</span>
           <ResponsiveImage
             src={p.image}
             alt={p.imageCaption || p.title}
@@ -53,6 +55,7 @@ export function Card({ project: p }: { project: Project }) {
             width={p.imageWidth}
             height={p.imageHeight}
           />
+          </>
         ) : (
           <div className="project-type-art" aria-hidden="true">
             {shortName(p)}

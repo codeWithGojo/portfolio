@@ -1,7 +1,7 @@
-import { useRef, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { projects } from '../projects';
 import { services } from '../content';
-import './PortfolioAssistant.css';
+import '../styles/ask.css';
 
 type Answer = { text: string; href: string; label: string };
 type Topic = Answer & { question: string; match: RegExp };
@@ -27,40 +27,74 @@ const topics: Topic[] = [
     text: 'Use the sun or moon button in the header. The site follows your system theme on first visit and remembers your choice in this browser when local storage is available.', href: '/', label: 'Visit the homepage' },
 ];
 
-function answer(question: string): Answer {
-  const query = question.trim().toLowerCase();
-  const project = projects.find(p => [p.id, p.title.split(' — ')[0]].some(name => query.includes(name.toLowerCase())));
+type Turn = { question: string; answer: Answer };
+let recentChat: Turn[] = [];
+const normalize = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+
+function answer(question: string, previous?: Answer): Answer {
+  const query = normalize(question);
+  const named = projects.find(p => [p.id, p.title.split(' — ')[0]].some(name => (' ' + query + ' ').includes(' ' + normalize(name) + ' ')));
+  const context = projects.find(p => previous?.href === '/work/' + p.id);
+  const topic = topics.find(t => normalize(t.question) === query || t.match.test(query));
+  const followUp = /\b(stack|built with|technolog\w*|network|offline|connectivity|challenge|difficult|hardest|learn\w*|outcome|result|status|live|why|more about it|how does it work)\b/.test(query);
+  const project = named || (followUp ? context : undefined);
   if (project) {
     const kind = project.id === 'wedding' ? 'Commissioned family project' : project.id === 'firesafe' ? 'Academic final-year project' : project.id === 'dev-boyz' ? 'Team project' : 'Personal project';
-    return { text: `${kind} · ${project.status}. ${project.summary || project.built}`, href: '/work/' + project.id, label: 'Read the case study' };
+    let detail = project.summary || project.built;
+    if (/network|offline|connectivity|challenge|difficult|hardest/.test(query)) detail = project.challenge;
+    else if (/stack|built with|technolog/.test(query)) detail = project.tech.join(', ') + '.';
+    else if (/learn/.test(query)) detail = project.learned;
+    else if (/outcome|result|status|live/.test(query)) detail = project.outcome;
+    else if (/\bwhy\b/.test(query)) detail = project.why;
+    return { text: `${project.title.split(' — ')[0]} · ${kind}. ${detail}`, href: '/work/' + project.id, label: 'Read the case study' };
   }
-  return topics.find(topic => topic.question.toLowerCase() === query || topic.match.test(query)) ??
-    { text: 'I don’t have a published answer to that question. I can help with Favour’s background, named projects, services, pricing or the portfolio itself.', href: '/contact', label: 'Ask Favour directly' };
+  return topic || { text: 'I don’t have a published answer to that yet. You can ask about a named project, Favour’s background, his services or pricing.', href: '/contact', label: 'Ask Favour directly' };
 }
 
-export default function PortfolioAssistant() {
-  const dialog = useRef<HTMLDialogElement>(null);
+export default function Ask() {
+  const [turns, setTurns] = useState<Turn[]>(recentChat);
   const [question, setQuestion] = useState('');
-  const [reply, setReply] = useState<{ question: string; answer: Answer } | null>(null);
+  const input = useRef<HTMLInputElement>(null);
+  const latest = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (turns.length) latest.current?.scrollIntoView({ block: 'nearest' });
+  }, [turns]);
   function ask(value: string) {
-    if (!value.trim()) return;
-    setReply({ question: value.trim(), answer: answer(value) });
+    const prompt = value.trim();
+    if (!prompt) return;
+    const next = [...turns, { question: prompt, answer: answer(prompt, turns.at(-1)?.answer) }];
+    recentChat = next;
+    setTurns(next);
     setQuestion('');
+    input.current?.focus({preventScroll:true});
+  }
+  function reset() {
+    recentChat = [];
+    setTurns([]);
+    setQuestion('');
+    input.current?.focus();
   }
   function submit(event: FormEvent) {
     event.preventDefault();
     ask(question);
   }
-  return <>
-    <button type="button" className="portfolio-ask" aria-haspopup="dialog" onClick={() => dialog.current?.showModal()}>Ask about Favour</button>
-    <dialog ref={dialog} className="portfolio-assistant" aria-labelledby="assistant-heading">
-      <header><h2 id="assistant-heading">Ask about Favour</h2><button type="button" aria-label="Close assistant" onClick={() => dialog.current?.close()}>×</button></header>
-      <div className="assistant-body">
-        <p>Explore Favour’s work in his own portfolio.</p>
-        <div className="assistant-topics">{topics.slice(0, 8).map(topic => <button type="button" key={topic.question} onClick={() => ask(topic.question)}>{topic.question}</button>)}</div>
-        <div aria-live="polite" aria-atomic="true">{reply && <article><strong>{reply.question}</strong><p>{reply.answer.text}</p><a href={reply.answer.href} onClick={() => dialog.current?.close()}>{reply.answer.label} ↗</a></article>}</div>
-        <form onSubmit={submit}><label htmlFor="assistant-question">Your question</label><div><input id="assistant-question" maxLength={300} value={question} onChange={e => setQuestion(e.target.value)} /><button type="submit" disabled={!question.trim()}>Ask</button></div></form>
-      </div>
-    </dialog>
-  </>;
+  return <section className="ask-page world-shell">
+    <header className="ask-header"><p className="world-label">IMEGU.WORLD / Portfolio assistant</p>
+      <h1>Ask about Favour<span>.</span></h1>
+      <p>Explore the projects, the decisions behind them, and what it costs to work together.</p>
+    </header>
+    {turns.length === 0 && <div className="ask-starters" aria-label="Suggested questions">
+      {topics.slice(0, 8).map(topic => <button key={topic.question} onClick={() => ask(topic.question)}>{topic.question}</button>)}
+    </div>}
+    <div role="log" aria-label="Conversation" aria-live="polite" aria-relevant="additions">
+      {turns.map((turn, i) => <article className="ask-turn" key={i} ref={i === turns.length - 1 ? latest : undefined}>
+        <h2>{turn.question}</h2><p>{turn.answer.text}</p><a className="world-text-link" href={turn.answer.href}>{turn.answer.label} ↗</a>
+      </article>)}
+    </div>
+    <form className="ask-form" onSubmit={submit}>
+      <label htmlFor="ask-question">{turns.length ? 'Ask a follow-up' : 'Your question'}</label>
+      <div><input ref={input} id="ask-question" value={question} maxLength={400} onChange={e => setQuestion(e.target.value)} placeholder="Ask about a project or skill…" /><button disabled={!question.trim()}>Send ↑</button></div>
+    </form>
+    {turns.length > 0 && <button className="ask-reset" onClick={reset}>Start a new chat</button>}
+  </section>;
 }

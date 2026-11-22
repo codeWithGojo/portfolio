@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { projects } from "../projects";
-import { DustGrid } from "../WorldMotion";
 import { Heading, Card, shortName } from "../components/Shared";
 export default function Work() {
   const [filter, setFilter] = useState("All Projects");
@@ -63,12 +62,9 @@ export default function Work() {
         <p className="world-label" role="status">
           {filtered.length} project{filtered.length === 1 ? "" : "s"}
         </p>
-        <DustGrid
-          items={filtered}
-          renderItem={(p) => <Card project={p} />}
-          className="world-project-grid"
-          ariaLabel="Personal projects"
-        />
+        <div className="world-project-grid" aria-label="Personal projects">
+          {filtered.map(project => <Card key={project.id} project={project} />)}
+        </div>
         {!filtered.length && (
           <p>No projects match that search. Try another name or technology.</p>
         )}

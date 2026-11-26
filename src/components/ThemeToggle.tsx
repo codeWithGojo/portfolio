@@ -9,6 +9,7 @@ function applyTheme(theme: Theme) {
     meta.content = theme === 'dark' ? '#121214' : '#faf9f6';
     meta.removeAttribute('media');
   });
+  window.dispatchEvent(new CustomEvent('imegu-theme-change', { detail: theme }));
 }
 
 export default function ThemeToggle() {
@@ -25,18 +26,24 @@ export default function ThemeToggle() {
   useEffect(() => {
     const system = matchMedia('(prefers-color-scheme: dark)');
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    function reflectTheme(event: Event) {
+      const next = (event as CustomEvent<Theme>).detail;
+      if (next === 'light' || next === 'dark') setTheme(next);
+    }
     function sync() {
       finish();
       let stored = '';
       try { stored = localStorage.getItem('imegu-theme') || ''; } catch {}
       select(stored === 'light' || stored === 'dark' ? stored : system.matches ? 'dark' : 'light');
     }
+    window.addEventListener('imegu-theme-change', reflectTheme);
     sync();
     system.addEventListener('change', sync);
     reduced.addEventListener('change', finish);
     window.addEventListener('resize', finish);
     return () => {
       finish();
+      window.removeEventListener('imegu-theme-change', reflectTheme);
       system.removeEventListener('change', sync);
       reduced.removeEventListener('change', finish);
       window.removeEventListener('resize', finish);

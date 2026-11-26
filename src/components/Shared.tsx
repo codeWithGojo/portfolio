@@ -1,5 +1,5 @@
 import ResponsiveImage from "./ResponsiveImage";
-import type { ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import type { Project } from "../projects";
 export const shortName = (p: Project) =>
   p.id === "wedding"
@@ -41,20 +41,44 @@ export function Heading({
     </header>
   );
 }
-export function Card({ project: p }: { project: Project }) {
+export function Card({ project: p, featured = false }: { project: Project; featured?: boolean }) {
+  const imageLink = useRef<HTMLAnchorElement>(null);
+  const [previewState, setPreviewState] = useState<"loading" | "loaded" | "failed">("loading");
+  const markPreviewReady = useCallback((image: HTMLImageElement) => {
+    const decoding = typeof image.decode === "function" ? image.decode() : Promise.resolve();
+    void decoding.then(() => setPreviewState("loaded")).catch(() => setPreviewState("failed"));
+  }, []);
+
+  useEffect(() => {
+    if (!featured || !p.image) return;
+    const image = imageLink.current?.querySelector("img");
+    if (image?.complete) {
+      if (image.naturalWidth > 0) markPreviewReady(image);
+      else setPreviewState("failed");
+    }
+  }, [featured, p.image, markPreviewReady]);
+
+  const imageClassName = featured
+    ? `world-project-image world-project-image--featured is-${previewState}`
+    : "world-project-image";
+
   return (
     <article className="world-project" id={p.id}>
-      <a href={`/work/${p.id}`} className="world-project-image">
+      <a ref={imageLink} href={`/work/${p.id}`} className={imageClassName}>
         {p.image ? (
           <>
-          <span className="project-preview-label" aria-hidden="true">{shortName(p)}</span>
-          <ResponsiveImage
-            src={p.image}
-            alt={p.imageCaption || p.title}
-            loading="lazy"
-            width={p.imageWidth}
-            height={p.imageHeight}
-          />
+            <span className="project-preview-label" aria-hidden="true">
+              {featured ? <><strong>{shortName(p)}</strong><small>{previewState === "failed" ? "Preview unavailable" : "Loading preview"}</small></> : shortName(p)}
+            </span>
+            <ResponsiveImage
+              src={p.image}
+              alt={p.imageCaption || p.title}
+              loading="lazy"
+              width={p.imageWidth}
+              height={p.imageHeight}
+              onLoad={featured ? (event) => markPreviewReady(event.currentTarget) : undefined}
+              onError={featured ? () => setPreviewState("failed") : undefined}
+            />
           </>
         ) : (
           <div className="project-type-art" aria-hidden="true">

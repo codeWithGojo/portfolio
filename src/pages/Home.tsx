@@ -78,11 +78,11 @@ export default function Home() {
         <div className="world-featured">
           <div>
             <p className="world-label">The passion project</p>
-            <Card project={afri} />
+            <Card project={afri} featured />
           </div>
           <div className="heart-project">
             <p className="world-label">The heart project / commissioned work</p>
-            <Card project={wedding} />
+            <Card project={wedding} featured />
           </div>
         </div>
         <Button href="/work" secondary>
